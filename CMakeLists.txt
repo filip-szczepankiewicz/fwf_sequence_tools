@@ -1,8 +1,6 @@
-#add_library(mdmrvec SHARED
-#    mdmrvec.c
-#)
-
 add_executable(vectest
-    vectest.cpp
+    vectest.c
 )
-#target_link_libraries(vectest mdmrvec)
+
+add_executable(test_encode
+    test_encode.c)
