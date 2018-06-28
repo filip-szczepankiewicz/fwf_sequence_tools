@@ -17,11 +17,13 @@ typedef enum e_mdmr_dtype {
     float64,
 } mdmr_dtype;
 
+#pragma pack(1)
 typedef struct mdmr_block {
     mdmr_dtype  type;
     int64_t     length;
 } mdmr_block;
 
+#pragma pack(1)
 typedef struct mdmr_dataset {
     char        magic[4];
     char        version[4];
@@ -29,6 +31,7 @@ typedef struct mdmr_dataset {
     mdmr_block  blockinfo[];
 } mdmr_dataset;
 
+#pragma pack(1)
 typedef struct mdmr_dataset_b64 {
     size_t size;
     char* data;
