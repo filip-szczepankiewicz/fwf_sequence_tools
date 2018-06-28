@@ -69,7 +69,7 @@ void test_unpack(mdmr_dataset_b64* dataset_b64) {
         void* test2 = (char*)testdata[i];
         size_t test_len = dataset->blockinfo[i].length * mdmr_dtype_size(dataset->blockinfo[i].type);
         int res = memcmp(test1, test2, test_len);
-        printf("memcmp check: %d\n", res);
+        printf("memcmp check (0 is good): %d\n", res);
 
 // debug
 /*
