@@ -54,7 +54,7 @@ size_t mdmr_dtype_size(mdmr_dtype type) {
 }
 
 // return the offset to block from the start of dataset
-size_t mdmr_block_offset(mdmr_dataset* dataset, ssize_t blockidx) {
+size_t mdmr_block_offset(mdmr_dataset* dataset, size_t blockidx) {
     if (blockidx < 0 || blockidx > dataset->n_blocks) {
         return 0;
     }
