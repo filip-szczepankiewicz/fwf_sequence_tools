@@ -1,12 +1,10 @@
 function res = parse_b64_waveform(b64arr)
 % function res = parse_b64_waveform(b64arr)
 % By Filip Szczepankiewicz and Isaiah Norton
-% Function trnslates a specific encoding of the waveform from base 64 in
+% Function translates a specific encoding of the waveform from base 64 in
 % terms of a character array, into a header and numerical waveform values.
 % The code used to encode the waveform is found here (GIT repo):
 % https://github.com/ihnorton/mdmr_vec_block/
-
-
 
 if nargin == 0
     % Example array used for testing
@@ -15,11 +13,14 @@ end
 
 uint8arr    = matlab.net.base64decode(b64arr);
 
+
+% GET MAIN HEADER
 res.name    = char(uint8arr(1:4));
 res.version = char(uint8arr(5:8));
 res.blocks  = typecast(uint8arr(9:12), 'int32');
 
 uint8arr(1:12) = [];
+
 
 if ~strcmp(res.name, 'MDMR')
     error('Input string format is not recognized');
@@ -50,7 +51,7 @@ switch res.version
         res = compile_gwf_from_blocks(res); % Compiles res.gwf
         
     otherwise
-        error('Version of string is not recognized!');
+        error('Version is not recognized!');
 end
 
 if 0
@@ -61,7 +62,6 @@ end
 end
 
 
-
 function [dtype, dsize] = get_data_type(in)
 % This function returns the data type that is stored. These values are
 % hardcoded in the pulse sequence, and ust be known beforehand.
@@ -70,7 +70,7 @@ type_num = typecast(in, 'uint32');
 
 switch type_num
     case 0 % char_t
-        dtype = 'char_t';
+        dtype = 'char';
         dsize = 1;
     case 1 % int32
         dtype = 'int32';
@@ -107,6 +107,3 @@ end
 res.gwf = [gwf1; nan(1,3); gwf2];
 res.rf  = [ones(size(gwf1,1), 1); 0; -ones(size(gwf2,1), 1)];
 end
-
-
-
