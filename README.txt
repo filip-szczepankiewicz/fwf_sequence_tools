@@ -1,4 +1,4 @@
-The Free Waveform (FWF) header tools were written by
+The Free Waveform header tools were written by
 Filip Szczepankiewicz and Isaiah Norton
 
 The goal of this library is threefold:
