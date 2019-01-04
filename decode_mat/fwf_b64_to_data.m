@@ -5,6 +5,11 @@ function res = fwf_b64_to_data(b64arr)
 % Function translates a specific encoding of the waveform from a base-64
 % character array into numeric data.
 
+if strcmp(b64arr, 'EMPTY')
+    res = [];
+    return
+end
+
 uint8arr    = matlab.net.base64decode(b64arr);
 
 % GET MAIN HEADER INFO
