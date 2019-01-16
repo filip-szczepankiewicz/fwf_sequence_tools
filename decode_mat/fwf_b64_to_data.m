@@ -5,7 +5,7 @@ function res = fwf_b64_to_data(b64arr)
 % Function translates a specific encoding of the waveform from a base-64
 % character array into numeric data.
 
-if strcmp(b64arr, 'EMPTY')
+if isempty(b64arr) || strcmp(b64arr, 'EMPTY')
     res = [];
     return
 end
