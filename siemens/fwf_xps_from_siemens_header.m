@@ -1,11 +1,14 @@
 function xps = fwf_xps_from_siemens_header(h)
 % function xps = fwf_xps_from_siemens_header(h)
+% By Filip Szczepankiewicz
+% Brigham and Women's Hospital, Harvard Medical School, Boston, MA, USA
+% Lund University, Lund, Sweden
 %
 % Create experimental parameter structure (XPS) compatible with the
-% multidimensional diffusion toolbox (required to execute function):
+% multidimensional diffusion toolbox (REQUIRED to execute function):
 % https://github.com/markus-nilsson/md-dmri
 %
-% h is series dicom header extracted with xiangruili/dicm2nii
+% h is series dicom header, for example extracted with xiangruili/dicm2nii (dicm_hdr)
 % https://se.mathworks.com/matlabcentral/fileexchange/42997-xiangruili-dicm2nii
 
 csa           = fwf_csa_from_siemens_header(h);
@@ -15,8 +18,14 @@ seq           = fwf_seq_from_siemens_csa(csa);
 bt  = gwf_to_bt(gwf, rf, dt);
 nbt = bt/trace(bt);
 
-b   = h.bval * 1e6; % s/m2
-u   = h.bvec;
+try
+    b = h.bval * 1e6; % s/m2
+    u = h.bvec;
+catch
+    b = h.B_value * 1e6; % s/m2
+    u = h.DiffusionGradientDirection';
+end
+
 
 [R3x3, R1x9] = fwf_rm_from_uvec(u, seq.rot_mode);
 

@@ -1,5 +1,8 @@
 function R = fwf_uvec_to_rmsc ( tx, ty, tz, ang2 )
 % function R = fwf_uvec_to_rmsc ( tx, ty, tz, ang2 )
+% By Filip Szczepankiewicz
+% Brigham and Women's Hospital, Harvard Medical School, Boston, MA, USA
+% Lund University, Lund, Sweden
 
 if nargin < 4
     ang2 = 0;

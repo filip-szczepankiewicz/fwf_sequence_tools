@@ -1,6 +1,10 @@
 clear
-clf
-
+% By Filip Szczepankiewicz
+% Brigham and Women's Hospital, Harvard Medical School, Boston, MA, USA
+% Lund University, Lund, Sweden
+%
+% Exmple script
+%
 % This series dicom header extracted with xiangruili/dicm2nii
 % https://se.mathworks.com/matlabcentral/fileexchange/42997-xiangruili-dicm2nii
 load('example_dicm2nii_header.mat');

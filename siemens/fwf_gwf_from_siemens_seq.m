@@ -1,5 +1,8 @@
 function [gwf, rf, dt] = fwf_gwf_from_siemens_seq(seq)
 % function [gwf, rf, dt] = fwf_gwf_from_siemens_seq(seq)
+% By Filip Szczepankiewicz
+% Brigham and Women's Hospital, Harvard Medical School, Boston, MA, USA
+% Lund University, Lund, Sweden
 % 
 % Returns the waveform that was actually used on the scanner. The waveform
 % is interpolated at the actual raster time, and is scaled in amplitude to

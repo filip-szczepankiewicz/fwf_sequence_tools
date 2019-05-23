@@ -16,6 +16,7 @@ uint8arr    = matlab.net.base64decode(b64arr);
 res.name    = char(uint8arr(1:4));
 res.version = char(uint8arr(5:8));
 res.blocks  = typecast(uint8arr(9:12), 'int32');
+res.b64wf   = b64arr;
 
 uint8arr(1:12) = [];
 

@@ -1,5 +1,8 @@
 function [R3x3, R1x9] = fwf_rm_from_uvec(u, mode)
 % function R = fwf_rm_from_uvec(u, mode)
+% By Filip Szczepankiewicz
+% Brigham and Women's Hospital, Harvard Medical School, Boston, MA, USA
+% Lund University, Lund, Sweden
 %
 % u (nx3) is matrix of vectors.
 

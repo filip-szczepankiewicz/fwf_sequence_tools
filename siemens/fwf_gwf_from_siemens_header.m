@@ -1,6 +1,5 @@
 function [gwf, rf, dt] = fwf_gwf_from_siemens_header(h)
 % function [gwf, rf, dt] = fwf_gwf_from_siemens_header(h)
-%
 % By Filip Szczepankiewicz
 % Brigham and Women's Hospital, Harvard Medical School, Boston, MA, USA
 % Lund University, Lund, Sweden
