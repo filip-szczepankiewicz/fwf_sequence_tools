@@ -6,7 +6,7 @@ Harvard Medical School, MA, Boston
 
 ### Scope
 The scope of this library is threefold:  
-1. To provide a small abstraction to ENCODE blocks of typed vectors in base64. By doing so we can easily store the gradient waveform in the dicom header. This saves space and allows arbitrary data without risking any null characters. This set of funciton can be used in any C-based code.
+1. To provide a small abstraction to ENCODE blocks of typed vectors in base64. By doing so we can easily store the gradient waveform in the dicom header. This saves space and allows arbitrary data without risking any null characters. This set of funciton can be used in any C-based code.   
 -See example in `vectest.c::create()`  
 2. To provide tools that can DECODE the stored information. These are implemented primarily in MATLAB, but some instructions can be found also for PYTHON.  
 -See examples in `fwf_decode_example_matlab.m` and `fwf_decode_example_python.py`  
