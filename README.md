@@ -17,6 +17,15 @@ The scope of this library is threefold:
 If you use the resources of this repository, please include a reference to:  
 F Szczepankiewicz, S Hoge, C-F Westin. Linear, planar and spherical tensor-valued diffusion MRI data by free waveform encoding in healthy brain, water, oil and liquid crystals. Data in Brief (2019)
 
+### Example figure
+![Schematic example of software function.](fwf_header_example_fig.jpg)
+The included tools can be used to encode and decode inforamtion specific to the free waveform sequence, such as the gradient waveform, sequence timing, actual b-tensors and sampling scheme.
+
 ### Related resources
-[MD-dMRI framework](https://github.com/markus-nilsson/md-dmri)  
-[Gradient waveform optimization tools](https://github.com/jsjol/NOW)
+[YouTube video on the benefit of using tensor-valued diffusion encoding (fat b-tensors)](https://www.youtube.com/watch?v=o4LYijV90Tg&t=1241s)  
+[Multidimensional analysis framework (MD-dMRI)](https://github.com/markus-nilsson/md-dmri)  
+[Gradient waveform optimization for tensor-valued encoding (NOW)](https://github.com/jsjol/NOW)  
+[Concomitant gradient analysis tools (CFA)](https://github.com/markus-nilsson/md-dmri/tree/master/tools/cfa)  
+[Peripheral nerve stimulation prediction tools (SAFE model)](https://github.com/filip-szczepankiewicz/safe_pns_prediction)   
+[Examples of brain protocols and performance at multiple systems](https://github.com/filip-szczepankiewicz/Szczepankiewicz_PONE_2019)  
+[Open source tensor-valued diffusion encoded data (coming soon)]()  
