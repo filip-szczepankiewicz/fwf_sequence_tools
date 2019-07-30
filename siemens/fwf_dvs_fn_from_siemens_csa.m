@@ -1,5 +1,5 @@
-function dvs_fn = fwf_dvs_fn_from_csa(csa)
-% function dvs_fn = fwf_dvs_fn_from_csa(csa)
+function dvs_fn = fwf_dvs_fn_from_siemens_csa(csa)
+% function dvs_fn = fwf_dvs_fn_from_siemens_csa(csa)
 
 str_fnd = 'sDiffusion.sFreeDiffusionData.sComment.';
 idstr   = '# ''';

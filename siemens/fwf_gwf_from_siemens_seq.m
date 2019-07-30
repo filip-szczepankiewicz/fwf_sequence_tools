@@ -21,7 +21,7 @@ if seq.header_mode ~= 2
     error('Header mode does not contain extended info!')
 end
 
-[wf1, wf2] = fwf_wf_from_seq(seq.wf_stored);
+[wf1, wf2] = fwf_wf_from_wf_stored(seq.wf_stored);
 
 if seq.rot_mode == 3
     wf1(:,2:3) = 0;
@@ -32,8 +32,8 @@ n1 = seq.d_pre / 10;
 n2 = seq.d_post / 10;
 nz = seq.d_pause / 10;
 
-ga = fwf_gwf_interp_siemens(wf1, n1);
-gb = fwf_gwf_interp_siemens(wf2, n2);
+ga = fwf_gwf_interp(wf1, n1);
+gb = fwf_gwf_interp(wf2, n2);
 gz = zeros(nz, 3);
 
 gwf = [ga; gz; gb];
@@ -44,14 +44,16 @@ rf(mid:end) = -1;
 
 dt = 10e-6;
 
-b_curr = trace(gwf_to_bt(gwf, rf, dt));
+% b_curr = trace(gwf_to_bt(gwf, rf, dt));
 
-gwf = gwf * sqrt(seq.b_max_requ*1e6/b_curr);
+% gwf = gwf * sqrt(seq.b_max_requ*1e6/b_curr);
+
+gwf = gwf/max(abs(gwf(:)))*seq.gamp/1000;
 
 end
 
 
-function [wf1, wf2] = fwf_wf_from_seq(wf_stored)
+function [wf1, wf2] = fwf_wf_from_wf_stored(wf_stored)
 
 for i = 1:6
     if i <= 3

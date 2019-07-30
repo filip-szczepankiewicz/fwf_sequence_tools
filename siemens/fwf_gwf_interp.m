@@ -1,5 +1,5 @@
-function gwf_out = fwf_gwf_interp_siemens(gwf, n_samp)
-% function gwf_out = fwf_gwf_interp_siemens(gwf, n_samp)
+function gwf_out = fwf_gwf_interp(gwf, n_samp)
+% function gwf_out = fwf_gwf_interp(gwf, n_samp)
 % By Filip Szczepankiewicz
 % Brigham and Women's Hospital, Harvard Medical School, Boston, MA, USA
 % Lund University, Lund, Sweden

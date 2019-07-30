@@ -1,5 +1,5 @@
-function xps = fwf_xps_from_siemens_header(h)
-% function xps = fwf_xps_from_siemens_header(h)
+function xps = fwf_xps_from_siemens_hdr(h)
+% function xps = fwf_xps_from_siemens_hdr(h)
 % By Filip Szczepankiewicz
 % Brigham and Women's Hospital, Harvard Medical School, Boston, MA, USA
 % Lund University, Lund, Sweden
@@ -11,9 +11,10 @@ function xps = fwf_xps_from_siemens_header(h)
 % h is series dicom header, for example extracted with xiangruili/dicm2nii (dicm_hdr)
 % https://se.mathworks.com/matlabcentral/fileexchange/42997-xiangruili-dicm2nii
 
-csa           = fwf_csa_from_siemens_header(h);
+csa           = fwf_csa_from_siemens_hdr(h);
 seq           = fwf_seq_from_siemens_csa(csa);
 [gwf, rf, dt] = fwf_gwf_from_siemens_seq(seq);
+[dvs, nrm]    = fwf_dvs_from_siemens_csa(csa);
 
 bt  = gwf_to_bt(gwf, rf, dt);
 nbt = bt/trace(bt);
@@ -26,8 +27,7 @@ catch
     u = h.DiffusionGradientDirection';
 end
 
-
-[R3x3, R1x9] = fwf_rm_from_uvec(u, seq.rot_mode);
+[R3x3, R1x9] = fwf_rm_from_uvec(u, seq.rot_mode, nrm*2*pi);
 
 btl = zeros(numel(b), 6);
 
@@ -39,11 +39,12 @@ end
 xps = mdm_xps_from_bt(btl);
 
 xps.u_from_bvec = u;
+xps.dvs         = dvs;
 xps.rotmat      = R1x9;
 
 xps.te = ones(xps.n, 1) * h.EchoTime /1000;
 xps.tr = ones(xps.n, 1) * h.RepetitionTime /1000;
 
-
-
+%% WIP
+% change calculation of b to be native to csa and seq info and not rely on bval/bvec
 

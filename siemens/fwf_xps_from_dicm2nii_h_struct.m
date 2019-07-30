@@ -23,7 +23,7 @@ for i = 1:numel(fn_l)
     fn = fn_l{i};
     
     try
-        xps = fwf_xps_from_siemens_header(h.(fn));
+        xps = fwf_xps_from_siemens_hdr(h.(fn));
     catch
         warning(['Failed to create xps for ' fn]);
         continue
