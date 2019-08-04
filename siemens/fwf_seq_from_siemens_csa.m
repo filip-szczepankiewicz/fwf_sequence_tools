@@ -49,12 +49,12 @@ str_list = {...
 'sWipMemBlock.alFree[53]	 = 	',              'didi_norm',    '1*1000';
 
 % b-tensor
-'sWipMemBlock.alFree[54]	 = 	',              'Bxx',          'mm2/ms*1000';
-'sWipMemBlock.alFree[55]	 = 	',              'Byy',          'mm2/ms*1000';
-'sWipMemBlock.alFree[56]	 = 	',              'Bzz',          'mm2/ms*1000';
-'sWipMemBlock.alFree[57]	 = 	',              'Bxy',          'mm2/ms*1000';
-'sWipMemBlock.alFree[58]	 = 	',              'Bxz',          'mm2/ms*1000';
-'sWipMemBlock.alFree[59]	 = 	',              'Byz',          'mm2/ms*1000';
+'sWipMemBlock.alFree[54]	 = 	',              'Bxx',          'ms/µm2*1000';
+'sWipMemBlock.alFree[55]	 = 	',              'Byy',          'ms/µm2*1000';
+'sWipMemBlock.alFree[56]	 = 	',              'Bzz',          'ms/µm2*1000';
+'sWipMemBlock.alFree[57]	 = 	',              'Bxy',          'ms/µm2*1000';
+'sWipMemBlock.alFree[58]	 = 	',              'Bxz',          'ms/µm2*1000';
+'sWipMemBlock.alFree[59]	 = 	',              'Byz',          'ms/µm2*1000';
 
 % balance gradient
 'sWipMemBlock.adFree[8]	 = 	',                  'bg_ampx',      'mT/m';
@@ -66,6 +66,7 @@ str_list = {...
 'sWipMemBlock.tFree	 = 	',                      'wf_stored',    'str';
 
 % Siemens imaging parameters
+'sDiffusion.lDiffWeightings	 = 	',              'no_bvals',     'int';
 'sProtConsistencyInfo.flNominalB0	 = 	',      'B0',           'T';
 'sSliceArray.asSlice[0].dPhaseFOV	 = 	',      'FOVp',         'mm';
 'sPat.lAccelFactPE	 = 	',                      'iPAT',         'int';
@@ -100,7 +101,41 @@ end
 
 
 
+
+for i = 1:res.no_bvals
+    
+    bval_str = ['sDiffusion.alBValue['   num2str(i-1) ']	 = '];
+    avgs_str = ['sDiffusion.alAverages[' num2str(i-1) ']	 = '];
+    
+    
+    % Get the bvalue list requested in the UI
+    ind  = strfind(csa, bval_str);
+    ind2 = ind+length(bval_str);
+    
+    val = sscanf(csa(ind2:(ind2+10)), '%g', 1);
+    
+    res.bval_req(i) = val;
+    
+    % Get the averages requested in the UI
+    ind  = strfind(csa, avgs_str);
+    ind2 = ind+length(avgs_str);
+    
+    val = sscanf(csa(ind2:(ind2+10)), '%g', 1);
+    
+    res.avgs_req(i) = val;
+    
+end
+
+
+
 for i = 1:size(str_list, 1)
     res.unit.([str_list{i,2} '_unit']) = str_list{i,3};
 end
+
+res.unit.bval_req_unit = 's/mm2';
+res.unit.avgs_rew_unit = 'int';
+
+
+
+
 
