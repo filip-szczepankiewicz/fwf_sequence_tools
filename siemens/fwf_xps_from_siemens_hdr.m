@@ -27,6 +27,34 @@ catch
     u = h.DiffusionGradientDirection';
 end
 
+
+if seq.rot_mode == 6
+    b = [];
+    u = [];
+    n = [];
+    
+    for i = 1:numel(seq.bval_req)
+        if seq.bval_req(i) == 0
+            b = [b; 0];
+            u = [u; [0 0 0]];
+            n = [n; 0];
+        else
+            b = [b; ones(size(dvs,1), 1) * seq.bval_req(i) * 1e6 .* (~all(dvs==0, 2)) ];
+            u = [u; dvs];
+            n = [n; nrm];
+        end
+    end
+    
+    u = u ./ sqrt(sum(u.^2, 2));
+    u(isnan(u)) = 0;
+    
+    nrm = n;
+    
+    % WIP: This is still not the correct rotation for u (dvs is not rotated with the FOV).
+    
+end
+
+
 [R3x3, R1x9] = fwf_rm_from_uvec(u, seq.rot_mode, nrm*2*pi);
 
 btl = zeros(numel(b), 6);
