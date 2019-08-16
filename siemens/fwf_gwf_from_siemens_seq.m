@@ -10,11 +10,11 @@ function [gwf, rf, dt] = fwf_gwf_from_siemens_seq(seq)
 % particular direction!
 
 if ~any(seq.rot_mode ~= [2 3 5])
-    error('Rotation mode not supported!')
+    error('Rotation mode not supported yet!')
 end
 
 if seq.post_wf_mode > 1
-    error('Post-wf mode not supported!')
+    error('Post-wf mode not supported yet!')
 end
 
 if seq.header_mode ~= 2

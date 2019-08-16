@@ -55,7 +55,7 @@ if seq.rot_mode == 6
 end
 
 
-[R3x3, R1x9] = fwf_rm_from_uvec(u, seq.rot_mode, nrm*2*pi);
+[R3x3, R1x9] = fwf_rm_from_siemens_uvec(u, seq.rot_mode, nrm*2*pi);
 
 btl = zeros(numel(b), 6);
 

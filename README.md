@@ -17,8 +17,8 @@ The scope of this library is threefold:
 If you use the resources of this repository, please include a reference to:  
 [F Szczepankiewicz, S Hoge, C-F Westin. Linear, planar and spherical tensor-valued diffusion MRI data by free waveform encoding in healthy brain, water, oil and liquid crystals. Data in Brief (2019), DOI: https://doi.org/10.1016/j.dib.2019.104208](https://doi.org/10.1016/j.dib.2019.104208)
 
-### Example figure
-![Schematic example of software function.](fwf_header_example_fig.jpg)
+### Overview figure
+![Schematic example of software function.](/examples/fwf_header_example_fig.jpg)
 The included tools can be used to encode and decode inforamtion specific to the free waveform sequence, such as the gradient waveform, sequence timing, actual b-tensors and sampling scheme.
 
 ### Related resources can be found at the [FWF sequence GIT repository](https://github.com/filip-szczepankiewicz/fwf_seq_resources)

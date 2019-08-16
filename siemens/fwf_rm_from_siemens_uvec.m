@@ -1,5 +1,5 @@
-function [R3x3, R1x9] = fwf_rm_from_uvec(u, mode, ang)
-% function R = fwf_rm_from_uvec(u, mode)
+function [R3x3, R1x9] = fwf_rm_from_siemens_uvec(u, mode, ang)
+% function [R3x3, R1x9] = fwf_rm_from_siemens_uvec(u, mode, ang)
 % By Filip Szczepankiewicz
 % Brigham and Women's Hospital, Harvard Medical School, Boston, MA, USA
 % Lund University, Lund, Sweden
@@ -22,10 +22,10 @@ for i = 1:n
             tmp = eye(3);
             
         case {3, 5}
-            tmp = fwf_uvec_to_rmsc(u(i,1), u(i,2), u(i,3), 0);
+            tmp = fwf_rmsc_from_uvec_and_ang(u(i,1), u(i,2), u(i,3), 0);
             
         case 6
-            tmp = fwf_uvec_to_rmsc(u(i,1), u(i,2), u(i,3), ang(i));
+            tmp = fwf_rmsc_from_uvec_and_ang(u(i,1), u(i,2), u(i,3), ang(i));
             
         otherwise
             error(['Rotation mode not supported (' num2str(p.rot_mode) ')'])
