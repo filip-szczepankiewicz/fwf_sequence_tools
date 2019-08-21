@@ -17,7 +17,7 @@ seq           = fwf_seq_from_siemens_csa(csa);
 [dvs, nrm]    = fwf_dvs_from_siemens_csa(csa);
 
 bt  = gwf_to_bt(gwf, rf, dt);
-nbt = bt/trace(bt);
+nbt = bt/trace(bt); % normalized b-tensor, Tr(nbt) = 1.
 
 try
     b = h.bval * 1e6; % s/m2
@@ -67,7 +67,7 @@ end
 xps = mdm_xps_from_bt(btl);
 
 xps.u_from_bvec = u;
-xps.dvs         = dvs;
+% xps.dvs         = dvs;
 xps.rotmat      = R1x9;
 
 xps.te = ones(xps.n, 1) * h.EchoTime /1000;
