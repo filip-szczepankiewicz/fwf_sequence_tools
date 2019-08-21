@@ -112,7 +112,11 @@ for i = 1:res.no_bvals
     ind  = strfind(csa, bval_str);
     ind2 = ind+length(bval_str);
     
-    val = sscanf(csa(ind2:(ind2+10)), '%g', 1);
+    if isempty(ind)
+        val = 0;
+    else
+        val = sscanf(csa(ind2:(ind2+10)), '%g', 1);
+    end
     
     res.bval_req(i) = val;
     
