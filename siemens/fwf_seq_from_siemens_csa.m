@@ -57,8 +57,8 @@ str_list = {...
 'sWipMemBlock.alFree[59]	 = 	',              'Byz',          'ms/µm2*1000';
 
 % balance gradient
-'sWipMemBlock.adFree[8]	 = 	',                  'bg_ampx',      'mT/m';
-'sWipMemBlock.adFree[9]	 = 	',                  'bg_ampy',      'mT/m';
+'sWipMemBlock.adFree[8]      = 	',              'bg_ampx',      'mT/m';
+'sWipMemBlock.adFree[9]      = 	',              'bg_ampy',      'mT/m';
 'sWipMemBlock.adFree[10]	 = 	',              'bg_ampz',      'mT/m';
 'sWipMemBlock.adFree[11]	 = 	',              'bg_0mom',      'mTs/m';
 
@@ -66,8 +66,12 @@ str_list = {...
 'sWipMemBlock.tFree	 = 	',                      'wf_stored',    'str';
 
 % Siemens imaging parameters
+'tSequenceFileName	 = 	',                      'seq_dll_fn',   'str';
 'sDiffusion.lDiffWeightings	 = 	',              'no_bvals',     'int';
 'sProtConsistencyInfo.flNominalB0	 = 	',      'B0',           'T';
+'sKSpace.lBaseResolution	 = 	',              'MatrixSize',   'int';
+'sKSpace.lPhaseEncodingLines	 = 	',          'MatrixSizePh', 'int';
+'sSliceArray.asSlice[0].dReadoutFOV	 = 	',      'FOVr',         'mm';
 'sSliceArray.asSlice[0].dPhaseFOV	 = 	',      'FOVp',         'mm';
 'sPat.lAccelFactPE	 = 	',                      'iPAT',         'int';
 'sSliceArray.asSlice[0].dThickness	 = 	',      'SliceThick',   'mm';
@@ -93,6 +97,10 @@ for i = 1:size(str_list, 1)
         
     else
         val = sscanf(csa(ind2:end), '%g', 1);
+        
+        if isempty(val)
+            val = 0.0;
+        end
         
     end
     
