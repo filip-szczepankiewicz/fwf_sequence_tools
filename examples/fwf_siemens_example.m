@@ -11,7 +11,7 @@ load('example_dicm2nii_header.mat');
 
 % We can extract the gradient waveform that was used in the sequence. Note
 % that this is ony one of the scales and rotations.
-[gwf, rd, dt] = fwf_gwf_from_siemens_hdr(h);
+[gwf, rf, dt] = fwf_gwf_from_siemens_hdr(h);
 
 % To extract the waveform for each image volume in the series, we must
 % reconstruct the scaling and rotation of the gradient waveform. THe
