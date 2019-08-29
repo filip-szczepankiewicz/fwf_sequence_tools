@@ -48,7 +48,7 @@ dt = 10e-6;
 
 % gwf = gwf * sqrt(seq.b_max_requ*1e6/b_curr);
 
-gwf = gwf/max(abs(gwf(:)))*seq.gamp/1000;
+gwf = gwf/max(abs(gwf(:)))*seq.gamp/1e6;
 
 end
 
