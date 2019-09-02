@@ -23,8 +23,13 @@ str_list = {...
 
 
 for i = 1:size(str_list, 1)
-    seq.(str_list{i,2})                = h.(str_list{i,1});
-    seq.unit.([str_list{i,2} '_unit']) = str_list{i,3};
+    try
+        seq.(str_list{i,2})                = h.(str_list{i,1});
+        seq.unit.([str_list{i,2} '_unit']) = str_list{i,3};
+    catch me
+        warning(['Failed to parse: ' str_list{i,1}])
+        seq.(str_list{i,2})                = nan;
+    end
 end
 
 
