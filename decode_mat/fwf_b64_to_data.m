@@ -6,6 +6,7 @@ function res = fwf_b64_to_data(b64arr)
 % character array into numeric data.
 
 if isempty(b64arr) || strcmp(b64arr, 'EMPTY')
+    warning('The waveform container was EMPTY!')
     res = [];
     return
 end
@@ -47,6 +48,6 @@ switch res.version
         
         
     otherwise
-        error(['Version ' res.version 'is not recognized!']);
+        error(['Version ' res.version ' is not recognized!']);
         
 end
