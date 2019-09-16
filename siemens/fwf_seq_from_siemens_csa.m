@@ -134,6 +134,10 @@ for i = 1:res.no_bvals
     
     val = sscanf(csa(ind2:(ind2+10)), '%g', 1);
     
+    if isempty(val)
+        val = 1;
+    end
+    
     res.avgs_req(i) = val;
     
 end
