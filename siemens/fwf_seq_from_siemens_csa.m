@@ -112,30 +112,36 @@ end
 
 for i = 1:res.no_bvals
     
-    bval_str = ['sDiffusion.alBValue['   num2str(i-1) ']	 = '];
-    avgs_str = ['sDiffusion.alAverages[' num2str(i-1) ']	 = '];
+    bval_str = ['sDiffusion.alBValue['   num2str(i-1) ']'];
+    avgs_str = ['sDiffusion.alAverages[' num2str(i-1) ']'];
     
     
     % Get the bvalue list requested in the UI
     ind  = strfind(csa, bval_str);
     ind2 = ind+length(bval_str);
+    ind3 = strfind(csa(ind2:end), '=');
     
-    if isempty(ind)
-        val = 0;
+    if isempty(ind3)
+        val = 1;
     else
-        val = sscanf(csa(ind2:(ind2+10)), '%g', 1);
+        ind4 = ind3(1)+ind2;
+        val = sscanf(csa((ind4):(ind4+10)), '%g', 1);
     end
     
     res.bval_req(i) = val;
     
+    
+    
     % Get the averages requested in the UI
     ind  = strfind(csa, avgs_str);
     ind2 = ind+length(avgs_str);
-    
-    val = sscanf(csa(ind2:(ind2+10)), '%g', 1);
-    
-    if isempty(val)
+    ind3 = strfind(csa(ind2:end), '=');
+
+    if isempty(ind3)
         val = 1;
+    else
+        ind4 = ind3(1)+ind2;
+        val = sscanf(csa((ind4):(ind4+10)), '%g', 1);
     end
     
     res.avgs_req(i) = val;
