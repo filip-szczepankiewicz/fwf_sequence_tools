@@ -1,6 +1,12 @@
-#include "stddef.h"
-#include "stdlib.h"
-#include "string.h"
+// More info at:
+// https://github.com/filip-szczepankiewicz/fwf_header_tools
+
+#ifndef mdmrvec_h
+#define mdmrvec_h 1
+
+#include <stddef.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "base64_all.h"
 
@@ -17,11 +23,13 @@ typedef enum e_mdmr_dtype {
     float64,
 } mdmr_dtype;
 
+
 #pragma pack(1)
 typedef struct mdmr_block {
     mdmr_dtype  type;
     int64_t     length;
 } mdmr_block;
+
 
 #pragma pack(1)
 typedef struct mdmr_dataset {
@@ -30,6 +38,7 @@ typedef struct mdmr_dataset {
     int32_t     n_blocks;
     mdmr_block  blockinfo[];
 } mdmr_dataset;
+
 
 #pragma pack(1)
 typedef struct mdmr_dataset_b64 {
@@ -133,3 +142,6 @@ void mdmr_dataset_b64_free(mdmr_dataset_b64* b64data) {
     free(b64data->data);
     free(b64data);
 }
+
+
+#endif // mdmrvec_h, end of this header
