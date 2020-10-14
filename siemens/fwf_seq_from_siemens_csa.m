@@ -84,8 +84,13 @@ str_list = {...
 
 
 for i = 1:size(str_list, 1)
+    
     ind = strfind(csa, str_list{i,1});
     ind2 = ind+length(str_list{i,1});
+    
+    if isempty(ind)
+        warning(['Failed to parse: ' str_list{i,1}])
+    end
     
     if strcmp('str', str_list{i,3})
         val = sscanf(csa(ind2:end), '%s', 1);
@@ -136,7 +141,7 @@ for i = 1:res.no_bvals
     ind  = strfind(csa, avgs_str);
     ind2 = ind+length(avgs_str);
     ind3 = strfind(csa(ind2:end), '=');
-
+    
     if isempty(ind3)
         val = 1;
     else
@@ -156,8 +161,5 @@ end
 
 res.unit.bval_req_unit = 's/mm2';
 res.unit.avgs_rew_unit = 'int';
-
-
-
 
 
