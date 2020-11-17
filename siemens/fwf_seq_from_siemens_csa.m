@@ -35,6 +35,8 @@ str_list = {...
 'sWipMemBlock.alFree[43]	 = 	',              'd_pause_min',  'µs';
 'sWipMemBlock.alFree[44]	 = 	',              'd_pause_max',  'µs';
 
+'sWipMemBlock.alFree[60]	 = 	',              't_start',      'µs'; % v1.19
+
 % validation params
 'sWipMemBlock.alFree[45]	 = 	',              'study_nr_curr','enum';
 'sWipMemBlock.alFree[46]	 = 	',              'wf_nr_curr',   'enum';
@@ -98,6 +100,8 @@ for i = 1:size(str_list, 1)
         
         if strcmp('sWipMemBlock.tFree	 = 	', str_list{i,1})
             val = fwf_b64_to_data(val);
+            res.fwf_seq_version = str2double(val.version);
+            res.unit.fwf_seq_version_unit = 'ordinal';
         end
         
     else
@@ -110,6 +114,7 @@ for i = 1:size(str_list, 1)
     end
     
     res.(str_list{i,2}) = val;
+    
 end
 
 

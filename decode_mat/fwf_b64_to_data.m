@@ -27,7 +27,7 @@ end
 
 switch res.version
     
-    case {'0001', '1.12', '1.13', '1.17', '1.18'}
+    case {'0001', '1.12', '1.13', '1.17', '1.18', '1.19'} % WIP: this needs fixing
         
         % GET BLOCK INFO
         for i = 1:res.blocks
