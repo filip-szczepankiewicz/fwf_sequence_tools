@@ -1,5 +1,5 @@
-function [gwf, rf, dt] = fwf_gwf_from_siemens_seq(seq)
-% function [gwf, rf, dt] = fwf_gwf_from_siemens_seq(seq)
+function [gwf, rf, dt, wf] = fwf_gwf_from_siemens_seq(seq)
+% function [gwf, rf, dt, wf] = fwf_gwf_from_siemens_seq(seq)
 % By Filip Szczepankiewicz
 % Brigham and Women's Hospital, Harvard Medical School, Boston, MA, USA
 % Lund University, Lund, Sweden
@@ -48,7 +48,9 @@ dt = 10e-6;
 
 % gwf = gwf * sqrt(seq.b_max_requ*1e6/b_curr);
 
-gwf = gwf/max(abs(gwf(:)))*seq.gamp/1e6;
+wf = gwf/max(abs(gwf(:)));
+
+gwf = wf*seq.gamp/1e6;
 
 end
 

@@ -1,5 +1,5 @@
-function [gwf, rf, dt] = fwf_gwf_from_siemens_hdr(h)
-% function [gwf, rf, dt] = fwf_gwf_from_siemens_hdr(h)
+function [gwf, rf, dt, wf] = fwf_gwf_from_siemens_hdr(h)
+% function [gwf, rf, dt, wf] = fwf_gwf_from_siemens_hdr(h)
 % By Filip Szczepankiewicz
 % Brigham and Women's Hospital, Harvard Medical School, Boston, MA, USA
 % Lund University, Lund, Sweden
@@ -11,6 +11,6 @@ function [gwf, rf, dt] = fwf_gwf_from_siemens_hdr(h)
 % Free Waveform Encoding (FWF) sequence, and only works for FWF sequence
 % versions 1.12 and later.
 
-csa           = fwf_csa_from_siemens_hdr(h);
-seq           = fwf_seq_from_siemens_csa(csa);
-[gwf, rf, dt] = fwf_gwf_from_siemens_seq(seq);
+csa               = fwf_csa_from_siemens_hdr(h);
+seq               = fwf_seq_from_siemens_csa(csa);
+[gwf, rf, dt, wf] = fwf_gwf_from_siemens_seq(seq);
