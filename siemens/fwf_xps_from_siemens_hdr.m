@@ -9,7 +9,7 @@ function xps = fwf_xps_from_siemens_hdr(h)
 % https://github.com/markus-nilsson/md-dmri
 %
 % h is series dicom header, for example extracted with xiangruili/dicm2nii (dicm_hdr)
-% https://se.mathworks.com/matlabcentral/fileexchange/42997-xiangruili-dicm2nii
+% https://github.com/xiangruili/dicm2nii
 
 csa           = fwf_csa_from_siemens_hdr(h);
 seq           = fwf_seq_from_siemens_csa(csa);
@@ -28,18 +28,19 @@ catch
 end
 
 
-if seq.rot_mode == 6
+if seq.rot_mode == 5 || seq.rot_mode == 6
     b = [];
     u = [];
     n = [];
     
     for i = 1:numel(seq.bval_req)
-        if seq.bval_req(i) == 0
+        if seq.bval_req(i) <= 1
             b = [b; 0];
             u = [u; [0 0 0]];
             n = [n; 0];
         else
-            b = [b; ones(size(dvs,1), 1) * seq.bval_req(i) * 1e6 .* (~all(dvs==0, 2)) ];
+%             b = [b; ones(size(dvs,1), 1) * seq.bval_req(i) * 1e6 .* (~all(dvs==0, 2)) ];
+            b = [b; nrm.^2 * seq.bval_req(i) * 1e6 ];
             u = [u; dvs];
             n = [n; nrm];
         end
