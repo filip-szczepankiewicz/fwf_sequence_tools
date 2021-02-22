@@ -3,7 +3,7 @@ function xps_l = fwf_xps_from_dicm2nii_h_struct(h, o_dir)
 % 
 % Code written to be compatible with output from dicm2nii by
 % Xiangrui Li (xiangrui.li@gmail.com)
-% http://www.mathworks.com/matlabcentral/fileexchange/42997
+% https://github.com/xiangruili/dicm2nii
 %
 % h can be header structure or path to a header .mat file.
 
