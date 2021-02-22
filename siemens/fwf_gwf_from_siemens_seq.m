@@ -52,6 +52,19 @@ wf = gwf/max(abs(gwf(:)));
 
 gwf = wf*seq.gamp/1e6;
 
+
+if seq.t_start
+    ns = round(seq.t_start*1e-6/dt);
+    gwf = [zeros(ns, 3); gwf];
+    rf  = [ones(ns, 1);  rf ];
+    
+    ne = sum(rf);
+    gwf = [gwf; zeros(ne, 3)];
+    rf  = [rf;  -ones(ne, 1)];
+end
+
+
+
 end
 
 
