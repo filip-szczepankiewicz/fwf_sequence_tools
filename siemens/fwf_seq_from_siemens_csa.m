@@ -98,7 +98,7 @@ for i = 1:size(str_list, 1)
         val = sscanf(csa(ind2:end), '%s', 1);
         val = strrep(val, '""', '');
         
-        if strcmp('sWipMemBlock.tFree	 = 	', str_list{i,1})
+        if strcmp('sWipMemBlock.tFree	 = 	', str_list{i,1}) && ~strcmp('EMPTY', val)
             val = fwf_b64_to_data(val);
             res.fwf_seq_version = str2double(val.version);
             res.unit.fwf_seq_version_unit = 'ordinal';
