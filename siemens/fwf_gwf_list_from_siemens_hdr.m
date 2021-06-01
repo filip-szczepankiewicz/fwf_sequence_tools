@@ -13,7 +13,7 @@ bref = trace(fwf_bt_from_gwf(gwf, rf, dt, fwf_gamma_from_nuc(h.ImagedNucleus)));
 
 for i = 1:xps.n
    
-    R       = fwf_rm_1x9to3x3(xps.rotmat(i,:));
+    R       = fwf_rm_3x3_from_1x9(xps.rotmat(i,:));
     scale   = sqrt(xps.b(i)/bref);
     gwfc{i} = (R * gwf')' * scale;
     rfc{i}  = rf;
