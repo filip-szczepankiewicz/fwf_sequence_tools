@@ -37,3 +37,4 @@ n = sqrt(sum(u.^2, 2));
 % Take into account b0 images
 % Take into account multiple b-vals in UI
 % Check ordering of averages
+% Write function for non .dvs-based directions

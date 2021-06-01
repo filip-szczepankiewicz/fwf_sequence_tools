@@ -4,7 +4,7 @@ function [R3x3, R1x9] = fwf_rm_from_siemens_uvec(u, mode, ang)
 % Brigham and Women's Hospital, Harvard Medical School, Boston, MA, USA
 % Lund University, Lund, Sweden
 %
-% u (nx3) is matrix of vectors.
+% u (nx3) is matrix of unit vectors.
 
 if nargin < 3
     ang = [];
@@ -32,5 +32,5 @@ for i = 1:n
     end
     
     R3x3(:,:,i) = tmp;
-    R1x9(i,:)   = tmp(:)';
+    R1x9(i,:)   = fwf_rm_1x9_from_3x3(tmp);
 end
