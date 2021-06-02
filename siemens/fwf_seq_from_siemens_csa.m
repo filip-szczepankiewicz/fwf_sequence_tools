@@ -91,7 +91,7 @@ for i = 1:size(str_list, 1)
     ind2 = ind+length(str_list{i,1});
     
     if isempty(ind)
-        warning(['Failed to parse: ' str_list{i,1}])
+        disp(['Failed to parse: ' str_list{i,2}])
     end
     
     if strcmp('str', str_list{i,3})
