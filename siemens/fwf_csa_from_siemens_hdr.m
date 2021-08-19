@@ -10,5 +10,14 @@ try
     csa = h.CSASeriesHeaderInfo.MrPhoenixProtocol;
     
 catch
-    csa = h.MrPhoenixProtocol;
+    
+    try
+        csa = h.MrPhoenixProtocol;
+        
+    catch
+        
+        csa = h.SharedFunctionalGroupsSequence.Item_1.CSASeriesHeaderInfo.Item_1.MrPhoenixProtocol;
+    end
 end
+
+% WIP: FIX ME!
