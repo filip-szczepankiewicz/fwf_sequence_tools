@@ -16,8 +16,8 @@ catch
         
     catch
         
+        % WIP: FIX ME!
         csa = h.SharedFunctionalGroupsSequence.Item_1.CSASeriesHeaderInfo.Item_1.MrPhoenixProtocol;
     end
 end
 
-% WIP: FIX ME!
