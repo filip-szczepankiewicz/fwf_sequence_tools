@@ -1,5 +1,5 @@
-function [gwf, rf, dt, wf] = fwf_gwf_from_siemens_hdr(h)
-% function [gwf, rf, dt, wf] = fwf_gwf_from_siemens_hdr(h)
+function [gwf, rf, dt, ind] = fwf_gwf_from_siemens_hdr(h)
+% function [gwf, rf, dt, ind] = fwf_gwf_from_siemens_hdr(h)
 % By Filip Szczepankiewicz
 % Brigham and Women's Hospital, Harvard Medical School, Boston, MA, USA
 % Lund University, Lund, Sweden
@@ -13,4 +13,4 @@ function [gwf, rf, dt, wf] = fwf_gwf_from_siemens_hdr(h)
 
 csa               = fwf_csa_from_siemens_hdr(h);
 seq               = fwf_seq_from_siemens_csa(csa);
-[gwf, rf, dt, wf] = fwf_gwf_from_siemens_seq(seq);
+[gwf, rf, dt, ind] = fwf_gwf_from_siemens_seq(seq);

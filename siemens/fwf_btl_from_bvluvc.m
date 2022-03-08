@@ -9,7 +9,7 @@ switch mode
         btl = zeros(numel(b), 6);
         
         for i = 1:numel(b)
-            rt = R3x3(:,:,i) * nbt * R3x3(:,:,i)';
+            rt = R3x3(:,:,i) * nbt{i} * R3x3(:,:,i)';
             btl(i,:) = tm_3x3_to_1x6(rt) * b(i) ;
         end
         

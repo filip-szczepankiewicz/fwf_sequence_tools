@@ -1,5 +1,5 @@
-function xps = fwf_xps_from_siemens_hdr(h)
-% function xps = fwf_xps_from_siemens_hdr(h)
+function xps = fwf_xps_from_siemens_hdr(hdr)
+% function xps = fwf_xps_from_siemens_hdr(hdr)
 % By Filip Szczepankiewicz
 % Brigham and Women's Hospital, Harvard Medical School, Boston, MA, USA
 % Lund University, Lund, Sweden
@@ -11,19 +11,17 @@ function xps = fwf_xps_from_siemens_hdr(h)
 % h is series dicom header, for example extracted with xiangruili/dicm2nii (dicm_hdr)
 % https://github.com/xiangruili/dicm2nii
 
-csa           = fwf_csa_from_siemens_hdr(h);
-seq           = fwf_seq_from_siemens_csa(csa);
-[gwf, rf, dt] = fwf_gwf_from_siemens_seq(seq);
-[~, nbt]      = fwf_bt_from_gwf(gwf, rf, dt);
-[b, u, n]     = fwf_bvluvc_from_siemens_hdr(h);
+[gwfc, rfc, dtc, ind] = fwf_gwf_list_from_siemens_hdr(hdr);
 
-[btl, R1x9]   = fwf_btl_from_bvluvc(b, u, n, nbt, seq.rot_mode);
+for i = 1:numel(gwfc)
+    bt3x3    = fwf_bt_from_gwf(gwfc{i}, rfc{i}, dtc{i}, fwf_gamma_from_nuc(hdr.ImagedNucleus));
+    btl(i,:) = tm_3x3_to_1x6(bt3x3);
+end
+
 xps           = mdm_xps_from_bt(btl);
-
-xps.u         = u;
-xps.rotmat    = R1x9;
-xps.te        = ones(xps.n, 1) * h.EchoTime /1000;
-xps.tr        = ones(xps.n, 1) * h.RepetitionTime /1000;
+xps.te        = ones(xps.n, 1) * hdr.EchoTime /1000;
+xps.tr        = ones(xps.n, 1) * hdr.RepetitionTime /1000;
+xps.wf_ind    = ind;
 
 %% WIP
 % change calculation of b to be native to csa and seq info and not rely on bval/bvec
