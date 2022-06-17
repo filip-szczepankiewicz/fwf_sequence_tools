@@ -14,7 +14,7 @@ load('path_to_dicm2nii_output_folder\dcmHeaders.mat')
 % Get gradient waveform and supplementary info
 [gwf, rf, dt] = fwf_gwf_from_siemens_hdr(h.my_seq_name);
 
-% Get sequence timting and imaging parameters
+% Get sequence timing and imaging parameters
 seq = fwf_seq_from_siemens_hdr(h.my_seq_name);
 
 % Get experimental parameter structure (xps) compatible with the multidim MRI framework
