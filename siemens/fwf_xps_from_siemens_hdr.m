@@ -13,8 +13,10 @@ function xps = fwf_xps_from_siemens_hdr(hdr)
 
 [gwfc, rfc, dtc, ind] = fwf_gwf_list_from_siemens_hdr(hdr);
 
+nuc                   = fwf_nuc_from_siemens_hdr(hdr);
+
 for i = 1:numel(gwfc)
-    bt3x3    = fwf_bt_from_gwf(gwfc{i}, rfc{i}, dtc{i}, fwf_gamma_from_nuc(hdr.ImagedNucleus));
+    bt3x3    = fwf_bt_from_gwf(gwfc{i}, rfc{i}, dtc{i}, fwf_gamma_from_nuc(nuc));
     btl(i,:) = tm_3x3_to_1x6(bt3x3);
 end
 

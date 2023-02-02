@@ -6,18 +6,20 @@ function csa = fwf_csa_from_siemens_hdr(h)
 %
 % Based on the dicom header reader at https://github.com/xiangruili/dicm2nii
 
-try
-    csa = h.CSASeriesHeaderInfo.MrPhoenixProtocol;
-    
-catch
-    
+csa_names = {...
+    'CSASeriesHeaderInfo.MrPhoenixProtocol'
+    'MrPhoenixProtocol'
+    'SharedFunctionalGroupsSequence.Item_1.CSASeriesHeaderInfo.Item_1.MrPhoenixProtocol' % WIP: FIX ME!
+    };
+
+
+for i = 1:numel(csa_names)
     try
-        csa = h.MrPhoenixProtocol;
-        
-    catch
-        
-        % WIP: FIX ME!
-        csa = h.SharedFunctionalGroupsSequence.Item_1.CSASeriesHeaderInfo.Item_1.MrPhoenixProtocol;
+        csa = eval(['h.' csa_names{i}]); % Terrible, but matlab is tricky on this
+        return
+
+    catch me
+        disp(me.message);
+
     end
 end
-
