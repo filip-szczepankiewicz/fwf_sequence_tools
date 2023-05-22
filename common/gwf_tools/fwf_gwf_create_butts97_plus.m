@@ -62,7 +62,7 @@ gwf = [g1 zeros(3, round(Tp/dt)) g2]';
 
 rf = [ones(length(g1),1); zeros(round(Tp/dt),1); -ones(length(g2),1)];
 
-[gwf, rf, dt] = gwf_force_shape(gwf, rf, dt, 'STE');
+[gwf, rf, dt] = fwf_gwf_force_shape(gwf, rf, dt, 'STE');
  
 if sum(abs(sum(gwf.*rf))) > 0.0001
     error('not balanced')

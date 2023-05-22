@@ -30,8 +30,7 @@ fl = linspace(0.1, 0.9, steps);
 for i = 1:steps
     f = fl(i);
     [gwf, rf] = get_wf(f);
-    bt = gwf_to_bt(gwf, rf, dt);
-    b(i) = trace(bt);
+    b(i) = fwf_gwf_to_bval(gwf, rf, dt);
 end
 
 [~, imax] = max(b);

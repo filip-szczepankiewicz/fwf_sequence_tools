@@ -1,5 +1,5 @@
-function hash = gwf_to_hash(gwf)
-% function hash = gwf_to_hash(gwf)
+function hash = fwf_gwf_to_hash(gwf)
+% function hash = fwf_gwf_to_hash(gwf)
 % By FSz
 %
 % Function is a very improvised hash function for gwfs. Hopefully the
