@@ -14,7 +14,7 @@ nuc                   = fwf_nuc_from_siemens_hdr(hdr);
 
 % Create normalized waveforms
 for i = 1:numel(gwfo)
-    bnrm   = trace(fwf_bt_from_gwf(gwfo{i}, rfo{i}, dto{i}, fwf_gamma_from_nuc(nuc)));
+    bnrm   = trace(fwf_gwf_to_btens(gwfo{i}, rfo{i}, dto{i}, fwf_gamma_from_nuc(nuc)));
     wfn{i} = gwfo{i} * sqrt(seq.b_max_requ*1e6/bnrm);
 end
 

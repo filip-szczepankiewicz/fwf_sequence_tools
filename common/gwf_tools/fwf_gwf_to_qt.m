@@ -1,8 +1,8 @@
-function qt = fwf_gwf_to_qt(gwf, rf, dt, nuc)
-% function qt = fwf_gwf_to_qt(gwf, rf, dt, nuc)
+function qt = fwf_gwf_to_qt(gwf, rf, dt, gamma)
+% function qt = fwf_gwf_to_qt(gwf, rf, dt, gamma)
 
 if nargin < 4
-    nuc = [];
+    gamma = fwf_gamma_from_nuc();
 end
 
-qt = fwf_gamma_from_nuc(nuc) * cumsum(gwf.*rf, 1) * dt;
+qt = gamma * cumsum(gwf.*rf, 1) * dt;
