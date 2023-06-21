@@ -18,7 +18,7 @@ BB = permute(B, [1 3 2]);
 
 gmax = max(abs([AA(:); BB(:)]));
 
-% Here we use Tim Schrimers function to save the file in wav format. This
+% Here we use Tim Sprenger function to save the file in wav format. This
 % function is currently not part of the repo and must be acquired from
 % Tim/GE.
 fn_a = write_ak_wav_Tim([onam '_A.wav'], AA, gmax*100, 125e3, 0.2, description);
