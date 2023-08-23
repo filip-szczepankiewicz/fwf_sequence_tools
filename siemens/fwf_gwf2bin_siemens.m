@@ -1,4 +1,4 @@
-function [bin_fn, status] = fwf_gwf2bin_siemens(GWF, bin_fn, norm)
+function [bin_fn, status, f_norm] = fwf_gwf2bin_siemens(GWF, bin_fn, norm)
 % function [bin_fn, status] = fwf_gwf2bin_siemens(GWF, bin_fn, norm)
 % By Arthur Chakwizira and Filip Sz
 %
