@@ -10,24 +10,29 @@ if nargin < 3
     norm = 1;
 end
 
+% Encode the read/write software version
+ver = single(1.0);
+
+% Calculate meta parameters
 n_U = int32(size(GWF, 2));
 n_A = int32(size(GWF{1,1},1));
 n_B = int32(size(GWF{2,1},1));
 
+% Compile stacks of numbers
 g_A = [];
 g_B = [];
-
-
 for c = 1:n_U
     g_A = [g_A; GWF{1,c}];
     g_B = [g_B; GWF{2,c}];
 end
 
-
+% Normalize
 switch norm
-    case 1 %L2
+    case 0 % None
+        f_norm = 1.0;
+    case 1 % L2
         f_norm = max(sqrt(sum([g_A;g_B].^2, 2)));
-    case 2 %Max
+    case 2 % Max
         f_norm = max(abs([g_A(:); g_B(:)]));
     otherwise
         error('Norm not supported')
@@ -36,11 +41,13 @@ end
 gn_A = single(g_A/f_norm);
 gn_B = single(g_B/f_norm);
 
-% sha = fwf_gwf2sha([gn_A; gnB]);
+% Calculate hash for identification
+% sha = fwf_gwf2sha([gn_A; gnB], ver);
 
 % WRITE TO BINARY
 fileID = fopen(bin_fn, 'w');
 
+% fwrite(fileID, ver, 'single');
 % fwrite(fileID, sha, 'undecided');
 
 fwrite(fileID, n_U, 'int32');
