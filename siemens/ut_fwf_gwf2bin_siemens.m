@@ -13,7 +13,7 @@ end
 % READ
 GWFR = fwf_bin2gwf_siemens(fno);
 
-% PLOT
+% PLOT DIFFERENCE
 clf
 for i = 1:size(GWF,2)
     diff = [(GWF{1,i}/f_norm-GWFR{1,i}); (GWF{2,i}/f_norm-GWFR{2,i})];
