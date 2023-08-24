@@ -6,8 +6,6 @@ fileID = fopen(bin_fn, 'r');
 
 % Read meta data
 % ver = fread(fileID, 1, 'single');
-% sha = fread(fileID, X, 'undecided');
-
 n_U = fread(fileID, 1, 'int32');
 n_A = fread(fileID, 1, 'int32');
 n_B = fread(fileID, 1, 'int32');
@@ -19,6 +17,8 @@ gn_A(:,3) = fread(fileID, n_A*n_U, 'single');
 gn_B(:,1) = fread(fileID, n_B*n_U, 'single');
 gn_B(:,2) = fread(fileID, n_B*n_U, 'single');
 gn_B(:,3) = fread(fileID, n_B*n_U, 'single');
+
+% sha = fread(fileID, 64, 'uint8');
 
 fclose(fileID);
 

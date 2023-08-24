@@ -42,13 +42,12 @@ gn_A = single(g_A/f_norm);
 gn_B = single(g_B/f_norm);
 
 % Calculate hash for identification
-% sha = fwf_gwf2sha([gn_A; gnB], ver);
+% sha = fwf_gwf2sha([gn_A; gn_B], ver);
 
 % WRITE TO BINARY
 fileID = fopen(bin_fn, 'w');
 
 % fwrite(fileID, ver, 'single');
-% fwrite(fileID, sha, 'undecided');
 
 fwrite(fileID, n_U, 'int32');
 fwrite(fileID, n_A, 'int32');
@@ -60,6 +59,8 @@ fwrite(fileID, gn_A(:,3), 'single');
 fwrite(fileID, gn_B(:,1), 'single');
 fwrite(fileID, gn_B(:,2), 'single');
 fwrite(fileID, gn_B(:,3), 'single');
+
+% fwrite(fileID, sha, 'int8');
 
 status = fclose(fileID);
 
