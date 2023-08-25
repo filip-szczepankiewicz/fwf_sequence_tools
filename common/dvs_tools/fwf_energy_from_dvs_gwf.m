@@ -1,8 +1,10 @@
-function [eps, b] = fwf_energy_from_dvs_gwf(dvs, gwfc, rfc, dtc)
-% function [eps, b] = fwf_energy_from_dvs_gwf(dvs, gwfc, rfc, dtc)
+function eps = fwf_energy_from_dvs_gwf(gwfc, rfc, dtc, ax_factor)
+% function eps = fwf_energy_from_dvs_gwf(gwfc, rfc, dtc, ax_factor)
+
+if nargin < 4
+    ax_factor = [1 1 1];
+end
 
 for i = 1:numel(gwfc)
-    tmp = abs(gwfc{i} * norm(dvs(i,1:3)));
-    eps(i) = sum(tmp(:)) * dtc{i};
-    b(i) = trace(fwf_gwf_to_btens(gwfc{i} * norm(dvs(i,1:3)), rfc{i}, dtc{i}));
+    eps(i) = sum(sum(gwfc{c}.^2,1) .* ax_factor) * dtc{i};
 end
