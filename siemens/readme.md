@@ -42,4 +42,4 @@ nii_fn = 'my_data.nii.gz'; % processed using the dcm2niix fork linked above
 xps = fwf_xps_from_siemens_json(nii_fn);
 ```
 
-This function assumes the .json, .bval, and .bvec files are has names similar to the nifti file. 
+This function assumes the .json, .bval, and .bvec files has names derived from the nifti file. 
