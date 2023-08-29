@@ -29,7 +29,7 @@ switch order
     case 0 % do nothing
 
     case 1 % random
-        rni = randi(size(dvs,1), size(dvs,1), 1);
+        rni = randperm(size(dvs,1));
         dvs = dvs(rni,:);
         wfi = wfi(rni,:);
 
