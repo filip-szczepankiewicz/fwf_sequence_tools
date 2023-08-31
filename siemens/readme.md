@@ -31,3 +31,15 @@ load('path_to_dicm2nii_output_folder\dcmHeaders.mat')
 xps_l = fwf_xps_from_dicm2nii_h_struct(h, 'path_to_my_output_folder')
 
 ```
+
+
+## Alternative approach
+
+The [dcm2niix](https://github.com/rordenlab/dcm2niix) tool creates a JSON file with metadata from the Siemens CSA header. However, in the master version as of 2023-08-25, the length of the WipMemBlock is limited to 256 characters, and in addition, it does not export 'tFree' fields at all. A modified version is available [here](https://github.com/markus-nilsson/dcm2niix). Note that you need to compile this version yourself. This fork creates a .json file that can be used according to the example below. 
+
+```
+nii_fn = 'my_data.nii.gz'; % processed using the dcm2niix fork linked above
+xps = fwf_xps_from_siemens_json(nii_fn);
+```
+
+This function assumes the .json, .bval, and .bvec files has names derived from the nifti file. 
