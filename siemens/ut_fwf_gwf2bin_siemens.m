@@ -8,10 +8,10 @@ for i = 1:200
 end
 
 % WRITE
-[fno, stat, f_norm] = fwf_gwf2bin_siemens(GWF, 'test_gwf2bin_siemens.bin', 1);
+[fno, stat, f_norm, sha_w] = fwf_gwf2bin_siemens(GWF, 'test_gwf2bin_siemens.bin', 1);
 
 % READ
-GWFR = fwf_bin2gwf_siemens(fno);
+[GWFR, ver, sha_r] = fwf_bin2gwf_siemens(fno);
 
 % PLOT DIFFERENCE
 clf
@@ -24,3 +24,6 @@ plot(er)
 xlabel('Shot')
 ylabel('SSE')
 title('Errors in gwf write-to-read process')
+
+disp(['Encoded hash: ' char(sha_w)])
+disp(['Read hash   : ' sha_r])

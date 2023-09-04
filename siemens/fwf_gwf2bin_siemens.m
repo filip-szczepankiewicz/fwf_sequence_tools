@@ -1,5 +1,5 @@
-function [bin_fn, status, f_norm] = fwf_gwf2bin_siemens(GWF, bin_fn, norm)
-% function [bin_fn, status] = fwf_gwf2bin_siemens(GWF, bin_fn, norm)
+function [bin_fn, status, f_norm, sha_ui8] = fwf_gwf2bin_siemens(GWF, bin_fn, norm)
+% function [bin_fn, status, f_norm, sha_ui8] = fwf_gwf2bin_siemens(GWF, bin_fn, norm)
 % By Arthur Chakwizira and Filip Sz
 %
 % GWF is a cell array with size 2xn where n is the number of unique
@@ -35,19 +35,19 @@ switch norm
     case 2 % Max
         f_norm = max(abs([g_A(:); g_B(:)]));
     otherwise
-        error('Norm not supported')
+        error('Norm not supported!')
 end
 
 gn_A = single(g_A/f_norm);
 gn_B = single(g_B/f_norm);
 
 % Calculate hash for identification
-% sha = fwf_gwf2sha([gn_A; gn_B], ver);
+[~, sha_ui8] = fwf_gwf2sha([gn_A; gn_B], ver);
 
 % WRITE TO BINARY
 fileID = fopen(bin_fn, 'w');
 
-% fwrite(fileID, ver, 'single');
+fwrite(fileID, ver, 'single');
 
 fwrite(fileID, n_U, 'int32');
 fwrite(fileID, n_A, 'int32');
@@ -60,7 +60,7 @@ fwrite(fileID, gn_B(:,1), 'single');
 fwrite(fileID, gn_B(:,2), 'single');
 fwrite(fileID, gn_B(:,3), 'single');
 
-% fwrite(fileID, sha, 'int8');
+fwrite(fileID, sha_ui8, 'uint8');
 
 status = fclose(fileID);
 
