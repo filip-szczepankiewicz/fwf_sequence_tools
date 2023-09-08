@@ -7,13 +7,17 @@ function seq = fwf_seq_from_siemens_hdr(h)
 % h is series dicom header extracted with xiangruili/dicm2nii
 % https://se.mathworks.com/matlabcentral/fileexchange/42997-xiangruili-dicm2nii
 
-% Collect as much as possible from the CSA
-csa           = fwf_csa_from_siemens_hdr(h);
-seq           = fwf_seq_from_siemens_csa(csa);
 
-% Collect rest from DICOM header
+% Collect sequence specific parameters from the CSA header
+csa = fwf_csa_from_siemens_hdr(h);
+seq = fwf_seq_from_siemens_csa(csa);
+
+
+% Collect the basic parameters from the dicom header
 str_list = {...
     
+'EchoTime',                     'te',               'ms';
+'RepetitionTime',               'tr',               'ms';
 'EffectiveEPIEchoSpacing',      'EffEchoSpacing',   'ms';
 'NumberOfPhaseEncodingSteps',   'PhaseSteps',       'int';
 'EchoTrainLength',              'TrainLength',      'int';
@@ -33,8 +37,8 @@ for i = 1:size(str_list, 1)
 end
 
 
-% Calculate derived parameters
 
+% Calculate derived parameters
 % Partial Fourier factor
 seq.PartialFourier = seq.PhaseSteps / seq.MatrixSizePh;
 seq.unit.PartialFourier_unit = '1';

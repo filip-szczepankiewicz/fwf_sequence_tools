@@ -10,44 +10,32 @@ if nargin < 1
 
     dvs_fn = 'test.dvs';
     bin_fn = 'tester.bin';
+
+    [dvs, wfi] = fwf_dvs_from_experiment_siemens(b_list, n_list, i_list, dvs_fn, order, bin_fn);
+    return
 end
 
-b_max = max(b_list);
+if nargin < 6
+    bin_fn = [];
+end
+
 
 %% COMPILE DVS
-dvs = [];
-wfi = [];
-for i = 1:numel(b_list)
-    cur = uvec_elstat(n_list(i));
-    cur = cur./sqrt(sum(cur.^2, 2)); % Normalize
-    cur = cur * sqrt(b_list(i)/b_max);
-    ci  = ones(n_list(i),1)*i_list(i);
-
-    dvs = [dvs; cur];
-    wfi = [wfi; ci];
-end
-
-
-%% SHUFFLE
-switch order
-    case 0 % do nothing
-
-    case 1 % random
-        rni = randi(size(dvs,1), size(dvs,1), 1);
-        dvs = dvs(rni,:);
-        wfi = wfi(rni,:);
-
-    otherwise
-        error('Order not supported!')
-end
+[dvs, wfi] = fwf_dvs_create(b_list, n_list, i_list, order);
 
 
 %% CREATE HEADER
+header = {};
+
+if ~isempty(bin_fn)
+    header = {['# FWF_LIBRARY\' bin_fn]};
+end
+
 header = {...
-    ['# FWF_LIBRARY\' bin_fn]
+    header{1};
     ['# Diffusion vector set'];
     ['# By Filip Szczepankiewicz, ' date];
-    ['# For more info: https://github.com/filip-szczepankiewicz/fwf_header_tools']};
+    ['# For more info: https://github.com/filip-szczepankiewicz/fwf_sequence_tools']};
 
 
 %% WRITE DVS

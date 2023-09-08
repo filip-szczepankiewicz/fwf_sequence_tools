@@ -5,7 +5,6 @@ function [gwfc, rfc, dtc, ind2] = fwf_gwf_list_from_siemens_hdr(hdr)
 % Returns cell array of actually executed waveforms.
 % Completely unvalidated.
 
-
 seq                   = fwf_seq_from_siemens_hdr(hdr);
 [gwfo, rfo, dto, ind] = fwf_gwf_from_siemens_seq(seq);
 [~, u, n, ind2]       = fwf_bvluvc_from_siemens_hdr(hdr, ind);

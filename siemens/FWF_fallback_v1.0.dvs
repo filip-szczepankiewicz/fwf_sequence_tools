@@ -1,0 +1,15 @@
+# FWF_LIBRARY\FWF_fallback_v1.0.bin
+# Diffusion vector set
+# By Filip Szczepankiewicz, 05-Sep-2023
+# For more info: https://github.com/filip-szczepankiewicz/fwf_sequence_tools
+[directions=7]
+Normalization = None
+Coordinatesystem = xyz
+
+vector[0]=(0.0000,0.0000,0.0000)
+vector[1]=(0.6803,0.4177,-0.6022)
+vector[2]=(-0.7524,-0.4863,-0.4443)
+vector[3]=(-0.2223,0.4987,0.8378)
+vector[4]=(-0.8979,0.4389,0.0330)
+vector[5]=(-0.0129,0.9979,-0.0633)
+vector[6]=(-0.3394,0.3897,-0.8561)
