@@ -1,21 +1,26 @@
 clear
 
-order = 0;
+order = 1;
 
-dvs_fn = 'tester.dvs';
-bin_fn = 'fasfas';
+f_name = 'Prostate_Project_v1';
 
-[gwf{1}, rf, dt] = load_gwf_from_lib(11);
+dvs_fn = [f_name '.dvs'];
+bin_fn = [f_name '.bin'];
+
+[gwf{1}, rf, dt] = gwf_create_mori95_pattern3(80e-3, 100, 8.65e-3, 8e-3, 10e-6);
 gwf{2} = gwf{1}(:,1)*[1 0 0];
 
-bl = [0 1 0 .5];
-nl = [6 6 6  6];
-il = [1 1 1  2];
+sl = [0 1 0 .5]; % Scale list of b-vals relative to max
+nl = [6 6 6  6]; % Number of rotations
+il = [1 1 1  2]; % Waveform index
 
-[dvs, wfi] = fwf_dvs_from_experiment_siemens(bl, nl, il, dvs_fn, order, bin_fn);
 
+%% Create DVS
+[dvs, wfi] = fwf_dvs_from_experiment_siemens(sl, nl, il, dvs_fn, order, bin_fn);
+
+
+%% Create BIN
 for i = 1:size(dvs,1)
-
     u   = dvs(i,:);
     R   = fwf_rm_from_siemens_uvec(u, 3);
 
@@ -30,3 +35,8 @@ for i = 1:size(dvs,1)
     GWF{1,i} = rwf(inl{1},:);
     GWF{2,i} = rwf(inl{2},:);
 end
+
+fwf_gwf2bin_siemens(GWF, bin_fn, 2)
+
+
+
