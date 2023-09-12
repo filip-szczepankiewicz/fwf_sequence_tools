@@ -1,21 +1,16 @@
-function [b, u, n, w] = fwf_bvluvc_from_siemens_hdr(hdr, ind)
-% function [b, u, n, w] = fwf_bvluvc_from_siemens_hdr(hdr, ind)
+function [b, u, n] = fwf_bvluvc_from_siemens_hdr(hdr)
+% function [b, u, n] = fwf_bvluvc_from_siemens_hdr(hdr)
 
 % Try to find user defined dvs first
-csa           = fwf_csa_from_siemens_hdr(hdr);
-[dvs, nrm]    = fwf_dvs_from_siemens_csa(csa);
-seq           = fwf_seq_from_siemens_csa(csa);
-
-if nargin < 2 || isempty(ind)
-    ind = ones(size(nrm));
-end
+csa        = fwf_csa_from_siemens_hdr(hdr);
+[dvs, nrm] = fwf_dvs_from_siemens_csa(csa);
+seq        = fwf_seq_from_siemens_csa(csa);
 
 if ~isempty(dvs)
 
     b = [];
     u = [];
     n = [];
-    w = [];
 
     for j = 1:max(seq.avgs_req)
 
@@ -26,12 +21,10 @@ if ~isempty(dvs)
                     b = [b; 0];
                     u = [u; [0 0 0]];
                     n = [n; 0];
-                    w = [w; 1];
                 else
                     b = [b; nrm.^2 * seq.bval_req(i) * 1e6 ];
                     u = [u; dvs];
                     n = [n; nrm];
-                    w = [w; ind];
                 end
             end
 
@@ -69,8 +62,6 @@ else % Use bval and bvec exported by the system, which may be slightly wrong!
     end
 
     n = sqrt(b/max(b));
-
-    w = ind * ones(size(n));
 
 end
 

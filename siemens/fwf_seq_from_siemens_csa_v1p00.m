@@ -24,7 +24,7 @@ str_list = {...
 'sWipMemBlock.alFree[28]	 = 	',              'bg_on',        'enum';
 'sWipMemBlock.alFree[29]	 = 	',              'header_mode',  'enum';
 
-'sWipMemBlock.alFree[31]	 = 	',              'b_max',        'mm2/ms';
+'sWipMemBlock.alFree[31]	 = 	',              'b_max',        'mm^2/ms';
 'sWipMemBlock.alFree[32]	 = 	',              'd_pre',        'µs';
 'sWipMemBlock.alFree[33]	 = 	',              'd_post',       'µs';
 'sWipMemBlock.alFree[34]	 = 	',              'd_pause',      'µs';
@@ -40,9 +40,9 @@ str_list = {...
 % validation params
 'sWipMemBlock.alFree[45]	 = 	',              'study_nr_curr','enum';
 'sWipMemBlock.alFree[46]	 = 	',              'wf_nr_curr',   'enum';
-'sWipMemBlock.alFree[47]	 = 	',              'b_max_gamp',   'mm2/ms';
-'sWipMemBlock.alFree[48]	 = 	',              'b_max_slew',   'mm2/ms';
-'sWipMemBlock.alFree[49]	 = 	',              'b_max_requ',   'mm2/ms';
+'sWipMemBlock.alFree[47]	 = 	',              'b_max_gamp',   'mm^2/ms';
+'sWipMemBlock.alFree[48]	 = 	',              'b_max_slew',   'mm^2/ms';
+'sWipMemBlock.alFree[49]	 = 	',              'b_max_requ',   'mm^2/ms';
 
 % waveform info
 'sWipMemBlock.alFree[50]	 = 	',              'gamp',         'mT/m*1000';
@@ -51,12 +51,12 @@ str_list = {...
 'sWipMemBlock.alFree[53]	 = 	',              'didi_norm',    '1*1000';
 
 % b-tensor
-'sWipMemBlock.alFree[54]	 = 	',              'Bxx',          'ms/µm2*1000';
-'sWipMemBlock.alFree[55]	 = 	',              'Byy',          'ms/µm2*1000';
-'sWipMemBlock.alFree[56]	 = 	',              'Bzz',          'ms/µm2*1000';
-'sWipMemBlock.alFree[57]	 = 	',              'Bxy',          'ms/µm2*1000';
-'sWipMemBlock.alFree[58]	 = 	',              'Bxz',          'ms/µm2*1000';
-'sWipMemBlock.alFree[59]	 = 	',              'Byz',          'ms/µm2*1000';
+'sWipMemBlock.alFree[54]	 = 	',              'Bxx',          'ms/µm^2*1000';
+'sWipMemBlock.alFree[55]	 = 	',              'Byy',          'ms/µm^2*1000';
+'sWipMemBlock.alFree[56]	 = 	',              'Bzz',          'ms/µm^2*1000';
+'sWipMemBlock.alFree[57]	 = 	',              'Bxy',          'ms/µm^2*1000';
+'sWipMemBlock.alFree[58]	 = 	',              'Bxz',          'ms/µm^2*1000';
+'sWipMemBlock.alFree[59]	 = 	',              'Byz',          'ms/µm^2*1000';
 
 % balance gradient
 'sWipMemBlock.adFree[8]      = 	',              'bg_ampx',      'mT/m';
@@ -69,18 +69,18 @@ str_list = {...
 
 % Siemens imaging parameters
 'tSequenceFileName	 = 	',                      'seq_dll_fn',   'str';
-'sDiffusion.lDiffWeightings	 = 	',              'no_bvals',     'int';
+'sDiffusion.lDiffWeightings	 = 	',              'no_bvals',     '1';
 'sProtConsistencyInfo.flNominalB0	 = 	',      'B0',           'T';
-'sKSpace.lBaseResolution	 = 	',              'MatrixSize',   'int';
-'sKSpace.lPhaseEncodingLines	 = 	',          'MatrixSizePh', 'int';
+'sKSpace.lBaseResolution	 = 	',              'MatrixSize',   '1';
+'sKSpace.lPhaseEncodingLines	 = 	',          'MatrixSizePh', '1';
 'sSliceArray.asSlice[0].dReadoutFOV	 = 	',      'FOVr',         'mm';
 'sSliceArray.asSlice[0].dPhaseFOV	 = 	',      'FOVp',         'mm';
-'sPat.lAccelFactPE	 = 	',                      'iPAT',         'int';
+'sPat.lAccelFactPE	 = 	',                      'iPAT',         '1';
 'sSliceArray.asSlice[0].dThickness	 = 	',      'SliceThick',   'mm';
 'tSequenceFileName	 = 	',                      'SeqName',      'str';
 'tProtocolName	 = 	',                          'ProtName',     'str';
-'sSliceAcceleration.lMultiBandFactor	 = 	',  'MBFactor',     'int';
-'sSliceAcceleration.lFOVShiftFactor	 = 	',      'FOVShift',     'int';
+'sSliceAcceleration.lMultiBandFactor	 = 	',  'MBFactor',     '1';
+'sSliceAcceleration.lFOVShiftFactor	 = 	',      'FOVShift',     '1';
 
 };
 
@@ -100,8 +100,8 @@ for i = 1:size(str_list, 1)
         
         if strcmp('sWipMemBlock.tFree	 = 	', str_list{i,1}) && ~isempty(val) && ~strcmp('EMPTY', val)
             val = fwf_b64_to_data(val);
-            res.fwf_seq_version = str2double(val.version);
-            res.unit.fwf_seq_version_unit = 'ordinal';
+            res.seq_ver = str2double(val.version);
+            res.unit.fwf_seq_version_unit = '1';
         end
         
     else
@@ -132,7 +132,8 @@ for i = 1:res.no_bvals
     ind3 = strfind(csa(ind2:end), '=');
     
     if isempty(ind3)
-        val = 1;
+        % Requested b-values of 0 are not stored in the csa, but they are real!
+        val = 0;
     else
         ind4 = ind3(1)+ind2;
         val = sscanf(csa((ind4):(ind4+10)), '%g', 1);
@@ -148,7 +149,8 @@ for i = 1:res.no_bvals
     ind3 = strfind(csa(ind2:end), '=');
     
     if isempty(ind3)
-        val = 1;
+        val = [];
+        error('This should not happen!')
     else
         ind4 = ind3(1)+ind2;
         val = sscanf(csa((ind4):(ind4+10)), '%g', 1);
@@ -165,6 +167,6 @@ for i = 1:size(str_list, 1)
 end
 
 res.unit.bval_req_unit = 's/mm2';
-res.unit.avgs_rew_unit = 'int';
+res.unit.avgs_req_unit = 'int';
 
 

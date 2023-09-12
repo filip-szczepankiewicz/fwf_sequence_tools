@@ -19,8 +19,8 @@ str_list = {...
 'EchoTime',                     'te',               'ms';
 'RepetitionTime',               'tr',               'ms';
 'EffectiveEPIEchoSpacing',      'EffEchoSpacing',   'ms';
-'NumberOfPhaseEncodingSteps',   'PhaseSteps',       'int';
-'EchoTrainLength',              'TrainLength',      'int';
+'NumberOfPhaseEncodingSteps',   'PhaseSteps',       '1';
+'EchoTrainLength',              'TrainLength',      '1';
 'PixelBandwidth',               'PixBW',            'Hz/pix';
 
 };
@@ -30,7 +30,7 @@ for i = 1:size(str_list, 1)
     try
         seq.(str_list{i,2})                = h.(str_list{i,1});
         seq.unit.([str_list{i,2} '_unit']) = str_list{i,3};
-    catch me
+    catch
         warning(['Failed to parse: ' str_list{i,1}])
         seq.(str_list{i,2})                = nan;
     end

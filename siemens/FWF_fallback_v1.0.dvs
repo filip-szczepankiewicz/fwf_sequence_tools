@@ -1,6 +1,6 @@
 # FWF_LIBRARY\FWF_fallback_v1.0.bin
 # Diffusion vector set
-# By Filip Szczepankiewicz, 05-Sep-2023
+# By Filip Szczepankiewicz, 12-Sep-2023
 # For more info: https://github.com/filip-szczepankiewicz/fwf_sequence_tools
 [directions=7]
 Normalization = None
