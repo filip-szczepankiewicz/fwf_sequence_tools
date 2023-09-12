@@ -1,7 +1,5 @@
 clear
 
-
-
 order = 0;
 
 f_name = 'FWF_fallback_v1.0';
@@ -9,7 +7,7 @@ f_name = 'FWF_fallback_v1.0';
 dvs_fn = [f_name '.dvs'];
 bin_fn = [f_name '.bin'];
 
-[tmp, rf, dt] = fwf_gwf_create_stejskaltanner65(40e-3, 50, 15e-3, 8e-3, 10e-6, [1 0 0]);
+[tmp, rf, dt] = fwf_gwf_create_stejskaltanner65(40e-3, 50, 20e-3, 8e-3, 10e-6, [1 0 0]);
 
 gwf{1} = tmp;
 
@@ -39,7 +37,7 @@ for i = 1:size(dvs,1)
     GWF{2,i} = rwf(inl{2},:);
 end
 
-fwf_gwf2bin_siemens(GWF, bin_fn, 1)
+fwf_bin_write_siemens(GWF, bin_fn, 1)
 
 
 %% CHECK
