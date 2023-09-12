@@ -39,6 +39,7 @@ blist = blist';
 blist = blist(:);
 blist = blist(~isnan(blist));
 g_sca = sqrt(blist/max(blist));
+g_max = seq.gamp_max*1e-3;
 
 c = 1;
 for j = 1:numel(blist)
@@ -49,7 +50,7 @@ for j = 1:numel(blist)
         c = c+1;
     else
         for i = 1:size(wf_parts,2)
-            gwf{c} = [gs; wf_parts{1,i}; gp; wf_parts{2,i}; ge] * seq.gamp_max * g_sca(j);
+            gwf{c} = [gs; wf_parts{1,i}; gp; wf_parts{2,i}; ge] * g_max * g_sca(j);
             rfc{c} = rf;
             dtc{c} = dt;
             c = c+1;
