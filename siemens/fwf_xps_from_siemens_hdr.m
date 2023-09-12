@@ -6,25 +6,19 @@ function xps = fwf_xps_from_siemens_hdr(hdr)
 %
 % Create experimental parameter structure (XPS) compatible with the
 % multidimensional diffusion toolbox (REQUIRED to execute function):
-% https://github.com/markus-nilsson/md-dmri
+% https://github.com/markus-nilsson/md-dmri (mdm_xps_from_bt)
 %
 % h is series dicom header, for example extracted with xiangruili/dicm2nii (dicm_hdr)
 % https://github.com/xiangruili/dicm2nii
 
-[gwfc, rfc, dtc, ind] = fwf_gwf_list_from_siemens_hdr(hdr);
+% This function depends a lot on the pulse sequence version
 
-nuc                   = fwf_nuc_from_siemens_hdr(hdr);
+[gwfc, rfc, dtc] = fwf_gwf_list_from_siemens_hdr(hdr);
+gamma            = fwf_gamma_from_nuc(fwf_nuc_from_siemens_hdr(hdr));
 
-for i = 1:numel(gwfc)
-    bt3x3    = fwf_gwf_to_btens(gwfc{i}, rfc{i}, dtc{i}, fwf_gamma_from_nuc(nuc));
-    btl(i,:) = tm_3x3_to_1x6(bt3x3);
-end
+btl              = fwf_gwfc_to_btens(gwfc, rfc, dtc, gamma);
+xps              = mdm_xps_from_bt(btl);
 
-xps           = mdm_xps_from_bt(btl);
-xps.te        = ones(xps.n, 1) * hdr.EchoTime /1000;
-xps.tr        = ones(xps.n, 1) * hdr.RepetitionTime /1000;
-xps.wf_ind    = ind;
-
-%% WIP
-% change calculation of b to be native to csa and seq info and not rely on bval/bvec
+xps.te           = ones(xps.n, 1) * hdr.EchoTime /1000;
+xps.tr           = ones(xps.n, 1) * hdr.RepetitionTime /1000;
 
