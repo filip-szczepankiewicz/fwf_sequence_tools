@@ -11,6 +11,6 @@ if seq.seq_ver < 2.00
     [gwfc, rfc, dtc] = fwf_gwf_list_from_siemens_hdr_v1p00(hdr);
 
 else
-    [gwfc, rfc, dtc] = fwf_gwf_list_from_siemens_hdr_v2p00(hdr);
+    [gwfc, rfc, dtc] = fwf_gwf_from_siemens_seq(seq);
 
 end

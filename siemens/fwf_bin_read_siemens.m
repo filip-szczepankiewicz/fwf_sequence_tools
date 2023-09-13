@@ -5,7 +5,7 @@ function [GWF, ver, sha] = fwf_bin_read_siemens(bin_fn)
 fileID = fopen(bin_fn, 'r');
 
 % Read meta data
-ver = fread(fileID, 1, 'single');
+ver     = fread(fileID, 1, 'single');
 
 %% VERSION 1.0
 sha_ui8 = fread(fileID, 64, 'uint8');
