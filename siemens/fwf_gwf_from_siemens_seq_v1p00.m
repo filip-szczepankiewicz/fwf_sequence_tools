@@ -31,10 +31,10 @@ nz = seq.d_pause / 10;
 
 if seq.seq_ver < 1.24
     ga = fwf_gwf_resample_v1p23(wf1, seq.d_pre);
-    gb = fwf_gwf_resample_v1p23(wf1, seq.d_post);
+    gb = fwf_gwf_resample_v1p23(wf2, seq.d_post);
 else
     ga = fwf_gwf_resample_v1p24(wf1, seq.d_pre);
-    gb = fwf_gwf_resample_v1p24(wf1, seq.d_post);
+    gb = fwf_gwf_resample_v1p24(wf2, seq.d_post);
 end
 
 gz  = zeros(nz, 3);
