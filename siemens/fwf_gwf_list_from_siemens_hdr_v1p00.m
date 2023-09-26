@@ -6,11 +6,11 @@ function [gwfc, rfc, dtc] = fwf_gwf_list_from_siemens_hdr_v1p00(hdr)
 % Completely unvalidated.
 
 seq              = fwf_seq_from_siemens_hdr(hdr);
+nuc              = fwf_nuc_from_siemens_hdr(hdr);
 
 [gwfo, rfo, dto] = fwf_gwf_from_siemens_seq(seq);
 [~, u, n]        = fwf_bvluvc_from_siemens_hdr(hdr);
 R3x3             = fwf_rm_from_siemens_uvec(u, seq.rot_mode, n*2*pi);
-nuc              = fwf_nuc_from_siemens_hdr(hdr);
 
 % Create normalized waveforms
 bnrm   = trace(fwf_gwf_to_btens(gwfo, rfo, dto, fwf_gamma_from_nuc(nuc)));

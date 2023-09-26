@@ -39,16 +39,14 @@ str_list = {...
 'sWipMemBlock.tFree	 = 	',                      'bin_hash',     'str';
 
 % Siemens imaging parameters
-'tSequenceFileName	 = 	',                      'seq_dll_fn',   'str';
+'tSequenceFileName	 = 	',                      'seq_fn',       'str';
 'sDiffusion.lDiffWeightings	 = 	',              'no_bvals',     '1';
-'sProtConsistencyInfo.flNominalB0	 = 	',      'B0',           'T';
 'sKSpace.lBaseResolution	 = 	',              'MatrixSize',   '1';
 'sKSpace.lPhaseEncodingLines	 = 	',          'MatrixSizePh', '1';
 'sSliceArray.asSlice[0].dReadoutFOV	 = 	',      'FOVr',         'mm';
 'sSliceArray.asSlice[0].dPhaseFOV	 = 	',      'FOVp',         'mm';
 'sPat.lAccelFactPE	 = 	',                      'iPAT',         '1';
 'sSliceArray.asSlice[0].dThickness	 = 	',      'SliceThick',   'mm';
-'tSequenceFileName	 = 	',                      'SeqName',      'str';
 'tProtocolName	 = 	',                          'ProtName',     'str';
 'sSliceAcceleration.lMultiBandFactor	 = 	',  'MBFactor',     '1';
 'sSliceAcceleration.lFOVShiftFactor	 = 	',      'FOVShift',     '1';

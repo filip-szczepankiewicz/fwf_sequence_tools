@@ -4,8 +4,7 @@ function seq = fwf_seq_from_siemens_csa(csa)
 % Brigham and Women's Hospital, Harvard Medical School, Boston, MA, USA
 % Lund University, Lund, Sweden
 %
-% csa is the private Siemens header found in:
-% h.CSASeriesHeaderInfo.MrPhoenixProtocol
+% csa is the private Siemens header
 
 ver = fwf_ver_from_siemens_csa(csa);
 

@@ -22,6 +22,7 @@ str_list = {...
 'NumberOfPhaseEncodingSteps',   'PhaseSteps',       '1';
 'EchoTrainLength',              'TrainLength',      '1';
 'PixelBandwidth',               'PixBW',            'Hz/pix';
+'MagneticFieldStrength',        'B0',               'T';
 
 };
 

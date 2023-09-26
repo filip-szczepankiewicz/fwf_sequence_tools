@@ -8,51 +8,45 @@ seq        = fwf_seq_from_siemens_csa(csa);
 
 if ~isempty(dvs)
 
+    b_list = fwf_blist_from_seq_siemens(seq);
+
     b = [];
     u = [];
     n = [];
 
-    for j = 1:max(seq.avgs_req)
+    for i = 1:numel(b_list)
+        if b_list(i) == 0 % add a single zero
+            b = [b; 0];
+            u = [u; [0 0 0]];
+            n = [n; 0];
 
-        for i = 1:seq.no_bvals
-
-            if seq.avgs_req(i) >= j
-                if seq.bval_req(i) <= 1
-                    b = [b; 0];
-                    u = [u; [0 0 0]];
-                    n = [n; 0];
-                else
-                    b = [b; nrm.^2 * seq.bval_req(i) * 1e6 ];
-                    u = [u; dvs];
-                    n = [n; nrm];
-                end
-            end
+        else
+            b = [b; nrm.^2 * b_list(i) * 1e6];
+            u = [u; dvs];
+            n = [n; nrm];
 
         end
-
     end
 
+    % normalize the direction vectors
     u = u ./ sqrt(sum(u.^2, 2));
     u(isnan(u)) = 0;
 
     % WIP: This is still not the correct rotation for u (dvs is not rotated with the FOV).
 
-    if max(seq.avgs_req) > 1
-        warning('This code is entirely guesswork! If you use multiple avereages, please check the result!')
-    end
-
     % Check that we are in the ballpark
     worst_diff = max(abs(b/1e6-hdr.bval));
 
-    if worst_diff > 100
+    if worst_diff > 50
         error(['Large differences in b-values detected! (' num2str(worst_diff) ' s/mm^2)']);
     elseif worst_diff > 5
         warning(['Slight differences in b-values detected! (' num2str(worst_diff) ' s/mm^2)']);
     end
 
 
-else % Use bval and bvec exported by the system, which may be slightly wrong!
+else % Use bval and bvec exported by the system, which may be slightly wrong! Use bvec_original??
 
+    warning('Using fallback method for determining encoding direction! Please check!')
     try
         b = hdr.bval * 1e6; % s/m2
         u = hdr.bvec;

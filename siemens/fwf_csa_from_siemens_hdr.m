@@ -1,4 +1,4 @@
-function csa = fwf_csa_from_siemens_hdr(h)
+function csa = fwf_csa_from_siemens_hdr(h) %#ok<INUSD> 
 % function csa = fwf_csa_from_siemens_hdr(h)
 % By Filip Szczepankiewicz
 % Brigham and Women's Hospital, Harvard Medical School, Boston, MA, USA
@@ -9,13 +9,13 @@ function csa = fwf_csa_from_siemens_hdr(h)
 csa_names = {...
     'CSASeriesHeaderInfo.MrPhoenixProtocol'
     'MrPhoenixProtocol'
-    'SharedFunctionalGroupsSequence.Item_1.CSASeriesHeaderInfo.Item_1.MrPhoenixProtocol' % WIP: FIX ME!
+    'SharedFunctionalGroupsSequence.Item_1.CSASeriesHeaderInfo.Item_1.MrPhoenixProtocol'
     };
 
 
 for i = 1:numel(csa_names)
     try
-        csa = eval(['h.' csa_names{i}]); % Terrible, but matlab is tricky on this
+        csa = eval(['h.' csa_names{i}]); % Terrible, but works
         return
 
     catch me
