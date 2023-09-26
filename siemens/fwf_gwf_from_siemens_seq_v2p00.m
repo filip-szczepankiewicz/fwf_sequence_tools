@@ -24,26 +24,13 @@ ge = zeros(nt-ns-na-nz-nb, 3);
 rf = ones(nt,1);
 rf(round(nt/2):end) = -1;
 
-nbval = numel(seq.bval_req);
-navgs = seq.avgs_req;
+[bvals, g_sca] = fwf_blist_from_seq_siemens(seq);
 
-
-% Construct order of b-values executed by scanner. This is reverse
-% engineered and highly prone to error.
-blist = nan(max(navgs), nbval);
-for i = 1:nbval
-    blist(1:navgs(i),i) = seq.bval_req(i);
-end
-
-blist = blist';
-blist = blist(:);
-blist = blist(~isnan(blist));
-g_sca = sqrt(blist/max(blist));
 g_max = seq.gamp_max*1e-3;
 
 c = 1;
-for j = 1:numel(blist)
-    if blist(j) == 0 % b0 images are repeated only once
+for j = 1:numel(bvals)
+    if bvals(j) == 0 % b0 images are repeated only once
         gwf{c} = [gs; wf_parts{1,1}; gp; wf_parts{2,1}; ge]*0;
         rfc{c} = rf;
         dtc{c} = dt;
