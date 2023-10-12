@@ -33,7 +33,7 @@ nz = seq.d_pause / 10;
 
 % WIP change to version specific resampling
 ga = fwf_gwf_interp(wf1, [], [], n1);
-gb = fwf_gwf_interp(wf2, [], [],  n2);
+gb = fwf_gwf_interp(wf2, [], [], n2);
 gz = zeros(nz, 3);
 
 gw = [ga; gz; gb];
