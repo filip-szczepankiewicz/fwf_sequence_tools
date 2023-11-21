@@ -22,10 +22,13 @@ if n_samp > 3
     wf = flip(wf);
 
     wf(1:n_ramp_use) = wf_ramp(1:n_ramp_use);
+
 elseif n_samp == 3
     wf = [0 dt*slew/gamp 0];
+
 else
     wf = zeros(1,n_samp);
+    
 end
 
 maxval = max(wf(~isnan(wf)));
