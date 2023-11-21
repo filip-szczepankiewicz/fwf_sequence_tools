@@ -27,4 +27,4 @@ xps.wf_ind    = ind;
 
 %% WIP
 % change calculation of b to be native to csa and seq info and not rely on bval/bvec
-
+% replace most of this with fwf_xps_from_gwfl
