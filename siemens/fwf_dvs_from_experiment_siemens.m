@@ -28,7 +28,7 @@ end
 header = {};
 
 if ~isempty(bin_fn)
-    header = {['# FWF_LIBRARY\' bin_fn]};
+    header = {['# FWF_LIBRARY/' bin_fn]};
 end
 
 header = {...
