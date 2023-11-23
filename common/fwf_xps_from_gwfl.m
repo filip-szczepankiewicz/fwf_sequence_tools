@@ -16,7 +16,10 @@ gamma         = zeros(n_vols, 3);
 bVomegaTens   = zeros(n_vols, 6);
 bVomega_trace = zeros(n_vols, 1);
 bVomega_delta = zeros(n_vols, 1);
-
+gMom_0        = zeros(n_vols, 3);
+gMom_1        = zeros(n_vols, 3);
+gMom_2        = zeros(n_vols, 3);
+gMom_3        = zeros(n_vols, 3);
 
 for i = 1:n_vols
 
@@ -38,6 +41,12 @@ for i = 1:n_vols
     
     bVomegaTens (i,:) = tm_3x3_to_1x6(tmp);
 
+    % Gradient moments
+    gMom_0(i,:) = fwf_gwf_to_motion_enc(gwf, rf, dt, 0, 0);
+    gMom_1(i,:) = fwf_gwf_to_motion_enc(gwf, rf, dt, 1, 0);
+    gMom_2(i,:) = fwf_gwf_to_motion_enc(gwf, rf, dt, 2, 0);
+    gMom_3(i,:) = fwf_gwf_to_motion_enc(gwf, rf, dt, 3, 0);
+
 end
 
 bVomegaTens(isnan(bVomegaTens)) = 0;
@@ -49,6 +58,10 @@ xps.gamma = gamma/3; % Using Arthur convention
 xps.VomegaTens   = bVomegaTens./(xps.b+eps);
 xps.Vomega_trace = bVomega_trace./(xps.b+eps);
 xps.Vomega_delta = bVomega_delta;
+xps.gMom_0       = gMom_0;
+xps.gMom_1       = gMom_1;
+xps.gMom_2       = gMom_2;
+xps.gMom_3       = gMom_3;
 xps.s_ind        = s_ind;
 xps.wf_ind       = wf_ind;
 
