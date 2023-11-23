@@ -12,17 +12,11 @@ function xps = fwf_xps_from_siemens_hdr(hdr)
 % https://github.com/xiangruili/dicm2nii
 
 % This function depends a lot on the pulse sequence version
-
 [gwfc, rfc, dtc] = fwf_gwf_list_from_siemens_hdr(hdr);
-gamma            = fwf_gamma_from_nuc(fwf_nuc_from_siemens_hdr(hdr));
 
-btl              = fwf_gwfc_to_btens(gwfc, rfc, dtc, gamma);
-
-xps           = mdm_xps_from_bt(btl);
-xps.te        = ones(xps.n, 1) * hdr.EchoTime /1000;
-xps.tr        = ones(xps.n, 1) * hdr.RepetitionTime /1000;
-% xps.wf_ind    = ind;
+xps              = fwf_xps_from_gwfl(gwfc, rfc, dtc);
+xps.te           = ones(xps.n, 1) * hdr.EchoTime /1000;
+xps.tr           = ones(xps.n, 1) * hdr.RepetitionTime /1000;
 
 %% WIP
 % change calculation of b to be native to csa and seq info and not rely on bval/bvec
-% replace most of this with fwf_xps_from_gwfl
