@@ -1,10 +1,13 @@
-function [b, u, n] = fwf_bvluvc_from_siemens_hdr(hdr)
-% function [b, u, n] = fwf_bvluvc_from_siemens_hdr(hdr)
+function [b, u_nrm, n, u] = fwf_bvluvc_from_siemens_hdr(hdr)
+% function [b, u_nrm, n, u] = fwf_bvluvc_from_siemens_hdr(hdr)
 
 % Try to find user defined dvs first
 csa        = fwf_csa_from_siemens_hdr(hdr);
 [dvs, nrm] = fwf_dvs_from_siemens_csa(csa);
 seq        = fwf_seq_from_siemens_csa(csa);
+
+warning('Temp code!!!')
+nrm = nrm/max(sqrt(sum(nrm.^2,2)));
 
 if ~isempty(dvs)
 
@@ -28,14 +31,12 @@ if ~isempty(dvs)
         end
     end
 
-    % normalize the direction vectors
-    u = u ./ sqrt(sum(u.^2, 2));
-    u(isnan(u)) = 0;
-
     % WIP: This is still not the correct rotation for u (dvs is not rotated with the FOV).
 
     % Check that we are in the ballpark
-    worst_diff = max(abs(b/1e6-hdr.bval));
+    % 231205 - only check diff in max b-val since FWF v2.0+ can have larger
+    % errors due to timing design
+    worst_diff = abs(max(b/1e6)-max(hdr.bval));
 
     if worst_diff > 50
         error(['Large differences in b-values detected! (' num2str(worst_diff) ' s/mm^2)']);
@@ -59,6 +60,10 @@ else % Use bval and bvec exported by the system, which may be slightly wrong! Us
 
 end
 
+
+% normalize the direction vectors
+u_nrm = u ./ sqrt(sum(u.^2, 2));
+u_nrm(isnan(u_nrm)) = 0;
 
 
 

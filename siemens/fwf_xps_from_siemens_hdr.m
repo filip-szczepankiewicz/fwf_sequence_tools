@@ -15,6 +15,10 @@ function xps = fwf_xps_from_siemens_hdr(hdr)
 [gwfc, rfc, dtc] = fwf_gwf_list_from_siemens_hdr(hdr);
 
 xps              = fwf_xps_from_gwfl(gwfc, rfc, dtc);
+
+[~, ~, ~, dvs]   = fwf_bvluvc_from_siemens_hdr(hdr);
+
+xps.dvs          = dvs; 
 xps.te           = ones(xps.n, 1) * hdr.EchoTime /1000;
 xps.tr           = ones(xps.n, 1) * hdr.RepetitionTime /1000;
 
