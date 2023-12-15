@@ -25,8 +25,8 @@ for i = 1:n_vols
     qeff = cumsum(geff, 1) * dt;
     
     % B and M tensors
-    M           = gamma * (geff' * geff) * dt; % bV_omega in Nilsson et al (2017) NMR Biomed, Eq. 24
-    B           =         (qeff' * qeff) * dt;
+    M           = gamma^2   * (geff' * geff) * dt; % bV_omega in Nilsson et al (2017) NMR Biomed, Eq. 24
+    B           = gamma^2 * (qeff' * qeff) * dt;
 
     % Voight-like notation to be compatible with mddMRI
     bt(i,:)     = B([1 5 9 2 3 6]) .* [1 1 1 sqrt(2) sqrt(2) sqrt(2)];
