@@ -2,8 +2,8 @@ function [bin_fn, status, f_norm, sha_ui8] = fwf_gwf_to_bin_siemens(GWF, bin_fn,
 % function [bin_fn, status, f_norm, sha_ui8] = fwf_gwf_to_bin_siemens(GWF, bin_fn, norm)
 % By Arthur Chakwizira and Filip Szczepankiewicz
 %
-% GWF is a cell array with size 2xn where n is the number of unique
-% waveforms (n_gwf).
+% GWF is a cell array with size {n x 3} x n_gwf where n_gwf is the number of 
+% unique waveforms. Each unique gwf has the size n x 3.
 % int32 is used to define binary size to type "long"
 
 if nargin < 3

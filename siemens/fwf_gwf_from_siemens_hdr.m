@@ -1,5 +1,5 @@
-function [gwf, rf, dt, ind] = fwf_gwf_from_siemens_hdr(h)
-% function [gwf, rf, dt, ind] = fwf_gwf_from_siemens_hdr(h)
+function [gwf, rf, dt] = fwf_gwf_from_siemens_hdr(h)
+% function [gwf, rf, dt] = fwf_gwf_from_siemens_hdr(h)
 % By Filip Szczepankiewicz
 % Brigham and Women's Hospital, Harvard Medical School, Boston, MA, USA
 % Lund University, Lund, Sweden

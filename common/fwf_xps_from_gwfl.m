@@ -15,17 +15,21 @@ gMom_1 = zeros(n_vols, 3);
 gMom_2 = zeros(n_vols, 3);
 gMom_3 = zeros(n_vols, 3);
 
+gMaxXYZ= zeros(n_vols, 3);
+
 for i = 1:n_vols
 
     gwf = gwfl{i};
     rf  = rfl{i};
     dt  = dtl{i};
 
+    gMaxXYZ(i,:) = max(abs(gwf),[], 1);
+
     geff = gwf .* rf;
     qeff = cumsum(geff, 1) * dt;
     
     % B and M tensors
-    M           = gamma^2   * (geff' * geff) * dt; % bV_omega in Nilsson et al (2017) NMR Biomed, Eq. 24
+    M           = gamma^2 * (geff' * geff) * dt; % bV_omega in Nilsson et al (2017) NMR Biomed, Eq. 24
     B           = gamma^2 * (qeff' * qeff) * dt;
 
     % Voight-like notation to be compatible with mddMRI
@@ -47,11 +51,14 @@ end
 % XPS
 xps.n        = n_vols;
 xps.bt       = bt;
-xps.b        = sum(bt(:,1:3), 2);
+xps.b        = sum(xps.bt(:,1:3), 2);
 xps.b_shape  = fwf_1x6_to_shape(xps.bt);
+xps.b_rank   = fwf_1x6_to_rank(xps.bt);
 xps.mt       = mt;
-xps.m        = sum(mt(:,1:3), 2);
+xps.m        = sum(xps.mt(:,1:3), 2);
 xps.m_shape  = fwf_1x6_to_shape(xps.mt);
+xps.m_rank   = fwf_1x6_to_rank(xps.mt);
+
 xps.bm_shape = fwf_1x6_to_shape(xps.bt .* xps.mt .* 1./[1 1 1 sqrt(2) sqrt(2) sqrt(2)]);
 
 % xps.gamma    = gamma/3; % Using Arthur convention
@@ -60,6 +67,8 @@ xps.gMom_0   = gMom_0;
 xps.gMom_1   = gMom_1;
 xps.gMom_2   = gMom_2;
 xps.gMom_3   = gMom_3;
+
+xps.gMaxXYZ  = gMaxXYZ;
 
 
 

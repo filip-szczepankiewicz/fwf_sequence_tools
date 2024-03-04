@@ -8,16 +8,24 @@ if nargin < 1
     order  = 1;
 end
 
+if nargin < 3 || isempty(i_list)
+    i_list = ones(size(b_list));
+end
+
 b_max = max(b_list);
 
 %% COMPILE DVS
 dvs = [];
 wfi = [];
 for i = 1:numel(b_list)
-    cur = uvec_elstat(n_list(i));
+    if iscell(n_list)
+        cur = n_list{i};
+    else
+        cur = uvec_elstat(n_list(i));
+    end
     cur = cur./sqrt(sum(cur.^2, 2)); % Normalize
     cur = cur * sqrt(b_list(i)/b_max);
-    ci  = ones(n_list(i),1)*i_list(i);
+    ci  = ones(size(cur,1),1)*i_list(i);
 
     dvs = [dvs; cur];
     wfi = [wfi; ci];
