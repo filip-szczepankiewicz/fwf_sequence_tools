@@ -13,7 +13,7 @@ for i = 1:numel(pl)
     sf = [pl(i).folder filesep pl(i).name filesep];
     
     % Target folder
-    tf = [sf 'NII' filesep];
+    tf = [sf '/../NII' filesep];
     
     % SKIP IF
     if strcmp(pl(i).name(1), '.')
@@ -38,6 +38,9 @@ for i = 1:numel(pl)
     
     hdf_fn = [tf filesep 'dcmHeaders.mat'];
     
+    try
     fwf_xps_from_dicm2nii_h_struct(hdf_fn, 1)
+    catch
+    end
     
 end

@@ -28,6 +28,10 @@ rf(round(nt/2):end) = -1;
 
 g_max = seq.gamp_max*1e-3;
 
+if isempty(g_max)
+    g_max = sqrt(max(bvals)/seq.max_b_per_g2)*1e-3;
+end
+
 c = 1;
 for j = 1:numel(bvals)
     if bvals(j) == 0 % b0 images are repeated only once
