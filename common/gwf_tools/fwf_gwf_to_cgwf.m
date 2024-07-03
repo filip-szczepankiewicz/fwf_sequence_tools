@@ -30,12 +30,13 @@ C(3,1,:) = C(1,3,:);
 C(3,2,:) = C(2,3,:);
 C(3,3,:) = 4*(Gx.*Gx + Gy.*Gy);
 
-cgwf = zeros(size(gwf))*nan;
-K    = zeros(size(C))*nan;
+cgwf = nan(size(gwf));
+K    = nan(size(C));
 
 for i = 1:size(C,3)
     cgwf(i,:) = (C(:,:,i)*r)'/(4*B0);
     K (:,:,i) = C(:,:,i) * rf(i) * gamma / 2 / pi * dt / (4*B0);
 end
 
+% Concomitant moment vector aafo time
 k = cumsum(cgwf .* rf * gamma / 2 / pi * dt);
