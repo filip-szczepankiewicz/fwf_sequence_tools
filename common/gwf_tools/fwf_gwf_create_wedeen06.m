@@ -1,9 +1,16 @@
 function [gwf, rf, dt] = fwf_gwf_create_wedeen06(g, s, d, dp, dt)
 % function [gwf, rf, dt] = fwf_gwf_create_wedeen06(g, s, d, dp, dt)
-
+% 
 % Diffusion encoding with 2D gradient trajectories yields natural contrast for 3D fiber orientation
 % V. J. Wedeen, G. Dai, W-Y. I. Tseng, R. Wang, T. Benner, ISMRM 2006
 % https://cds.ismrm.org/ismrm-2006/files/00851.pdf
+% 
+% g  is the maximal gradient amplitude in T/m
+% s  is the slew rate in T/m/s
+% d  is the duration of each single trapezoid pulse in s
+% dp is the duration of the pause in s
+% dt is the time step size in s
+% If no input, create example gwf at approximately b2000 and 80 mT/m.
 
 if nargin < 1
     g = 80e-3;
@@ -11,11 +18,13 @@ if nargin < 1
     d = 25.5e-3;
     dp = 8e-3+6e-3;
     dt = 0.1e-3;
+
     [gwf, rf, dt] = fwf_gwf_create_wedeen06(g, s, d, dp, dt);
+    
+    clf
     fwf_gwf_plot_wf2d(gwf, rf, dt)
     return
 end
-
 
 na = round(d/dt);
 nb = floor(na/2);
@@ -40,8 +49,7 @@ rf = ones(size(gwf,1),1);
 mind = round(size(gwf,1)/2);
 rf(mind:end) = -1;
 
-
 % Assume that we want PTE and L2-norm
 [gwf, rf, dt] = fwf_gwf_force_shape(gwf, rf, dt, 'sym');
 
-gwf = gwf / max(my_norm(gwf, 2))*g;
+gwf = gwf / max(vecnorm(gwf, 2, 2))*g;

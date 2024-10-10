@@ -1,10 +1,13 @@
 function [gwf, rf, dt, ind_se] = fwf_gwf_create_epi(g, s, dt, ftt, ms, pf, ipa)
 % function [gwf, rf, dt, ind_se] = fwf_gwf_create_epi(g, s, dt, ftt, ms, pf, ipa)
 % By FSz
+% This function creates an EPI-like gwf, but it should mainly be used for
+% PNS calculations and the like since it is not accurate enough to serve
+% for actual imaging.
 %
-% s   - max slew rate
-% dt  - time step size
-% ftt - flat top time
+% s   - max slew rate in T/m/s
+% dt  - time step size in s
+% ftt - flat top time in s
 % ms  - matrix size (num lines)
 % pf  - partial fourier factor
 % ipa - in-plane acceleration in phase dir
@@ -20,14 +23,12 @@ if nargin < 1
     dt = 2e-5;
 
     [gwf, rf, dt, ind_se] = fwf_gwf_create_epi(g, s, dt, ftt, ms, pf, ipa);
-
     kt = cumsum(gwf,1)*dt*fwf_gamma_from_nuc();
-
     t = fwf_gwf_to_time(gwf, rf, dt);
+
     clf
     subplot(2,1,1)
     plot(t, gwf)
-
     hold on
     plot(t(ind_se), 0, 'kx')
 
@@ -88,7 +89,7 @@ rf  = ones(size(wf_freq));
 
 kt = fwf_gamma_from_nuc()*cumsum(gwf,1)*dt;
 
-[a, ind_se] = min(my_norm(kt(n:end,:),2));
+[a, ind_se] = min(vecnorm(kt(n:end,:),2,2));
 
 ind_se = ind_se+n-1; % Add one since the search for min excludes first sample.
 

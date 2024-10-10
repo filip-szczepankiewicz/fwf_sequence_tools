@@ -1,5 +1,13 @@
 function [gwf, rf, dt] = fwf_gwf_create_ogse(g, s, d, dp, dt, np)
 % function [gwf, rf, dt] = fwf_gwf_create_ogse(g, s, d, dp, dt, np)
+%
+% g  is the maximal gradient amplitude in T/m
+% s  is the slew rate in T/m/s
+% d  is the duration of each encoding period
+% dp is the duration of the pause in s
+% dt is the time step size in s
+% np is the number of pulses per side, inluding half-pulses
+% If no input, create example gwf at approximately b2000 and 80 mT/m.
 
 if nargin < 1
     g  = 80e-3;
@@ -10,6 +18,7 @@ if nargin < 1
     np = 7;
     
     [gwf, rf, dt] = fwf_gwf_create_ogse(g, s, d, dp, dt, np);
+
     clf
     fwf_gwf_plot_wf2d(gwf, rf, dt);
     return

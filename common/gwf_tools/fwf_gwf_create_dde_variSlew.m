@@ -1,9 +1,29 @@
 function [gwf, rf, dt] = fwf_gwf_create_dde_variSlew(g, s_o, s_i, d, dp, dt, u1, u2)
 % function [gwf, rf, dt] = fwf_gwf_create_dde_variSlew(g, s_o, s_i, d, dp, dt, u1, u2)
 %
-% g is gradient amplitude
-% s_o and s_i are the outer and inner slew rates
+% g  is the maximal gradient amplitude in T/m
+% s_o is the outer slew rate in T/m/s
+% s_i is the inner slew rate in T/m/s
+% d  is the duration of the pulse pairs in s
+% dp is the duration of the pause in s
+% dt is the time step size in s
+% uX is the direction of pulse pairs, 1x3 unit vectors
+% If no input, create example gwf at approximately b2000 and 80 mT/m.
 
+if nargin < 1
+    g   = 0.08;
+    s_o = 150;
+    s_i = 50;
+    d   = 30.5e-3;
+    dt  = 0.1e-3;
+    u1  = [1 0 0];
+    u2  = [0 0 1];
+    dp  = 8e-3;
+
+    clf
+    [gwf, rf, dt] = fwf_gwf_create_dde_variSlew(g, s_o, s_i, d, dp, dt, u1, u2);
+    fwf_gwf_plot_wf2d(gwf, rf, dt)
+end
 
 n  = round(d/dt/2);
 

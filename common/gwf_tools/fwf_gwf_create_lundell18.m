@@ -11,6 +11,15 @@ function [gwf, rf, dt] = fwf_gwf_create_lundell18(g, s, d, dp, dt, p1, p2, mode)
 %
 % Function assumes that slew rate limits only affect the ramps, but will
 % throw an error if the slew rate is above limit anywhere in the waveform.
+%
+% g  is the maximal gradient amplitude in T/m
+% s  is the slew rate in T/m/s
+% d  is the duration of each encoding period in s
+% dp is the duration of the pause in s
+% dt is the time step size in s
+% p1 is the number of periods on the first axis in the first period and vv
+% p2 is the number of periods on the second axis in the first period and vv
+% If no input, create example gwf at approximately b2000 and 80 mT/m.
 
 if nargin < 1
     g  = 80e-3;
@@ -26,7 +35,6 @@ if nargin < 1
     fwf_gwf_plot_wf2d(gwf, rf, dt);
     return
 end
-
 
 nrmp = ceil(g/s/dt)+1;
 grmp = linspace(0, 1, nrmp);

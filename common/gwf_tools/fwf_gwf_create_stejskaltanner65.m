@@ -8,6 +8,6 @@ if nargin < 1
     [gwf, rf, dt] = fwf_gwf_create_monopolar;
 
 else
-
     [gwf, rf, dt] = fwf_gwf_create_monopolar(g, s, d, dp, dt, u);
+    
 end

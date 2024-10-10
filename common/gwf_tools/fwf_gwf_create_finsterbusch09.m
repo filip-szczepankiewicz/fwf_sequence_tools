@@ -1,6 +1,5 @@
 function [gwf, rf, dt] = fwf_gwf_create_finsterbusch09(gamp, slew, dt, t1, t2, tp, u)
 % function [gwf, rf, dt] = fwf_gwf_create_finsterbusch09(gamp, slew, dt, t1, t2, tp, u)
-% FSz
 %
 % Eddy-Current Compensated DW with a Single Refocusing RF
 % J. Finsterbusch
@@ -12,11 +11,9 @@ if nargin < 1
     gamp = 80e-3;
     slew = 30;
     dt   = .1e-3;
-    
     t1   = 40e-3;
     t2   = 39e-3;
     tp   = 8e-3;
-    
     u    = [1 0 0];
 
     [gwf, rf, dt] = fwf_gwf_create_finsterbusch09(gamp, slew, dt, t1, t2, tp, u);
@@ -25,7 +22,6 @@ if nargin < 1
     fwf_gwf_plot_wf2d(gwf, rf, dt);
     return
 end
-
 
 ru = fwf_gwf_create_ramp(gamp, slew, dt);
 rd = flip(ru);

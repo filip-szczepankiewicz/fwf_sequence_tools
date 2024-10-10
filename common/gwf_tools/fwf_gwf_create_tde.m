@@ -7,6 +7,13 @@ function [gwf, rf, dt] = fwf_gwf_create_tde(g, s, d, dp, dt)
 % To avoid issues with concomitant gradients, the first and last bipolar
 % pairs must be in the xy-plane and the middle pair must be along z.
 % Ref to Szczepankiewicz et al. DOI: 10.1016/j.jneumeth.2020.109007
+%
+% g  is the maximal gradient amplitude in T/m
+% s  is the slew rate in T/m/s
+% d  is the duration of the pulse group in s
+% dp is the duration of the pause in s
+% dt is the time step size in s
+% If no input, create example gwf at approximately b2000 and 80 mT/m.
 
 if nargin < 1
     g = 80e-3;
@@ -21,7 +28,6 @@ if nargin < 1
     fwf_gwf_plot_wf2d(gwf, rf, dt);
     return
 end
-
 
 u1 = [1 0 0];
 u2 = [0 0 1];

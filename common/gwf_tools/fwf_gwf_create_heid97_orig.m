@@ -8,6 +8,15 @@ function [gwf, rf, dt] = fwf_gwf_create_heid97_orig(g, s, d, dp, dt, do_corr_sha
 % https://www.researchgate.net/profile/Oliver_Heid/publication/
 % 308960877_Diffusion_Tensor_Trace_Pulse_Sequences/links/
 % 58304cf208aef19cb817cb17/Diffusion-Tensor-Trace-Pulse-Sequences.pdf
+%
+% g  is the maximal gradient amplitude in T/m
+% s  is the slew rate in T/m/s
+% d  is the duration of each single trapezoid pulse in s
+% dp is the duration of the pause in s
+% dt is the time step size in s
+% do_corr_shape is a boolean. If true the gwf will be corrected to yield
+% spherical b-tensor encoding.
+% If no input, create example gwf at approximately b2000 and 80 mT/m.
 
 if nargin < 1
     g = 0.08;
@@ -32,18 +41,14 @@ end
 n = round(d/dt);
 np = round(dp/dt);
 
-
 sig = [...
     [-1 1 1 -1 -1 -1 -1 -1 1 1 0  -1 -1 -1 -1 1 1];
     [-1 -1 1 1 -1 1 1 -1 -1 -1 0   1 1 -1 -1 -1 -1];
     [-1 -1 -1 -1 1 1 1 1 1   1 0   1 1 -1 1 1 -1] ];
+
 rfs = [1 1 1 1 1 1 1 1 1 1     0  -1 -1 -1 -1 -1 -1];
 
-% sig(:,8:end) = -sig(:,8:end);
-
-
 trp = fwf_gwf_create_trapezoid(g, s, dt, n);
-
 
 gwf = [];
 rf  = [];
@@ -62,10 +67,6 @@ for i = 1:size(sig, 2)
     gwf = [gwf; wf];
     rf  = [rf; r];
 end
-
-
-% rf = [ones(9*n, 1); zeros(np, 1); -ones(7*n, 1)];
-
 
 % Fix the fact that this sequence isnt really isotropic. To do so we must
 % decompose the b-tensor and rotate the waveform and scale the axes.

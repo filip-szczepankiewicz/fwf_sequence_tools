@@ -9,6 +9,13 @@ function [gwf, rf, dt] = fwf_gwf_create_butts97(g, s, d, dp, dt)
 % makes it easier to balance and can be run in a non-self-balanced mode.
 % Note that this design was later used by Moffat et al. 2004 without
 % citation?
+%
+% g  is the maximal gradient amplitude in T/m
+% s  is the slew rate in T/m/s
+% d  is the duration of the pulse group in s
+% dp is the duration of the pause in s
+% dt is the time step size in s
+% If no input, create example gwf at approximately b2000 and 80 mT/m.
 
 if nargin < 1
     g = 80e-3;
@@ -17,6 +24,7 @@ if nargin < 1
     dp = 8e-3;
     dt = 0.1e-3;
 
+    clf
     [gwf, rf, dt] = fwf_gwf_create_butts97(g, s, d, dp, dt);
     fwf_gwf_plot_wf2d(gwf, rf, dt);
     return

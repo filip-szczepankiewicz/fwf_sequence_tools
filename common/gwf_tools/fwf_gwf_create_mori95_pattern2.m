@@ -1,8 +1,15 @@
 function [gwf, rf, dt] = fwf_gwf_create_mori95_pattern2(g, s, d, dp, dt)
 % function [gwf, rf, dt] = fwf_gwf_create_mori95_pattern2(g, s, d, dp, dt)
-
+%
 % Pattern II in Mori and van Zijl MRM (1995).
 % https://onlinelibrary.wiley.com/doi/abs/10.1002/mrm.1910330107
+%
+% g  is the maximal gradient amplitude in T/m
+% s  is the slew rate in T/m/s
+% d  is the duration of each encoding period
+% dp is the duration of the pause in s
+% dt is the time step size in s
+% If no input, create example gwf at approximately b2000 and 80 mT/m.
 
 if nargin < 1
     g = 80e-3;
@@ -42,5 +49,6 @@ gwf = [
     bip'*u5;
     bip'*u6; ];
 
-rf = [ones(size(bip, 2)*3, 1); wfz'; -ones(size(bip, 2)*3, 1)];
-
+rf = ones(size(gwf,1),1);
+mind = round(size(gwf,1)/2);
+rf(mind:end) = -1;

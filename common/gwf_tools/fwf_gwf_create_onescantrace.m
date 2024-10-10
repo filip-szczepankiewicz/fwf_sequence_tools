@@ -5,6 +5,6 @@ if nargin < 1
     [gwf, rf, dt] = fwf_gwf_create_heid97_orig;
 
 else
-
     [gwf, rf, dt] = fwf_gwf_create_heid97_orig(g, s, d, dp, dt, 0);
+    
 end

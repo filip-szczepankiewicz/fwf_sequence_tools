@@ -1,8 +1,30 @@
 function [gwf, rf, dt] = fwf_gwf_create_dsedde(g, s, d1, d2, dmix, dt, u1, u2, dp)
 % function [gwf, rf, dt] = fwf_gwf_create_dsedde(g, s, d1, d2, dmix, dt, u1, u2, dp)
+%
+% This function creates double diffusion encoding in a double spin echo
+% (two refocusing pulses).
+%
+% g  is the maximal gradient amplitude in T/m
+% s  is the slew rate in T/m/s
+% d1 is the duration of the first pulse pair s
+% d2 is the duration of the second pulse pair in s 
+% dmix is the mixing time in s
+% dp is the duration of the pause in s
+% dt is the time step size in s
+% uX is the direction of pulse pairs, 1x3 unit vectors
+% If no input, create example gwf at approximately b2000 and 80 mT/m.
 
 if nargin < 1
-    [gwf, rf, dt] = fwf_gwf_create_dsedde(.08, 100, 24.7e-3, 24.7e-3, 1e-3, 1e-5, [1 0 0], [0 0 1], 8e-3);
+    g = 0.08;
+    s = 100;
+    d1 = 24.7e-3;
+    d2 = d1;
+    dmix = 10e-3;
+    dt = 1e-5;
+    u1 = [1 0 0];
+    u2 = [0 1 0];
+    dp = 8e-3;
+    [gwf, rf, dt] = fwf_gwf_create_dsedde(g, s, d1, d2, dmix, dt, u1, u2, dp);
 
     clf
     fwf_gwf_plot_wf2d(gwf, rf, dt);

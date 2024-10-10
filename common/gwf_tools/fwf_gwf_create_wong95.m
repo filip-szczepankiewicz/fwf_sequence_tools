@@ -1,50 +1,52 @@
-function [gwf, rf, dt] = fwf_gwf_create_wong95(gamp, slew, d1, dp, dt)
-% function [gwf, rf, dt] = fwf_gwf_create_wong95(gamp, slew, d1, dp, dt)
+function [gwf, rf, dt] = fwf_gwf_create_wong95(g, s, d, dp, dt)
+% function [gwf, rf, dt] = fwf_gwf_create_wong95(gamp, slew, d, dp, dt)
 %
-% Wong et al 1995, MRM
-% Figure 1b
+% Wong et al 1995, MRM, Figure 1b
+% It is supposed to be self-balanced, but timing likely depends on ramp
+% time since ont zero crossing is "missing" on the x-axis at t = 0.500.
+%
+% g  is the maximal gradient amplitude in T/m
+% s  is the slew rate in T/m/s
+% d  is the duration of each single trapezoid pulse in s
+% dp is the duration of the pause in s
+% dt is the time step size in s
+% If no input, create example gwf at approximately b2000 and 80 mT/m.
 
 if nargin < 1
-    gamp = 80e-3;
-    slew = 100;
-    d1 = 30e-3;
+    g = 80e-3;
+    s = 100;
+    d = 36e-3;
     dp = 8e-3;
     dt = 0.01e-3;
 
-    [gwf, rf, dt] = fwf_gwf_create_wong95(gamp, slew, d1, dp, dt);
+    [gwf, rf, dt] = fwf_gwf_create_wong95(g, s, d, dp, dt);
 
     clf
     fwf_gwf_plot_wf2d(gwf, rf, dt)
     return
 end
 
-
 z = {
     [0 .256      .744 1]
     [0 .124 .500 .876 1]
     [0 .231 .500 .769 1]};
 
-s = {[1 -1 1], [1 -1 1 -1], [1 -1 1 -1]};
+signs = {[1 -1 1], [1 -1 1 -1], [1 -1 1 -1]};
 
 wf{1} = [];
 wf{2} = [];
 wf{3} = [];
 
 for i = 1:3
-    
     zp = z{i};
-    zs = s{i};
+    zs = signs{i};
     
     for j = 2:numel(zp)
-        
-        tenc = (zp(j)-zp(j-1))*d1;
-        
-        trap_wf = fwf_gwf_create_trapezoid(gamp, slew, dt, floor(tenc/dt));
-        
+        tenc = (zp(j)-zp(j-1))*d;
+        trap_wf = fwf_gwf_create_trapezoid(g, s, dt, floor(tenc/dt));
         wf{i} = [wf{i} trap_wf * zs(j-1)];
         
     end
-    
 end
 
 for i = 1:3
@@ -54,31 +56,23 @@ end
 ml = max(l);
 
 for i = 1:3
-    
     tmp = wf{i};
     tmp(end:ml) = 0;
     wf{i} = tmp;
 end
 
-g = [wf{1}; wf{2}; wf{3}];
+gpart = [wf{1}; wf{2}; wf{3}];
 
 z = zeros(3, round(dp/dt));
 
-gwf = [g'; z'; g'];
+gwf = [gpart'; z'; gpart'];
 
-rf  = [ones(length(g),1); zeros(round(dp/dt),1); -ones(length(g),1)];
+rf  = [ones(length(gpart),1); zeros(round(dp/dt),1); -ones(length(gpart),1)];
 
 B = fwf_gwf_to_btens(gwf, rf, dt);
 
 for i = 1:3
-   
-    g(i,:) = g(i,:) * sqrt((min(diag(B)) / B(i,i)));
-    
+    gpart(i,:) = gpart(i,:) * sqrt((min(diag(B)) / B(i,i)));
 end
 
 
-% It is supposed to be self-balanced, but timing likely depends on ramp
-% time since ont zero crossing is "missing" on the x-axis at t = 0.500.
-% if sum(abs(sum(g'))) > 0.0001
-%     error('not balanced')
-% end
