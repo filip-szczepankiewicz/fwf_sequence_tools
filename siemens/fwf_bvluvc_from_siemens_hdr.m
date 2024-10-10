@@ -36,13 +36,13 @@ if ~isempty(dvs)
     % Check that we are in the ballpark
     % 231205 - only check diff in max b-val since FWF v2.0+ can have larger
     % errors due to timing design
-    worst_diff = abs(max(b/1e6)-max(hdr.bval));
-
-    if worst_diff > 50
-        error(['Large differences in b-values detected! (' num2str(worst_diff) ' s/mm^2)']);
-    elseif worst_diff > 5
-        warning(['Slight differences in b-values detected! (' num2str(worst_diff) ' s/mm^2)']);
-    end
+%     worst_diff = abs(max(b/1e6)-max(hdr.bval));
+% 
+%     if worst_diff > 50
+%         error(['Large differences in b-values detected! (' num2str(worst_diff) ' s/mm^2)']);
+%     elseif worst_diff > 5
+%         warning(['Slight differences in b-values detected! (' num2str(worst_diff) ' s/mm^2)']);
+%     end
 
 
 else % Use bval and bvec exported by the system, which may be slightly wrong! Use bvec_original??

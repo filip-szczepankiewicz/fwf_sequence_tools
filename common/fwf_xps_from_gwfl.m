@@ -1,8 +1,8 @@
-function xps = fwf_xps_from_gwfl(gwfl, rfl, dtl, gamma_H1)
+function xps = fwf_xps_from_gwfl(gwfl, rfl, dtl, gamma_nuc)
 % function xps = fwf_xps_from_gwfl(gwfl, rfl, dtl, gamma_H1)
 
 if nargin < 4
-    gamma_H1 = fwf_gamma_from_nuc();
+    gamma_nuc = fwf_gamma_from_nuc();
 end
 
 n_vols = numel(gwfl);
@@ -29,8 +29,8 @@ for i = 1:n_vols
     qeff = cumsum(geff, 1) * dt;
     
     % B and M tensors
-    M           = gamma_H1^2 * (geff' * geff) * dt; % bV_omega in Nilsson et al (2017) NMR Biomed, Eq. 24
-    B           = gamma_H1^2 * (qeff' * qeff) * dt;
+    M           = gamma_nuc^2 * (geff' * geff) * dt; % bV_omega in Nilsson et al (2017) NMR Biomed, Eq. 24
+    B           = gamma_nuc^2 * (qeff' * qeff) * dt;
 
     % Voight-like notation to be compatible with mddMRI
     bt(i,:)     = B([1 5 9 2 3 6]) .* [1 1 1 sqrt(2) sqrt(2) sqrt(2)];
@@ -70,5 +70,7 @@ xps.gMom_3   = gMom_3;
 
 xps.gMaxXYZ  = gMaxXYZ;
 
-
+% Some legacy stuff
+tmp          = tm_1x6_to_tpars(bt);
+xps.b_delta  = tmp.delta;
 

@@ -7,7 +7,6 @@ function shape = fwf_1x6_to_shape(T)
 
 shape = zeros(size(T,1), 1);
 for i = 1:size(T,1)
-
     shape(i) = tens2shape( tm_1x6_to_3x3(T(i,:)) );
 end
 

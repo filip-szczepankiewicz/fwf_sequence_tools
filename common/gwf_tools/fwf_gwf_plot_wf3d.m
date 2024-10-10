@@ -38,7 +38,7 @@ switch bound
 end
 
 if bound < 2
-    s = max(my_norm(wf, 2))*0.08;
+    s = max(vecnorm(wf, 2, 2))*0.08;
 else
     s = max(abs(wf(:)))*0.08;
 end

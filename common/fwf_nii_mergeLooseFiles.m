@@ -1,5 +1,5 @@
-function result = fwf_mergeLooseNiis(main_dir, prfx_mag, prfx_pha, dir_out, fn_out, hdr_str)
-% function result = fwf_mergeLooseNiis(main_dir, prfx_mag, prfx_pha, dir_out, fn_out, hdr_str)
+function result = fwf_nii_mergeLooseFiles(main_dir, prfx_mag, prfx_pha, dir_out, fn_out, hdr_str)
+% function result = fwf_nii_mergeLooseFiles(main_dir, prfx_mag, prfx_pha, dir_out, fn_out, hdr_str)
 
 fnl_mag = find_files_under_folder([main_dir filesep prfx_mag '*.nii.gz'], 0, 'detail');
 fn_hdr  = find_files_under_folder([main_dir filesep 'dcmHeaders.mat'], 1, 'detail');
