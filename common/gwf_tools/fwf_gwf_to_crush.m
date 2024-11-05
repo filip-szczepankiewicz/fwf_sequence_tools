@@ -6,6 +6,10 @@ function cmom = fwf_gwf_to_crush(gwf, rf, dt, b, do_plot)
 % b-value. If do_plot, it also shows a plot of the gwf and the calculated
 % crushing moment.
 
+if nargin < 4 || isempty(b)
+    b = fwf_gwf_to_bval(gwf, rf, dt);
+end
+
 if nargin < 5
     do_plot = 0;
 end
