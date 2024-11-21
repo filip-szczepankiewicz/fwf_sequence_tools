@@ -1,5 +1,5 @@
-function seq = fwf_seq_from_siemens_hdr(h)
-% function xps = fwf_seq_from_siemens_hdr(h)
+function seq = fwf_seq_from_siemens_hdr(h, do_verbose)
+% function seq = fwf_seq_from_siemens_hdr(h, do_verbose)
 % By Filip Szczepankiewicz
 % Brigham and Women's Hospital, Harvard Medical School, Boston, MA, USA
 % Lund University, Lund, Sweden
@@ -7,6 +7,9 @@ function seq = fwf_seq_from_siemens_hdr(h)
 % h is series dicom header extracted with xiangruili/dicm2nii
 % https://se.mathworks.com/matlabcentral/fileexchange/42997-xiangruili-dicm2nii
 
+if nargin < 2
+    do_verbose = 0;
+end
 
 % Collect sequence specific parameters from the CSA header
 csa = fwf_csa_from_siemens_hdr(h);
@@ -15,7 +18,7 @@ seq = fwf_seq_from_siemens_csa(csa);
 
 % Collect the basic parameters from the dicom header
 str_list = {...
-    
+
 'EchoTime',                     'te',               'ms';
 'RepetitionTime',               'tr',               'ms';
 'EffectiveEPIEchoSpacing',      'EffEchoSpacing',   'ms';
@@ -32,7 +35,10 @@ for i = 1:size(str_list, 1)
         seq.(str_list{i,2})                = h.(str_list{i,1});
         seq.unit.([str_list{i,2} '_unit']) = str_list{i,3};
     catch
-        warning(['Failed to parse: ' str_list{i,1}])
+        if do_verbose
+            warning(['Failed to parse: ' str_list{i,1}])
+        end
+        
         seq.(str_list{i,2})                = nan;
     end
 end

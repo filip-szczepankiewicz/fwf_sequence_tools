@@ -1,5 +1,5 @@
-function result = fwf_nii_mergeLooseFiles(main_dir, prfx_mag, prfx_pha, dir_out, fn_out, hdr_str)
-% function result = fwf_nii_mergeLooseFiles(main_dir, prfx_mag, prfx_pha, dir_out, fn_out, hdr_str)
+function fn_nii = fwf_nii_mergeLooseFiles(main_dir, prfx_mag, prfx_pha, dir_out, fn_out, hdr_str)
+% function fn_nii = fwf_nii_mergeLooseFiles(main_dir, prfx_mag, prfx_pha, dir_out, fn_out, hdr_str)
 
 fnl_mag = find_files_under_folder([main_dir filesep prfx_mag '*.nii.gz'], 0, 'detail');
 fn_hdr  = find_files_under_folder([main_dir filesep 'dcmHeaders.mat'], 1, 'detail');
@@ -22,7 +22,8 @@ for i = 1:nVol
         h = mdm_nii_read_header(fnl_mag{i});
         C = zeros(size(M,1), size(M,2), size(M,3), nVol, 'like', single(1j));
         hdr = load(fn_hdr{1});
-        xps = fwf_xps_from_siemens_hdr(hdr.h.(hdr_str));
+        hdr = hdr.h.(hdr_str);
+        xps = fwf_xps_from_siemens_hdr(hdr);
         xps.isOK = ones(xps.n,1);
     end
 
@@ -47,5 +48,6 @@ else
     C = abs(C);
 end
 
-result = mdm_nii_write(C, [dir_out filesep fn_out], h, 0);
-mdm_xps_save(xps, mdm_fn_nii2xps(fn_out))
+fn_nii = mdm_nii_write(C, [dir_out filesep fn_out], h, 0);
+mdm_xps_save(xps, mdm_fn_nii2xps(fn_nii));
+save(mdm_fn_nii2hdr(fn_nii), 'hdr');

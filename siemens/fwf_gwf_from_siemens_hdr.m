@@ -11,6 +11,5 @@ function [gwf, rf, dt] = fwf_gwf_from_siemens_hdr(h)
 % Free Waveform Encoding (FWF) sequence, and only works for FWF sequence
 % versions 1.12 and later.
 
-csa           = fwf_csa_from_siemens_hdr(h);
-seq           = fwf_seq_from_siemens_csa(csa);
+seq           = fwf_seq_from_siemens_hdr(h);
 [gwf, rf, dt] = fwf_gwf_from_siemens_seq(seq);
