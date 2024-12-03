@@ -14,10 +14,10 @@ function [gwf, rf, dt, x] = fwf_gwf_create_dde_optStim(g, s_o, s_i, d, tp, dt, h
 % ns_thr is the nerve stimualtion threshold in percent
 % btarg  is the target b-value in s/m2
 %
-% Note 1: the stimulation depends on rotations so optimize for the
-% worst-case rotation!
-% Note 2: the result is not always optimal, so run the optimizer a few
-% times to see if a better result exists.
+% Note 1: the stimulation depends on gwf rotation so optimize for the
+% worst-case scenario!
+% Note 2: the optimizer often finds local minima, so run it a few
+% times to see if a better result exists!
 
 if nargin < 1
     gmax  = 0.2; % T/m
@@ -65,8 +65,8 @@ lb = [10e-3 30   30   5e-3];
 ub = [g     s_o  s_i  d   ];
 
 % Optimize
-opt = optimoptions('particleswarm','SwarmSize',1000,'HybridFcn',@fmincon, 'useParallel', ones(1, 'logical'));
-x  = particleswarm(fh, 4, lb, ub, opt);
+opt = optimoptions('particleswarm','SwarmSize',1000,'HybridFcn',@fmincon, 'useParallel', logical(1));
+x   = particleswarm(fh, 4, lb, ub, opt);
 
 [gwf, rf, dt] = fwf_gwf_create_dde_variSlew(x(1), x(2), x(3), x(4), tp, dt, u1, u2);
 
