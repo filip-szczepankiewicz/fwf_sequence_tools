@@ -15,14 +15,19 @@ if nargin < 1
     s_o = 150;
     s_i = 50;
     d   = 30.5e-3;
-    dt  = 0.1e-3;
+    dt  = 1e-6;
     u1  = [1 0 0];
     u2  = [0 0 1];
     dp  = 8e-3;
 
     clf
     [gwf, rf, dt] = fwf_gwf_create_dde_variSlew(g, s_o, s_i, d, dp, dt, u1, u2);
+    swf = [diff(gwf,1,1); 0 0 0]/dt;
+    subplot(2,1,1)
     fwf_gwf_plot_wf2d(gwf, rf, dt)
+
+    subplot(2,1,2)
+    fwf_gwf_plot_wf2d(swf/1e3, rf, dt)
 end
 
 n  = round(d/dt/2);
@@ -34,7 +39,11 @@ nr_o = ceil(g/s_o/dt);
 nr_i = ceil(g/s_i/dt);
 
 if (nr_o+nr_i)>n
-    error('Specification cannot be generated!')
+    % error('Specification cannot be generated!')
+    fo = nr_o/(nr_o+nr_i);
+    nr_o = ceil(fo*n);
+    nr_i = n-nr_o;
+    g = nr_o*dt*s_o;
 end
 
 wf = ones(n, 1);

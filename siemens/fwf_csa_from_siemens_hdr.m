@@ -1,10 +1,14 @@
-function csa = fwf_csa_from_siemens_hdr(h) %#ok<INUSD> 
+function csa = fwf_csa_from_siemens_hdr(h, do_verbose) %#ok<INUSD>
 % function csa = fwf_csa_from_siemens_hdr(h)
 % By Filip Szczepankiewicz
 % Brigham and Women's Hospital, Harvard Medical School, Boston, MA, USA
 % Lund University, Lund, Sweden
 %
 % Based on the dicom header reader at https://github.com/xiangruili/dicm2nii
+
+if nargin < 2
+    do_verbose = 0;
+end
 
 csa_names = {...
     'CSASeriesHeaderInfo.MrPhoenixProtocol'
@@ -19,7 +23,9 @@ for i = 1:numel(csa_names)
         return
 
     catch me
-        disp(me.message);
+        if do_verbose
+            disp(me.message);
+        end
 
     end
 end
