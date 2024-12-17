@@ -16,6 +16,7 @@ gMom_2 = zeros(n_vols, 3);
 gMom_3 = zeros(n_vols, 3);
 
 gMaxXYZ= zeros(n_vols, 3);
+sMaxXYZ= zeros(n_vols, 3);
 
 for i = 1:n_vols
 
@@ -24,6 +25,7 @@ for i = 1:n_vols
     dt  = dtl{i};
 
     gMaxXYZ(i,:) = max(abs(gwf),[], 1);
+    sMaxXYZ(i,:) = max(diff(gwf,1,1)/dt,[],1);
 
     geff = gwf .* rf;
     qeff = cumsum(geff, 1) * dt;
@@ -69,6 +71,7 @@ xps.gMom_2   = gMom_2;
 xps.gMom_3   = gMom_3;
 
 xps.gMaxXYZ  = gMaxXYZ;
+xps.sMaxXYZ  = sMaxXYZ;
 
 % Some legacy stuff
 tmp          = tm_1x6_to_tpars(bt);

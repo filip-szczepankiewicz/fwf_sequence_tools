@@ -6,8 +6,8 @@ csa        = fwf_csa_from_siemens_hdr(hdr);
 [dvs, nrm] = fwf_dvs_from_siemens_csa(csa);
 seq        = fwf_seq_from_siemens_csa(csa);
 
-warning('Temp code!!!')
-nrm = nrm/max(sqrt(sum(nrm.^2,2)));
+% warning('Temp code!!!')
+% nrm = nrm/max(sqrt(sum(nrm.^2,2)));
 
 if ~isempty(dvs)
 
