@@ -1,6 +1,10 @@
 function bt_1x6 = fwf_gwfc_to_btens(gwfc, rfc, dtc, gamma)
 % function btl = fwf_gwfc_to_btens(gwfc, rfc, dtc, gamma)
 
+if nargin < 4
+    gamma = fwf_gamma_from_nuc();
+end
+
 bt_1x6 = zeros(numel(gwfc), 6);
 
 for i = 1:numel(gwfc)
