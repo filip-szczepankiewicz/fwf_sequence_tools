@@ -24,12 +24,20 @@ for i = 1:n_vols
     rf  = rfl{i};
     dt  = dtl{i};
 
+    % This is a hack to only look at the interesting region 0 - TE
+    if 1
+        rf(isnan(rf)) = 0;
+        srf = sum(rf);
+        rf((end+srf+1):end) = 0;
+    end
+
+
     gMaxXYZ(i,:) = max(abs(gwf),[], 1);
     sMaxXYZ(i,:) = max(diff(gwf,1,1)/dt,[],1);
 
     geff = gwf .* rf;
     qeff = cumsum(geff, 1) * dt;
-    
+
     % B and M tensors
     M           = gamma_nuc^2 * (geff' * geff) * dt; % bV_omega in Nilsson et al (2017) NMR Biomed, Eq. 24
     B           = gamma_nuc^2 * (qeff' * qeff) * dt;
@@ -39,7 +47,7 @@ for i = 1:n_vols
     mt(i,:)     = M([1 5 9 2 3 6]) .* [1 1 1 sqrt(2) sqrt(2) sqrt(2)];
 
     % Exchange weighting
-    gamma(i,:)  = gwf_to_tex(gwf, rf, dt);
+    gamma(i,:)  = fwf_gwf_to_tex(gwf, rf, dt);
 
     % Gradient moments
     gMom_0(i,:) = fwf_gwf_to_motion_enc(gwf, rf, dt, 0, 0);
