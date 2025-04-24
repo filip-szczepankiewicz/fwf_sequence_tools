@@ -1,8 +1,12 @@
-function xps = fwf_xps_from_gwfl(gwfl, rfl, dtl, gamma_nuc)
-% function xps = fwf_xps_from_gwfl(gwfl, rfl, dtl, gamma_H1)
+function xps = fwf_xps_from_gwfl(gwfl, rfl, dtl, gamma_nuc, tStart)
+% function xps = fwf_xps_from_gwfl(gwfl, rfl, dtl, gamma_H1, tStart)
 
-if nargin < 4
+if nargin < 4 || isempty(gamma_nuc)
     gamma_nuc = fwf_gamma_from_nuc();
+end
+
+if nargin < 5
+    tStart = nan;
 end
 
 n_vols = numel(gwfl);
@@ -18,6 +22,16 @@ gMom_3 = zeros(n_vols, 3);
 gMaxXYZ= zeros(n_vols, 3);
 sMaxXYZ= zeros(n_vols, 3);
 
+if ~isempty(tStart)
+    cts    = zeros(n_vols, 3);
+    bgs    = zeros(n_vols, 1);
+
+    if isscalar(tStart)
+        tStart = ones(n_vols,1)*tStart;
+    end
+end
+
+
 for i = 1:n_vols
 
     gwf = gwfl{i};
@@ -25,12 +39,11 @@ for i = 1:n_vols
     dt  = dtl{i};
 
     % This is a hack to only look at the interesting region 0 - TE
-    if 1
-        rf(isnan(rf)) = 0;
-        srf = sum(rf);
-        rf((end+srf+1):end) = 0;
-    end
-
+    % if 1
+    %     rf(isnan(rf)) = 0;
+    %     srf = sum(rf);
+    %     rf((end+srf+1):end) = 0;
+    % end
 
     gMaxXYZ(i,:) = max(abs(gwf),[], 1);
     sMaxXYZ(i,:) = max(diff(gwf,1,1)/dt,[],1);
@@ -55,8 +68,13 @@ for i = 1:n_vols
     gMom_2(i,:) = fwf_gwf_to_motion_enc(gwf, rf, dt, 2, 0);
     gMom_3(i,:) = fwf_gwf_to_motion_enc(gwf, rf, dt, 3, 0);
 
-end
+    % Cross term sensitivity
+    Ht       = cumsum(rf)*dt + tStart(i);
+    cts(i,:) = gamma_nuc^2 * sum(qeff.*Ht) * dt;
+    bgs(i)   = gamma_nuc^2 * sum(Ht.^2   ) * dt;
 
+
+end
 
 % XPS
 xps.n        = n_vols;
@@ -80,6 +98,9 @@ xps.gMom_3   = gMom_3;
 
 xps.gMaxXYZ  = gMaxXYZ;
 xps.sMaxXYZ  = sMaxXYZ;
+
+xps.cts      = cts;
+xps.bgs      = bgs;
 
 % Some legacy stuff
 tmp          = tm_1x6_to_tpars(bt);

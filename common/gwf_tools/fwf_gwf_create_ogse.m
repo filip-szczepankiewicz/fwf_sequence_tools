@@ -24,9 +24,9 @@ if nargin < 1
     return
 end
 
-nmax = floor(d/dt);
+nmax = round(d/dt);
 
-nrampmax = floor(nmax/(2*np));
+nrampmax = round(nmax/(2*np));
 
 ramp = fwf_gwf_create_ramp_constrained(g, s, dt, nrampmax);
 
@@ -40,7 +40,7 @@ nrd   = numel(rampd);
 
 nruft = (nmax - np*nrd)/(np-1);
 
-ntop = floor((nruft-nru) / 2)*2;
+ntop = round((nruft-nru) / 2)*2;
 
 
 traphalf = [rampu tval*ones(1,ntop/2-nru) rampd];

@@ -41,6 +41,10 @@ for i = 1:size(u,1)
             pdf = gwf_ps(f>=0, 1);
             pdf = pdf/sum(pdf);
             c(i) = pdf' * f(f>=0)';
+
+        case 'rse'
+            bia = amc_gwf_to_bias_fast(gwf, rf, dt, u(i,:)*0.15, 5e-3, 3, 0.5, 0);
+            c(i) = (1-bia)*100;
             
         otherwise
             c(i) = xps.(c_par);

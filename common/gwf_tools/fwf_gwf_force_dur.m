@@ -5,19 +5,26 @@ function [gwf, rf, dt] = fwf_gwf_force_dur(gwf, rf, dt, dur)
 % Function forces a total duration of the gradient waveform (including
 % padding by zeros) without rescaling the input (just padding).
 
+ntot = ceil(dur/dt);
+
+if size(gwf,1)>=ntot
+    return
+end
+
+
 n1 = sum(rf>0);
 n2 = sum(rf<0);
 
-n  = round(dur/dt/2);
+n  = round(sum(rf)/2);
 
 p1 = n-n1;
 p2 = n-n2;
 
 if p1 < 0
-    error
+    error()
 end
 if p2 < 0
-    error
+    error()
 end
 
 gwf = [zeros(p1, 3); gwf];
