@@ -21,10 +21,10 @@ p1 = n-n1;
 p2 = n-n2;
 
 if p1 < 0
-    error()
+    error('First part too short')
 end
 if p2 < 0
-    error()
+    error('Second part too short')
 end
 
 gwf = [zeros(p1, 3); gwf];
@@ -35,6 +35,6 @@ rf  = [rf;  rf(end)*ones(p2,1)];
 
 
 if sum(rf)
-    error
+    error('Imbalanced')
 end
 

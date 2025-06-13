@@ -8,10 +8,10 @@ b = fwf_gwf_to_bval(gwf, rf, dt);
 
 switch mode
     case {'time', 'duration', 'dt'}
-        f  = (btarg / b)^(1/3);
+        f  = (btarg / (b+eps))^(1/3);
         dt = dt * f;
         
     case {'gamp', 'amp', 'amplitude'}
-        f = sqrt(btarg/b);
+        f = sqrt(btarg/(b+eps));
         gwf = gwf * f;
 end

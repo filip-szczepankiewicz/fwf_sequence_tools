@@ -9,7 +9,12 @@ if nargin < 5
     tStart = nan;
 end
 
-n_vols = numel(gwfl);
+if iscell(gwfl)
+    n_vols = numel(gwfl);
+
+else
+    n_vols = size(gwfl,3);
+end
 
 bt     = zeros(n_vols, 6);
 mt     = zeros(n_vols, 6);
@@ -34,9 +39,17 @@ end
 
 for i = 1:n_vols
 
-    gwf = gwfl{i};
-    rf  = rfl{i};
-    dt  = dtl{i};
+    if iscell(gwfl)
+        gwf = gwfl{i};
+        rf  = rfl{i};
+        dt  = dtl{i};
+
+    else
+        gwf = gwfl(:,:,i);
+        rf  = rfl(:,i);
+        dt  = dtl(i);
+
+    end
 
     % This is a hack to only look at the interesting region 0 - TE
     % if 1
@@ -47,6 +60,9 @@ for i = 1:n_vols
 
     gMaxXYZ(i,:) = max(abs(gwf),[], 1);
     sMaxXYZ(i,:) = max(diff(gwf,1,1)/dt,[],1);
+
+    gMaxNrm(i)   = max(vecnorm(gwf,2,2));
+    sMaxNrm(i)   = max(vecnorm(diff(gwf,1,1)/dt, 2,2));
 
     geff = gwf .* rf;
     qeff = cumsum(geff, 1) * dt;
@@ -98,6 +114,8 @@ xps.gMom_3   = gMom_3;
 
 xps.gMaxXYZ  = gMaxXYZ;
 xps.sMaxXYZ  = sMaxXYZ;
+xps.gMaxNrm  = gMaxNrm;
+xps.sMaxNrm  = sMaxNrm;
 
 xps.cts      = cts;
 xps.bgs      = bgs;

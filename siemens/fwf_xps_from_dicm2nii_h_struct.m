@@ -39,9 +39,10 @@ for i = 1:numel(fn_l)
     clear xps
     
     fn = fn_l{i};
+    hdr = h.(fn);
     
     try
-        xps = fwf_xps_from_siemens_hdr(h.(fn));
+        xps = fwf_xps_from_siemens_hdr(hdr);
     catch me
         warning(['Failed to create xps for ' fn]);
         disp(me.message)
@@ -54,6 +55,9 @@ for i = 1:numel(fn_l)
         xps_fn = [o_dir filesep fn '_xps.mat'];
         save(xps_fn,  'xps')
     end
+
+    hdr_fn = [o_dir filesep fn '_hdr.mat'];
+    save(hdr_fn, 'hdr')
 end
 
 

@@ -12,9 +12,10 @@ function xps = fwf_xps_from_siemens_hdr(hdr)
 % https://github.com/xiangruili/dicm2nii
 
 % This function depends a lot on the pulse sequence version
-[gwfc, rfc, dtc] = fwf_gwf_list_from_siemens_hdr(hdr);
+[gwfc, rfc, ...
+    dtc, tStart] = fwf_gwf_list_from_siemens_hdr(hdr);
 
-xps              = fwf_xps_from_gwfl(gwfc, rfc, dtc);
+xps              = fwf_xps_from_gwfl(gwfc, rfc, dtc, [], tStart);
 
 [~, ~, ~, dvs]   = fwf_bvluvc_from_siemens_hdr(hdr);
 

@@ -1,5 +1,5 @@
-function [gwfc, rfc, dtc] = fwf_gwf_list_from_siemens_hdr_v1p00(hdr)
-% function [gwfc, rfc, dtc] = fwf_gwf_list_from_siemens_hdr_v1p00(hdr)
+function [gwfc, rfc, dtc, tStart] = fwf_gwf_list_from_siemens_hdr_v1p00(hdr)
+% function [gwfc, rfc, dtc, tStart] = fwf_gwf_list_from_siemens_hdr_v1p00(hdr)
 % By Filip Szczepankiewicz
 % Lund University, Lund, Sweden
 % Returns cell array of actually executed waveforms.
@@ -7,6 +7,7 @@ function [gwfc, rfc, dtc] = fwf_gwf_list_from_siemens_hdr_v1p00(hdr)
 
 seq              = fwf_seq_from_siemens_hdr(hdr);
 nuc              = fwf_nuc_from_siemens_hdr(hdr);
+tStart           = seq.t_start/1e6;
 
 [gwfo, rfo, dto] = fwf_gwf_from_siemens_seq(seq);
 [~, u, n]        = fwf_bvluvc_from_siemens_hdr(hdr);
