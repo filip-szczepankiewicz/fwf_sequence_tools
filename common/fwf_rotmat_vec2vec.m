@@ -8,7 +8,7 @@ function R = fwf_rotmat_vec2vec ( v_from, v_to, ang2 )
 % is to multiply from the left without using the transpose.
 % v_to = R*v_from;
 
-if nargin < 4
+if nargin < 3
     ang2 = 0;
 end
 

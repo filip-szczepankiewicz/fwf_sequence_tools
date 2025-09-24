@@ -3,7 +3,7 @@ function [gwf, rf, dt] = fwf_gwf_create_wong95(g, s, d, dp, dt)
 %
 % Wong et al 1995, MRM, Figure 1b
 % It is supposed to be self-balanced, but timing likely depends on ramp
-% time since ont zero crossing is "missing" on the x-axis at t = 0.500.
+% time since one zero crossing is "missing" on the x-axis at t = 0.500.
 %
 % g  is the maximal gradient amplitude in T/m
 % s  is the slew rate in T/m/s

@@ -1,22 +1,28 @@
-function shape = fwf_1x6_to_shape(T)
-% function shape = fwf_1x6_to_shape(T)
-%
-% The shape is the same as b_delta^2 in axisymmetric tensors.
-% It is also the same as (T'*T):shear / (T'*T):bulk / 2 but this definition
-% is taken from Lundell and Lasic 2020
+function shape = fwf_1x6_to_shape(a, b)
+% function shape = fwf_1x6_to_shape(a, b)
+% Based on resQ_1x6_to_shape(a, b)
+% By Filip Sz
+% Funciton returns the shape of the outer product of a * b
+% It is (A'*B):shear / (A'*B):bulk / 2
 
-shape = zeros(size(T,1), 1);
-for i = 1:size(T,1)
-    shape(i) = tens2shape( tm_1x6_to_3x3(T(i,:)) );
+if nargin < 2
+    b = a;
 end
 
-end
+E_iso   = eye(3)/3;
+E_bulk  = E_iso(:) * E_iso(:)';
+E_shear = eye(9)/3 - E_bulk;
 
+n       = size(a,1);
+shape   = zeros(n,1);
 
-function shape = tens2shape(T)
+for i = 1:n
 
-tr  = trace(T);
-tr2 = trace(T.^2);
+    A = tm_1x6_to_3x3( a(i,:) );
+    B = tm_1x6_to_3x3( b(i,:) );
 
-shape = ( 2*tr2 - 2*T(1,1)*T(2,2) - 2*T(1,1)*T(3,3) + 3*T(1,2)^2 + 3*T(1,3)^2 + 3*T(2,1)^2 - 2*T(2,2)*T(3,3) + 3*T(2,3)^2 + 3*T(3,1)^2 + 3*T(3,2)^2 )/(2*tr^2+eps);
+    O = A(:)*B(:)';
+
+    shape(i) = (O(:)'*E_shear(:)) ./ (O(:)'*E_bulk(:)+eps) / 2;
+
 end
