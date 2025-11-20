@@ -20,13 +20,14 @@ function [gwf, rf, dt] = fwf_gwf_create_butts97(g, s, d, dp, dt)
 if nargin < 1
     g = 80e-3;
     s = 100;
-    d = 25e-3;
+    d = 21.7e-3;
     dp = 8e-3;
     dt = 0.1e-3;
 
     clf
     [gwf, rf, dt] = fwf_gwf_create_butts97(g, s, d, dp, dt);
     fwf_gwf_plot_wf2d(gwf, rf, dt);
+    b = fwf_gwf_to_bval(gwf, rf, dt);
     return
 end
 
@@ -38,9 +39,9 @@ n1 = round(f1 * d / dt);
 n2 = round(0.5 * d / dt);
 nz = round(dp/dt);
 
-wf1 = [fwf_gwf_create_trapezoid(g, s, dt, n1) 0, -fwf_gwf_create_trapezoid(g, s, dt, ntot-n1) 0];
+wf1 = [fwf_gwf_create_trapezoid(g, s, dt, n1, 1), -fwf_gwf_create_trapezoid(g, s, dt, ntot-n1, 1) 0];
 
-wf2 = [fwf_gwf_create_trapezoid(g, s, dt, n2) 0, -fwf_gwf_create_trapezoid(g, s, dt, ntot-n2) 0];
+wf2 = [fwf_gwf_create_trapezoid(g, s, dt, n2, 1), -fwf_gwf_create_trapezoid(g, s, dt, ntot-n2, 1) 0];
 
 wfz = zeros(1, nz);
 

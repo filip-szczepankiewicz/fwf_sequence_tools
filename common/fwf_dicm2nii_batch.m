@@ -9,18 +9,22 @@ pl = dir(main_dir);
 
 for i = 1:numel(pl)
 
-    % Source folder
-    sf = [pl(i).folder filesep pl(i).name filesep];
+    % Source folder or zip file
+    sf = [pl(i).folder filesep pl(i).name];
+    [~, ~, ext] = fileparts(sf);
+    is_zip = strcmpi(ext, '.zip');
+
 
     % Target folder
     tf = [sf '/../NII' filesep];
 
+    
     % SKIP IF
     if strcmp(pl(i).name(1), '.')
         continue
     end
 
-    if ~pl(i).isdir
+    if ~pl(i).isdir && ~is_zip
         continue
     end
 
@@ -36,7 +40,7 @@ for i = 1:numel(pl)
     disp(['Converting folder ' num2str(i) ': ' sf])
 
     try
-        dicm2nii(sf, tf, 1)
+        dicm2nii(sf, tf, '.nii.gz')
     catch me
         disp(me.message)
         disp(me.stack)
