@@ -53,13 +53,7 @@ for i = 1:n_vols
 
     end
 
-    % This is a hack to only look at the interesting region 0 - TE
-    % if 1
-    %     rf(isnan(rf)) = 0;
-    %     srf = sum(rf);
-    %     rf((end+srf+1):end) = 0;
-    % end
-
+    % Calculate parameters
     gMaxXYZ(i,:) = max(abs(gwf),[], 1);
     sMaxXYZ(i,:) = max(diff(gwf,1,1)/dt,[],1);
 
@@ -123,13 +117,13 @@ xps.cts      = cts;
 xps.bgs      = bgs;
 
 % Experimental
-try
-    [a_ind, wf_ind] = resQ_xps2paind(xps);
-    xps.a_ind = a_ind;
-    xps.wf_ind = wf_ind;
-catch me
-    warning(me.message)
-end
+% try
+%     [a_ind, wf_ind] = resQ_xps2paind(xps);
+%     xps.a_ind = a_ind;
+%     xps.wf_ind = wf_ind;
+% catch me
+%     warning(me.message)
+% end
 
 % Some legacy stuff
 tmp          = tm_1x6_to_tpars(bt);
