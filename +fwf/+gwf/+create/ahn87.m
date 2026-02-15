@@ -1,5 +1,5 @@
 function [gwf, rf, dt] = ahn87(g, s, d1, d2, dp, dt, u, dp2)
-% function [gwf, rf, dt] = fwf_gwf_create_ahn87(g, s, d1, d2, dp, dt, u, dp2)
+% function [gwf, rf, dt] = fwf.gwf.create.ahn87(g, s, d1, d2, dp, dt, u, dp2)
 % 
 % See reference
 % Ahn et al. Med. Phys. 1987

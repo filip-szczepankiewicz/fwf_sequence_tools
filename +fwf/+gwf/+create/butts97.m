@@ -1,5 +1,5 @@
 function [gwf, rf, dt] = butts97(g, s, d, dp, dt)
-% function [gwf, rf, dt] = fwf_gwf_create_butts97(g, s, d, dp, dt)
+% function [gwf, rf, dt] = fwf.gwf.create.butts97(g, s, d, dp, dt)
 %
 % Butts et al. (1997)
 % MRM 3&741-749

@@ -1,5 +1,5 @@
-function [gwf, rf, dt] = fwf_gwf_create_lundell18(g, s, d, dp, dt, p1, p2, mode)
-% function [gwf, rf, dt] = fwf_gwf_create_lundell18(g, s, d, dp, dt, p1, p2, mode)
+function [gwf, rf, dt] = lundell18(g, s, d, dp, dt, p1, p2, mode)
+% function [gwf, rf, dt] = fwf.gwf.create.lundell18(g, s, d, dp, dt, p1, p2, mode)
 %
 % Lundell et al. (2018), ISMRM abstract 0887
 % Spectral anisotropy in multidimensional diffusion encoding
@@ -30,9 +30,9 @@ if nargin < 1
     p1 = 1;
     p2 = 3;
     
-    [gwf, rf, dt] = fwf_gwf_create_lundell18(g, s, d, dp, dt, p1, p2, 1);
+    [gwf, rf, dt] = fwf.gwf.create.lundell18(g, s, d, dp, dt, p1, p2, 1);
     clf
-    fwf_gwf_plot_wf2d(gwf, rf, dt);
+    fwf.plot.wf2d(gwf, rf, dt);
     return
 end
 
@@ -82,8 +82,8 @@ mind = round(size(gwf,1)/2);
 rf(mind:end) = -1;
 
 
-[gwf, rf, dt] = fwf_gwf_force_balance(gwf, rf, dt);
-[gwf, rf, dt] = fwf_gwf_force_shape  (gwf, rf, dt, 'sym');
+[gwf, rf, dt] = fwf.gwf.force.balance(gwf, rf, dt);
+[gwf, rf, dt] = fwf.gwf.force.shape  (gwf, rf, dt, 'sym');
 
 
 if any(  max(abs(diff(gwf,1)/dt),[],1) > s)

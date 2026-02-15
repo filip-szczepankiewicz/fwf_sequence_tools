@@ -1,5 +1,5 @@
-function [gwf, rf, dt] = fwf_gwf_create_famedcos(gamp, dur, tp, dt)
-% function [gwf, rf, dt] = fwf_gwf_create_famedcos(gamp, dur, tp, dt)
+function [gwf, rf, dt] = famedcos(gamp, dur, tp, dt)
+% function [gwf, rf, dt] = fwf.gwf.create.famedcos(gamp, dur, tp, dt)
 %
 % Waveform design almost according to Vellmer et al. https://www.sciencedirect.com/science/article/pii/S1090780716302750
 
@@ -9,9 +9,9 @@ if nargin < 1
     tp = 8e-3;
     dt = 10e-6;
 
-    [gwf, rf, dt] = fwf_gwf_create_famedcos(gamp, dur, tp, dt);
+    [gwf, rf, dt] = fwf.gwf.create.famedcos(gamp, dur, tp, dt);
 
-    gwf_plot_all(gwf, rf, dt);
+    fwf.plot.wf2d(gwf, rf, dt);
     return
 end
 
@@ -38,4 +38,4 @@ gwf = [ga; g0; gb]*gamp;
 rf = ones(size(gwf,1),1);
 rf((n+round(np/2)):end) = -1;
 
-[gwf, rf, dt] = fwf_gwf_force_balance_v2(gwf, rf, dt); 
+[gwf, rf, dt] = fwf.gwf.force.balance_v2(gwf, rf, dt); 

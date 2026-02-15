@@ -1,5 +1,5 @@
-function [gwf, n_ramp_use] = fwf_gwf_create_trapezoid(g, s, dt, n, do_rem_last)
-% function [gwf, n_ramp_use] = fwf_gwf_create_trapezoid(g, s, dt, n, do_rem_last)
+function [gwf, n_ramp_use] = trapezoid(g, s, dt, n, do_rem_last)
+% function [gwf, n_ramp_use] = fwf.gwf.create.trapezoid(g, s, dt, n, do_rem_last)
 %
 % g  is the maximal gradient amplitude in T/m
 % s  is the slew rate in T/m/s
@@ -14,7 +14,7 @@ if nargin < 1
     n = 100;
     do_rem_last = 1;
 
-    [gwf, n_ramp_use] = fwf_gwf_create_trapezoid(g, s, dt, n, do_rem_last);
+    [gwf, n_ramp_use] = fwf.gwf.create.trapezoid(g, s, dt, n, do_rem_last);
 
     clf
     plot((1:size(gwf,2))*dt, gwf)

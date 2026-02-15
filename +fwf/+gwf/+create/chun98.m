@@ -1,5 +1,5 @@
-function [gwf, rf, dt, ind] = fwf_gwf_create_chun98(g, s, d, dp, dt, mode)
-% function [gwf, rf, dt, ind] = fwf_gwf_create_chun98(g, s, d, dp, dt, mode)
+function [gwf, rf, dt, ind] = chun98(g, s, d, dp, dt, mode)
+% function [gwf, rf, dt, ind] = fwf.gwf.create.chun98(g, s, d, dp, dt, mode)
 %
 % Single-Shot Diffusion-Weighted Trace Imaging on a Clinical Scanner
 % Terry Chun, Aziz M. Ulug, Peter C.M. van Zijl
@@ -22,8 +22,8 @@ if nargin < 1
     dt = 0.05e-3;
     
     clf
-    [gwf, rf, dt, ind] = fwf_gwf_create_chun98(g, s, d, dp, dt);
-    fwf_gwf_plot_wf2d(gwf, rf, dt)
+    [gwf, rf, dt, ind] = fwf.gwf.create.chun98(g, s, d, dp, dt);
+    fwf.plot.wf2d(gwf, rf, dt)
     return
 end
 
@@ -78,7 +78,7 @@ end
 
 n = round(d/dt);
 
-trp = fwf_gwf_create_trapezoid(g, s, dt, n);
+trp = fwf.gwf.create.trapezoid(g, s, dt, n);
 trp = trp(1:(end-1));
 bip = [trp -trp];
 

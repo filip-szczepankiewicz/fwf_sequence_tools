@@ -1,5 +1,5 @@
-function [gwf, rf, dt] = fwf_gwf_create_monopolar(g, s, d, dp, dt, u)
-% function [gwf, rf, dt] = fwf_gwf_create_monopolar(g, s, d, dp, dt, u)
+function [gwf, rf, dt] = monopolar(g, s, d, dp, dt, u)
+% function [gwf, rf, dt] = fwf.gwf.create.monopolar(g, s, d, dp, dt, u)
 %
 % Stejskal and Tanner (1965)
 % http://dx.doi.org/10.1063/1.1695690
@@ -20,16 +20,16 @@ if nargin < 1
     dt = 0.1e-3;
     u = [1 0 0];
 
-    [gwf, rf, dt] = fwf_gwf_create_monopolar(g, s, d, dp, dt, u);
+    [gwf, rf, dt] = fwf.gwf.create.monopolar(g, s, d, dp, dt, u);
 
     clf
-    fwf_gwf_plot_wf2d(gwf, rf, dt);
+    fwf.plot.wf2d(gwf, rf, dt);
     return
 end
 
 n = round(d/dt);
 
-wf1 = fwf_gwf_create_trapezoid(g, s, dt, n)';
+wf1 = fwf.gwf.create.trapezoid(g, s, dt, n)';
 wfz = zeros(1, round(dp/dt))';
 
 gwf = [

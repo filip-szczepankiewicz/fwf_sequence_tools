@@ -1,5 +1,5 @@
-function [gwf, rf, dt] = fwf_gwf_create_ogse(g, s, d, dp, dt, np)
-% function [gwf, rf, dt] = fwf_gwf_create_ogse(g, s, d, dp, dt, np)
+function [gwf, rf, dt] = ogse(g, s, d, dp, dt, np)
+% function [gwf, rf, dt] = fwf.gwf.create.ogse(g, s, d, dp, dt, np)
 %
 % g  is the maximal gradient amplitude in T/m
 % s  is the slew rate in T/m/s
@@ -17,10 +17,10 @@ if nargin < 1
     dt = .1e-3;
     np = 7;
     
-    [gwf, rf, dt] = fwf_gwf_create_ogse(g, s, d, dp, dt, np);
+    [gwf, rf, dt] = fwf.gwf.create.ogse(g, s, d, dp, dt, np);
 
     clf
-    fwf_gwf_plot_wf2d(gwf, rf, dt);
+    fwf.plot.wf2d(gwf, rf, dt);
     return
 end
 
@@ -28,7 +28,7 @@ nmax = round(d/dt);
 
 nrampmax = round(nmax/(2*np));
 
-ramp = fwf_gwf_create_ramp_constrained(g, s, dt, nrampmax);
+ramp = fwf.gwf.create.ramp_constrained(g, s, dt, nrampmax);
 
 tval = max(ramp);
 

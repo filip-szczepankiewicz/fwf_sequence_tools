@@ -1,5 +1,5 @@
-function [gwf, rf, dt] = fwf_gwf_create_dsedde(g, s, d1, d2, dmix, dt, u1, u2, dp)
-% function [gwf, rf, dt] = fwf_gwf_create_dsedde(g, s, d1, d2, dmix, dt, u1, u2, dp)
+function [gwf, rf, dt] = dde_dse(g, s, d1, d2, dmix, dt, u1, u2, dp)
+% function [gwf, rf, dt] = fwf.gwf.create.dde_dse(g, s, d1, d2, dmix, dt, u1, u2, dp)
 %
 % This function creates double diffusion encoding in a double spin echo
 % (two refocusing pulses).
@@ -24,10 +24,10 @@ if nargin < 1
     u1 = [1 0 0];
     u2 = [0 1 0];
     dp = 8e-3;
-    [gwf, rf, dt] = fwf_gwf_create_dsedde(g, s, d1, d2, dmix, dt, u1, u2, dp);
+    [gwf, rf, dt] = fwf.gwf.create.dde_dse(g, s, d1, d2, dmix, dt, u1, u2, dp);
 
     clf
-    fwf_gwf_plot_wf2d(gwf, rf, dt);
+    fwf.plot.wf2d(gwf, rf, dt);
     return
 end
 
@@ -41,8 +41,8 @@ zn = zeros(1, np);
 nz1 = round(np/2);
 nz2 = np-nz1;
 
-wf1 = [fwf_gwf_create_trapezoid(g, s, dt, n1) zn fwf_gwf_create_trapezoid(g, s, dt, n1) 0]';
-wf2 = [fwf_gwf_create_trapezoid(g, s, dt, n2) zn fwf_gwf_create_trapezoid(g, s, dt, n2) 0]';
+wf1 = [fwf.gwf.create.trapezoid(g, s, dt, n1) zn fwf.gwf.create.trapezoid(g, s, dt, n1) 0]';
+wf2 = [fwf.gwf.create.trapezoid(g, s, dt, n2) zn fwf.gwf.create.trapezoid(g, s, dt, n2) 0]';
 
 nm  = round(dmix/dt);
 wfz = zeros(1, nm)';

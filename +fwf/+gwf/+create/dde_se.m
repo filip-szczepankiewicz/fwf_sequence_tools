@@ -25,7 +25,7 @@ if nargin < 1
     [gwf, rf, dt] = fwf.gwf.create.dde_se(g, s, d1, d2, dp, dt, u1, u2, dp2);
 
     clf
-    fwf_gwf_plot_wf2d(gwf, rf, dt);
+    fwf.plot.wf2d(gwf, rf, dt);
     return
 end
 

@@ -1,5 +1,5 @@
-function [gwf, rf, dt] = fwf_gwf_create_dde_variSlew(g, s_o, s_i, d, dp, dt, u1, u2)
-% function [gwf, rf, dt] = fwf_gwf_create_dde_variSlew(g, s_o, s_i, d, dp, dt, u1, u2)
+function [gwf, rf, dt] = dde_variSlew(g, s_o, s_i, d, dp, dt, u1, u2)
+% function [gwf, rf, dt] = fwf.gwf.create.dde_variSlew(g, s_o, s_i, d, dp, dt, u1, u2)
 %
 % g  is the maximal gradient amplitude in T/m
 % s_o is the outer slew rate in T/m/s
@@ -21,13 +21,13 @@ if nargin < 1
     dp  = 8e-3;
 
     clf
-    [gwf, rf, dt] = fwf_gwf_create_dde_variSlew(g, s_o, s_i, d, dp, dt, u1, u2);
+    [gwf, rf, dt] = fwf.gwf.create.dde_variSlew(g, s_o, s_i, d, dp, dt, u1, u2);
     swf = [diff(gwf,1,1); 0 0 0]/dt;
     subplot(2,1,1)
-    fwf_gwf_plot_wf2d(gwf, rf, dt)
+    fwf.plot.wf2d(gwf, rf, dt)
 
     subplot(2,1,2)
-    fwf_gwf_plot_wf2d(swf/1e3, rf, dt)
+    fwf.plot.wf2d(swf/1e3, rf, dt)
 end
 
 n  = round(d/dt/2);

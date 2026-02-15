@@ -1,5 +1,5 @@
-function gwf = fwf_gwf_create_ramp_constrained(g, s, dt, nmax)
-% function gwf = fwf_gwf_create_ramp_constrained(g, s, dt, nmax)
+function gwf = ramp_constrained(g, s, dt, nmax)
+% function gwf = fwf.gwf.create.ramp_constrained(g, s, dt, nmax)
 %
 % This function will create a ramp that is at most nmax elements and goes
 % to the highest possible gradient amplitude in the allotted number of
@@ -17,7 +17,7 @@ if nargin < 1
     dt= 0.1e-3;
     nmax = 5;
 
-    gwf = fwf_gwf_create_ramp_constrained(g, s, dt, nmax);
+    gwf = fwf.gwf.create.ramp_constrained(g, s, dt, nmax);
 
     clf
     plot(((1:size(gwf,2))-1)*dt, gwf)

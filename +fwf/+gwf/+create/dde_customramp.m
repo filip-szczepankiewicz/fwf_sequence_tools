@@ -1,4 +1,4 @@
-function [gwf, rf, dt] = fwf_gwf_create_dde_customramp(g, s_o, s_i, d, dp, dt, u1, u2, sf)
+function [gwf, rf, dt] = dde_customramp(g, s_o, s_i, d, dp, dt, u1, u2, sf)
 % function [gwf, rf, dt] = fwf_gwf_create_dde_variSlew(g, s_o, s_i, d, dp, dt, u1, u2, sf)
 %
 % By Filip Sz, LU
@@ -28,13 +28,13 @@ if nargin < 1
     sf  = 0.5;
 
     clf
-    [gwf, rf, dt] = fwf_gwf_create_dde_customramp(g, s_o, s_i, d, dp, dt, u1, u2, sf);
+    [gwf, rf, dt] = fwf.gwf.create.dde_customramp(g, s_o, s_i, d, dp, dt, u1, u2, sf);
     swf = [diff(gwf,1,1); 0 0 0]/dt;
     subplot(2,1,1)
-    fwf_gwf_plot_wf2d(gwf, rf, dt)
+    fwf.plot.wf2d(gwf, rf, dt)
 
     subplot(2,1,2)
-    fwf_gwf_plot_wf2d(swf/1e3, rf, dt)
+    fwf.plot.wf2d(swf/1e3, rf, dt)
     ylabel('Slew rate [T/m/s]')
 end
 

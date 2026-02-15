@@ -1,5 +1,5 @@
-function [gwf, rf, dt, ind_se] = fwf_gwf_create_epi(g, s, dt, ftt, ms, pf, ipa)
-% function [gwf, rf, dt, ind_se] = fwf_gwf_create_epi(g, s, dt, ftt, ms, pf, ipa)
+function [gwf, rf, dt, ind_se] = epi(g, s, dt, ftt, ms, pf, ipa)
+% function [gwf, rf, dt, ind_se] = fwf.gwf.create.epi(g, s, dt, ftt, ms, pf, ipa)
 % By FSz
 % This function creates an EPI-like gwf, but it should mainly be used for
 % PNS calculations and the like since it is not accurate enough to serve
@@ -22,9 +22,9 @@ if nargin < 1
     ipa = 2;
     dt = 2e-5;
 
-    [gwf, rf, dt, ind_se] = fwf_gwf_create_epi(g, s, dt, ftt, ms, pf, ipa);
-    kt = cumsum(gwf,1)*dt*fwf_gamma_from_nuc();
-    t = fwf_gwf_to_time(gwf, rf, dt);
+    [gwf, rf, dt, ind_se] = fwf.gwf.create.epi(g, s, dt, ftt, ms, pf, ipa);
+    kt = cumsum(gwf,1)*dt*fwf.util.gammaFromNuc();
+    t = fwf.gwf.toTime(gwf, rf, dt);
 
     clf
     subplot(2,1,1)
@@ -43,9 +43,9 @@ end
 
 
 n = ceil(g/s/dt) + round(ftt/dt);
-[trp, nramp] = fwf_gwf_create_trapezoid(g, s, dt, n);
+[trp, nramp] = fwf.gwf.create.trapezoid(g, s, dt, n);
 
-tri = fwf_gwf_create_trapezoid(g, s, dt, nramp*2);
+tri = fwf.gwf.create.trapezoid(g, s, dt, nramp*2);
 
 kmax = sum(trp)*dt/2;
 
@@ -87,7 +87,7 @@ wf_phas = [wf_phas; zeros(numel(trp)-nramp, 1)];
 gwf = wf_freq * [1 0 0] + wf_phas * [0 1 0];
 rf  = ones(size(wf_freq));
 
-kt = fwf_gamma_from_nuc()*cumsum(gwf,1)*dt;
+kt = fwf.util.gammaFromNuc()*cumsum(gwf,1)*dt;
 
 [a, ind_se] = min(vecnorm(kt(n:end,:),2,2));
 

@@ -1,5 +1,5 @@
-function [gwf, rf, dt] = fwf_gwf_create_magdoom22(g, s, d, dp, dt, u1, u2)
-% function [gwf, rf, dt] = fwf_gwf_create_magdoom22(g, s, d, dp, dt, u1, u2)
+function [gwf, rf, dt] = magdoom22(g, s, d, dp, dt, u1, u2)
+% function [gwf, rf, dt] = fwf.gwf.create.magdoom22(g, s, d, dp, dt, u1, u2)
 % 
 % g is gradient amplitude in T/m
 % s is slewrate in T/m/s
@@ -15,10 +15,10 @@ if nargin < 1
     dt = 0.1e-3;
     u1 = [1 0 0];
     u2 = [0 1 0];
-    [gwf, rf, dt] = fwf_gwf_create_magdoom22(g, s, d, dp, dt, u1, u2);
+    [gwf, rf, dt] = fwf.gwf.create.magdoom22(g, s, d, dp, dt, u1, u2);
     
     clf
-    fwf_gwf_plot_wf2d(gwf, rf, dt);
+    fwf.plot.wf2d(gwf, rf, dt);
     return
 end
 
@@ -28,8 +28,8 @@ n2 = n-n1;
 
 np = round(dp/dt);
 
-wf1 = fwf_gwf_create_trapezoid(g, s, dt, n1);
-wf2 = fwf_gwf_create_trapezoid(g, s, dt, n2);
+wf1 = fwf.gwf.create.trapezoid(g, s, dt, n1);
+wf2 = fwf.gwf.create.trapezoid(g, s, dt, n2);
 wfz = zeros(np,3);
 
 gwf = [

@@ -1,5 +1,5 @@
-function [gwf, rf, dt] = fwf_gwf_create_wong95(g, s, d, dp, dt)
-% function [gwf, rf, dt] = fwf_gwf_create_wong95(gamp, slew, d, dp, dt)
+function [gwf, rf, dt] = wong95(g, s, d, dp, dt)
+% function [gwf, rf, dt] = fwf.gwf.create.wong95(gamp, slew, d, dp, dt)
 %
 % Wong et al 1995, MRM, Figure 1b
 % It is supposed to be self-balanced, but timing likely depends on ramp
@@ -19,10 +19,10 @@ if nargin < 1
     dp = 8e-3;
     dt = 0.01e-3;
 
-    [gwf, rf, dt] = fwf_gwf_create_wong95(g, s, d, dp, dt);
+    [gwf, rf, dt] = fwf.gwf.create.wong95(g, s, d, dp, dt);
 
     clf
-    fwf_gwf_plot_wf2d(gwf, rf, dt)
+    fwf.plot.wf2d(gwf, rf, dt)
     return
 end
 
@@ -43,7 +43,7 @@ for i = 1:3
     
     for j = 2:numel(zp)
         tenc = (zp(j)-zp(j-1))*d;
-        trap_wf = fwf_gwf_create_trapezoid(g, s, dt, floor(tenc/dt));
+        trap_wf = fwf.gwf.create.trapezoid(g, s, dt, floor(tenc/dt));
         wf{i} = [wf{i} trap_wf * zs(j-1)];
         
     end
@@ -69,7 +69,7 @@ gwf = [gpart'; z'; gpart'];
 
 rf  = [ones(length(gpart),1); zeros(round(dp/dt),1); -ones(length(gpart),1)];
 
-B = fwf_gwf_to_btens(gwf, rf, dt);
+B = fwf.gwf.toBtensor(gwf, rf, dt);
 
 for i = 1:3
     gpart(i,:) = gpart(i,:) * sqrt((min(diag(B)) / B(i,i)));

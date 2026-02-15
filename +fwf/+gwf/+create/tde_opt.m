@@ -1,5 +1,5 @@
-function [gwf, rf, dt] = fwf_gwf_create_tde_opt(g, s, d, dp, dt)
-% function [gwf, rf, dt] = fwf_gwf_create_tde_opt(g, s, d, dp, dt)
+function [gwf, rf, dt] = tde_opt(g, s, d, dp, dt)
+% function [gwf, rf, dt] = fwf.gwf.create.tde_opt(g, s, d, dp, dt)
 %
 % Returns a time-optimized (minimal duration for high b-val) TDE.
 % Ref to Szczepankiewicz et al. DOI: 10.1016/j.jneumeth.2020.109007
@@ -18,10 +18,10 @@ if nargin < 1
     dp = (8+6)*1e-3;
     dt = 0.05e-3;
 
-    [gwf, rf, dt] = fwf_gwf_create_tde_opt(g, s, d, dp, dt);
+    [gwf, rf, dt] = fwf.gwf.create.tde_opt(g, s, d, dp, dt);
 
     clf
-    fwf_gwf_plot_wf2d(gwf, rf, dt);
+    fwf.plot.wf2d(gwf, rf, dt);
     return
 end
 
@@ -37,7 +37,7 @@ fl = linspace(0.1, 0.9, steps);
 for i = 1:steps
     f = fl(i);
     [gwf, rf] = get_wf(f);
-    b(i) = fwf_gwf_to_bval(gwf, rf, dt);
+    b(i) = fwf.gwf.toBvalue(gwf, rf, dt);
 end
 
 [~, imax] = max(b);
@@ -51,7 +51,7 @@ fl = linspace(lb, ub, steps);
 for i = 1:numel(fl)
     f = fl(i);
     [gwf, rf] = get_wf(f);
-    b(i) = fwf_gwf_to_bval(gwf, rf, dt);
+    b(i) = fwf.gwf.toBvalue(gwf, rf, dt);
 end
 
 % FINAL
@@ -62,12 +62,12 @@ end
 
         n = round(d/dt*f);
 
-        trp = fwf_gwf_create_trapezoid(g, s, dt, n);
+        trp = fwf.gwf.create.trapezoid(g, s, dt, n);
         bip = [trp -trp 0];
 
         n = round(d/dt*(1-f));
 
-        trp = [fwf_gwf_create_trapezoid(g, s, dt, n) 0];
+        trp = [fwf.gwf.create.trapezoid(g, s, dt, n) 0];
 
         wfz = zeros(1, round(dp/dt));
 
@@ -83,7 +83,7 @@ end
         rf = ones(size(gwf,1),1);
         rf(mid:end) = -1;
 
-        [gwf, rf, dt] = fwf_gwf_force_shape(gwf, rf, dt, 'ste');
+        [gwf, rf, dt] = fwf.gwf.force.shape(gwf, rf, dt, 'ste');
     end
 end
 

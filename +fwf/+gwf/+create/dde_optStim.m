@@ -1,5 +1,5 @@
-function [gwf, rf, dt, x] = fwf_gwf_create_dde_optStim(g, s_o, s_i, d, tp, dt, hw, ns_thr, u1, u2, btarg)
-% function [gwf, rf, dt, x] = fwf_gwf_create_dde_optStim(g, s_o, s_i, d, tp, dt, hw, ns_thr, u1, u2, btarg)
+function [gwf, rf, dt, x] = dde_optStim(g, s_o, s_i, d, tp, dt, hw, ns_thr, u1, u2, btarg)
+% function [gwf, rf, dt, x] = fwf.gwf.create.dde_optStim(g, s_o, s_i, d, tp, dt, hw, ns_thr, u1, u2, btarg)
 % Filip Sz, Lund University
 %
 % g   is the maximal gradient amplitude in T/m
@@ -30,14 +30,14 @@ if nargin < 1
     btarg = 0.5e9; % s/m2
     hw    = safe_hw_cimaX_cardiac;
 
-    [gwf, rf, dt, x] = fwf_gwf_create_dde_optStim(gmax, smax, smax, dmax, tp, dt, hw, nsmax, u, u, btarg);
+    [gwf, rf, dt, x] = fwf.gwf.create.dde_optStim(gmax, smax, smax, dmax, tp, dt, hw, nsmax, u, u, btarg);
     pns = safe_gwf_to_pns(gwf, rf, dt, hw, 1);
 
-    bout = fwf_gwf_to_bval(gwf, rf, dt);
+    bout = fwf.gwf.toBvalue(gwf, rf, dt);
 
     clf
     subplot(2,2,1)
-    fwf_gwf_plot_wf2d(gwf, rf, dt)
+    fwf.plot.wf2d(gwf, rf, dt)
     title(['b=' num2str(bout/1e9,2) ' ms/µm^2 for durPulse=' num2str(x(4)*1e3) ' ms'])
 
     subplot(2,2,2)
@@ -45,7 +45,7 @@ if nargin < 1
 
     subplot(2,2,3)
     sl = [diff(gwf, 1,1)/dt; 0 0 0];
-    fwf_gwf_plot_wf2d(sl/1000, rf, dt)
+    fwf.plot.wf2d(sl/1000, rf, dt)
     title(['Slew rate outer=' num2str(x(2),'%0.0f') ' inner=' num2str(x(3),'%0.0f') ' [T/m/s]'])
     ylabel('Slew rate [T/m/s]')
     return
@@ -68,14 +68,14 @@ ub = [g     s_o  s_i  d   ];
 opt = optimoptions('particleswarm','SwarmSize',1000,'HybridFcn',@fmincon, 'useParallel', logical(1));
 x   = particleswarm(fh, 4, lb, ub, opt);
 
-[gwf, rf, dt] = fwf_gwf_create_dde_variSlew(x(1), x(2), x(3), x(4), tp, dt, u1, u2);
+[gwf, rf, dt] = fwf.gwf.create.dde_variSlew(x(1), x(2), x(3), x(4), tp, dt, u1, u2);
 
     function cost = this_fun(x)
-            [gwf, rf, dt] = fwf_gwf_create_dde_variSlew(x(1), x(2), x(3), x(4),  tp, dt, u1, u2);
+            [gwf, rf, dt] = fwf.gwf.create.dde_variSlew(x(1), x(2), x(3), x(4),  tp, dt, u1, u2);
 
             gmax  = max(vecnorm(gwf,2,2));
             smax  = max(max(diff(gwf,1,1)/dt));
-            bcurr = fwf_gwf_to_bval(gwf, rf, dt);
+            bcurr = fwf.gwf.toBvalue(gwf, rf, dt);
             pns   = safe_gwf_to_pns(gwf, rf, dt, hw, 1);
             mpns  = max(pns(:));
             dtot  = size(gwf,1)*dt;

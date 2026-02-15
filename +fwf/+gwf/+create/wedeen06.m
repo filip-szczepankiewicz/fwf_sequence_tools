@@ -1,5 +1,5 @@
-function [gwf, rf, dt] = fwf_gwf_create_wedeen06(g, s, d, dp, dt)
-% function [gwf, rf, dt] = fwf_gwf_create_wedeen06(g, s, d, dp, dt)
+function [gwf, rf, dt] = wedeen06(g, s, d, dp, dt)
+% function [gwf, rf, dt] = fwf.gwf.create.wedeen06(g, s, d, dp, dt)
 % 
 % Diffusion encoding with 2D gradient trajectories yields natural contrast for 3D fiber orientation
 % V. J. Wedeen, G. Dai, W-Y. I. Tseng, R. Wang, T. Benner, ISMRM 2006
@@ -19,10 +19,10 @@ if nargin < 1
     dp = 8e-3+6e-3;
     dt = 0.1e-3;
 
-    [gwf, rf, dt] = fwf_gwf_create_wedeen06(g, s, d, dp, dt);
+    [gwf, rf, dt] = fwf.gwf.create.wedeen06(g, s, d, dp, dt);
     
     clf
-    fwf_gwf_plot_wf2d(gwf, rf, dt)
+    fwf.plot.wf2d(gwf, rf, dt)
     return
 end
 
@@ -32,9 +32,9 @@ nc = na-nb;
 
 np = ceil(dp/dt);
 
-ta = fwf_gwf_create_trapezoid(g, s, dt, na);
-tb = fwf_gwf_create_trapezoid(g, s, dt, nb);
-tc = fwf_gwf_create_trapezoid(g, s, dt, nc);
+ta = fwf.gwf.create.trapezoid(g, s, dt, na);
+tb = fwf.gwf.create.trapezoid(g, s, dt, nb);
+tc = fwf.gwf.create.trapezoid(g, s, dt, nc);
 
 wfz = zeros(np, 3);
 
@@ -50,6 +50,6 @@ mind = round(size(gwf,1)/2);
 rf(mind:end) = -1;
 
 % Assume that we want PTE and L2-norm
-[gwf, rf, dt] = fwf_gwf_force_shape(gwf, rf, dt, 'sym');
+[gwf, rf, dt] = fwf.gwf.force.shape(gwf, rf, dt, 'sym');
 
 gwf = gwf / max(vecnorm(gwf, 2, 2))*g;

@@ -1,5 +1,5 @@
-function [gwf, rf, dt] = fwf_gwf_create_hao25(g, s, d, dt, dp)
-% function [gwf, rf, dt] = fwf_gwf_create_hao25(g, s, d, dt, dp)
+function [gwf, rf, dt] = hao25(g, s, d, dt, dp)
+% function [gwf, rf, dt] = fwf.gwf.create.hao25(g, s, d, dt, dp)
 %
 % This is not a fully accurate generator!!! Just used for some testing.
 % 
@@ -17,14 +17,14 @@ if nargin < 1
     dt = 1e-4;
     dp = 8e-3;
 
-    [gwf, rf, dt] = fwf_gwf_create_hao25(g, s, d, dt, dp);
+    [gwf, rf, dt] = fwf.gwf.create.hao25(g, s, d, dt, dp);
 
     clf
-    fwf_gwf_plot_wf2d(gwf, rf, dt);
+    fwf.plot.wf2d(gwf, rf, dt);
     return
 end
 
-g1 = fwf_gwf_create_ogse(g, s, d, 0, dt, 5);
+g1 = fwf.gwf.create.ogse(g, s, d, 0, dt, 5);
 g1 = g1(1:(size(g1,1)/2),1);
 
 ns = round(size(g1,1)/8);
@@ -45,7 +45,7 @@ rf = ones(size(gwf,1),1);
 rf(round(size(ga,1)+np/2):end) = -1;
 
 na = size(ga,1);
-g2 = fwf_gwf_create_ogse(g, 200, na*dt, 0, dt, 25); % This suffers from rounding issues... perhaps should be implemented in analytical form
+g2 = fwf.gwf.create.ogse(g, 200, na*dt, 0, dt, 25); % This suffers from rounding issues... perhaps should be implemented in analytical form
 g2 = g2(1:(size(g2,1)/2),1);
 
 nz2 = zeros(size(gwf,1)-2*size(g2,1),3);

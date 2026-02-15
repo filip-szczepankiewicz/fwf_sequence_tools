@@ -1,5 +1,5 @@
-function gwf = fwf_gwf_create_ramp(g, s, dt, n)
-% function gwf = fwf_gwf_create_ramp(g, s, dt, n)
+function gwf = ramp(g, s, dt, n)
+% function gwf = fwf.gwf.create.ramp(g, s, dt, n)
 %
 % g  is the maximal gradient amplitude in T/m
 % s  is the slew rate in T/m/s
@@ -14,7 +14,7 @@ if nargin < 1
     dt= 0.1e-3;
     n = ceil(ttot/dt)+1;
 
-    gwf = fwf_gwf_create_ramp(g, s, dt, n);
+    gwf = fwf.gwf.create.ramp(g, s, dt, n);
 
     clf
     plot([0:(n-1)]*dt, gwf)

@@ -1,5 +1,5 @@
-function [gwf, rf, dt] = fwf_gwf_create_cory90(g, s, d1, d2, dp, dt, u1, u2, dp2)
-% function [gwf, rf, dt] = fwf_gwf_create_cory90(g, s, d1, d2, dp, dt, u1, u2, dp2)
+function [gwf, rf, dt] = cory90(g, s, d1, d2, dp, dt, u1, u2, dp2)
+% function [gwf, rf, dt] = fwf.gwf.create.cory90(g, s, d1, d2, dp, dt, u1, u2, dp2)
 %
 % g  is the maximal gradient amplitude in T/m
 % s  is the slew rate in T/m/s
@@ -22,11 +22,11 @@ if nargin < 1
     dp = 8e-3;
     dp2 = 1e-3;
 
-    [gwf, rf, dt] = fwf_gwf_create_cory90(g, s, d1, d2, dp, dt, u1, u2, dp2);
+    [gwf, rf, dt] = fwf.gwf.create.cory90(g, s, d1, d2, dp, dt, u1, u2, dp2);
 
     clf
-    fwf_gwf_plot_wf2d(gwf, rf, dt);
+    fwf.plot.wf2d(gwf, rf, dt);
     return
 end
 
-[gwf, rf, dt] = fwf_gwf_create_sedde(g, s, d1, d2, dp, dt, u1, u2, dp2);
+[gwf, rf, dt] = fwf.gwf.create.dde_se(g, s, d1, d2, dp, dt, u1, u2, dp2);

@@ -1,5 +1,5 @@
-function [gwf, rf, dt, ind] = fwf_gwf_create_mori95_pattern3(g, s, d, dp, dt)
-% function [gwf, rf, dt, ind] = fwf_gwf_create_mori95_pattern3(g, s, d, dp, dt)
+function [gwf, rf, dt, ind] = mori95_pattern3(g, s, d, dp, dt)
+% function [gwf, rf, dt, ind] = fwf.gwf.create.mori95_pattern3(g, s, d, dp, dt)
 %
 % Pattern III in Mori and van Zijl MRM (1995).
 % https://onlinelibrary.wiley.com/doi/abs/10.1002/mrm.1910330107
@@ -18,10 +18,10 @@ if nargin < 1
     dp = 8e-3;
     dt = 0.05e-3;
 
-    [gwf, rf, dt] = fwf_gwf_create_mori95_pattern3(g, s, d, dp, dt);
+    [gwf, rf, dt] = fwf.gwf.create.mori95_pattern3(g, s, d, dp, dt);
 
     clf
-    fwf_gwf_plot_wf2d(gwf, rf, dt);
+    fwf.plot.wf2d(gwf, rf, dt);
     return
 end
 
@@ -32,7 +32,7 @@ u4 = [ 1  1 -1];
 
 n = round(d/dt);
 
-trp = fwf_gwf_create_trapezoid(g, s, dt, n);
+trp = fwf.gwf.create.trapezoid(g, s, dt, n);
 trp = trp(1:(end-1));
 bip = [trp -trp];
 

@@ -1,5 +1,5 @@
-function [gwf, rf, dt] = fwf_gwf_create_sorland99(g, s, d, dp, dt, u)
-% function [gwf, rf, dt] = fwf_gwf_create_sorland99(g, s, d, dp, dt, u)
+function [gwf, rf, dt] = sorland99(g, s, d, dp, dt, u)
+% function [gwf, rf, dt] = fwf.gwf.create.sorland99(g, s, d, dp, dt, u)
 %
 % g is gradient amplitude in T/m
 % s is slewrate in T/m/s
@@ -14,16 +14,16 @@ if nargin < 1
     dt = 1e-5;
     u  = [1 0 0];
 
-    [gwf, rf, dt] = fwf_gwf_create_sorland99(g, s, d, dp, dt, u);
+    [gwf, rf, dt] = fwf.gwf.create.sorland99(g, s, d, dp, dt, u);
     
     clf
-    fwf_gwf_plot_wf2d(gwf, rf, dt);
+    fwf.plot.wf2d(gwf, rf, dt);
     return
 end
 
 n = round(d/dt);
 
-wf  = fwf_gwf_create_trapezoid(g, s, dt, n);
+wf  = fwf.gwf.create.trapezoid(g, s, dt, n);
 wfz = zeros(1, round(dp/dt));
 
 gwf = [
