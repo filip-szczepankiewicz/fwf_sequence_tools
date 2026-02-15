@@ -42,7 +42,7 @@ switch order
         wfi = wfi(rni,:);
 
     case 2 % Equidistant b-max
-        tmp = fwf_dvs_shuffle_equal_bmax([dvs wfi]);
+        tmp = fwf.dvs.shuffleEqualBmax([dvs wfi]);
         dvs = tmp(:,1:3);
         wfi = tmp(:,4);
 
