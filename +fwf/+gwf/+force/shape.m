@@ -1,5 +1,5 @@
-function [g_o, rf, dt, R, F] = fwf_gwf_force_shape(gwf, rf, dt, shape)
-% function [g_o, rf, dt, R, F] = fwf_gwf_force_shape(gwf, rf, dt, shape)
+function [g_o, rf, dt, R, F] = shape(gwf, rf, dt, shape)
+% function [g_o, rf, dt, R, F] = fwf.gwf.force.shape(gwf, rf, dt, shape)
 % FSz
 % 
 % This function forces the shape of the b-tensor according to Eq. 11 in
@@ -14,17 +14,17 @@ if nargin < 1
     dp = 10e-3;
     dt = 0.01e-3;
     
-    [gwf, rf, dt] = fwf_gwf_create_butts97(g, s, d, dp, dt);
+    [gwf, rf, dt] = fwf.gwf.create.butts97(g, s, d, dp, dt);
     
-    [g_o, rf, dt] = fwf_gwf_force_shape(gwf, rf, dt, 'sym');
+    [g_o, rf, dt] = fwf.gwf.force.shape(gwf, rf, dt, 'sym');
     
     figure(1)
     clf
-    fwf_gwf_plot_wf2d(gwf, rf, dt);
+    fwf.plot.wf2d(gwf, rf, dt);
     
     figure(2)
     clf
-    fwf_gwf_plot_wf2d(g_o, rf, dt);
+    fwf.plot.wf2d(g_o, rf, dt);
     return
 end
 

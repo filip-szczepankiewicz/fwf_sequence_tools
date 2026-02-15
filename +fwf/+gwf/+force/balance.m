@@ -1,5 +1,5 @@
-function [gwf, rf, dt] = fwf_gwf_force_balance(gwf, rf, dt, verbose)
-% function [gwf, rf, dt] = fwf_gwf_force_balance(gwf, rf, dt, verbose)
+function [gwf, rf, dt] = balance(gwf, rf, dt, verbose)
+% function [gwf, rf, dt] = fwf.gwf.force.balance(gwf, rf, dt, verbose)
 % By FSz
 % Function forces the zeroth moment to be zero given that this can be
 % achieved by scaling pre or post wf.

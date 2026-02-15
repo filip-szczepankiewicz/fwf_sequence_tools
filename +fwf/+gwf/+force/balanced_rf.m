@@ -1,5 +1,5 @@
-function [gwf, rf, dt] = fwf_gwf_force_balanced_rf(gwf, rf, dt)
-% function [gwf, rf, dt] = fwf_gwf_force_balanced_rf(gwf, rf, dt)
+function [gwf, rf, dt] = balanced_rf(gwf, rf, dt)
+% function [gwf, rf, dt] = fwf.gwf.force.balanced_rf(gwf, rf, dt)
 %
 % Assumes that rf starts on +1
 

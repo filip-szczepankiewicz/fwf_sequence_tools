@@ -1,5 +1,5 @@
-function [gwf, rf, dt] = fwf_gwf_force_dur(gwf, rf, dt, dur)
-% function [gwf, rf, dt] = fwf_gwf_force_dur(gwf, rf, dt, dur)
+function [gwf, rf, dt] = dur(gwf, rf, dt, dur)
+% function [gwf, rf, dt] = fwf.gwf.force.dur(gwf, rf, dt, dur)
 % By FSz
 %
 % Function forces a total duration of the gradient waveform (including
@@ -10,7 +10,6 @@ ntot = ceil(dur/dt);
 if size(gwf,1)>=ntot
     return
 end
-
 
 n1 = sum(rf>0);
 n2 = sum(rf<0);
