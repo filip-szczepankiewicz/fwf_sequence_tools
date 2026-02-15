@@ -1,11 +1,11 @@
-function q2t = fwf_gwf_to_q2t(gwf, rf, dt, gamma)
-% function q2t = fwf_gwf_to_q2t(gwf, rf, dt, gamma)
+function q2t = toQ2t(gwf, rf, dt, gamma)
+% function q2t = fwf.gwf.toQ2t(gwf, rf, dt, gamma)
 
 if nargin < 4
-    gamma = fwf_gamma_from_nuc();
+    gamma = fwf.util.gammaFromNuc();
 end
 
-qt = fwf_gwf_to_qt(gwf, rf, dt, gamma);
+qt = fwf.gwf.toQt(gwf, rf, dt, gamma);
 
 q2t(:,1) = cumsum( qt(:,1).*qt(:,1), 1 ) * dt;
 q2t(:,2) = cumsum( qt(:,2).*qt(:,2), 1 ) * dt;

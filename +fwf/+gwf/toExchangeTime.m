@@ -1,10 +1,12 @@
-function [Gamma, q4t] = fwf_gwf_to_tex(gwf, rf, dt, opt)
-% function [Gamma, q4t] = fwf_gwf_to_tex(gwf, rf, dt, opt)
+function [Gamma, q4t] = toExchangeTime(gwf, rf, dt, opt)
+% function [Gamma, q4t] = fwf.gwf.toExchangeTime(gwf, rf, dt, opt)
 %
 % Compute a generalized exchange time
 %
 % This time is probably a fourth order tensor, but here we just compute its
 % three orthogonal projections
+
+warning('Check if we can remove or replace this function!')
 
 if (nargin < 4), opt.do_interpolate = 1; end
 

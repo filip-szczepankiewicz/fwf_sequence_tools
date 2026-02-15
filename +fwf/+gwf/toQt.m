@@ -1,10 +1,10 @@
-function qt = fwf_gwf_to_qt(gwf, rf, dt, gamma)
-% function qt = fwf_gwf_to_qt(gwf, rf, dt, gamma)
+function qt = toQt(gwf, rf, dt, gamma)
+% function qt = fwf.gwf.toQt(gwf, rf, dt, gamma)
 %
 % Dephasing q-vecotr in units of rad/m
 
 if nargin < 4
-    gamma = fwf_gamma_from_nuc();
+    gamma = fwf.util.gammaFromNuc();
 end
 
 qt = gamma * cumsum(gwf.*rf, 1) * dt;

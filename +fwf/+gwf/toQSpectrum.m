@@ -1,5 +1,5 @@
-function [p, f] = fwf_gwf_to_qSpectrum(gwf, rf, dt, n_pad)
-% function [ps, f] = fwf_gwf_to_qSpectrum(gwf, rf, dt, n_pad)
+function [p, f] = toQSpectrum(gwf, rf, dt, n_pad)
+% function [ps, f] = fwf.gwf.toQSpectrum(gwf, rf, dt, n_pad)
 %
 % Inspired by gwf_power_spectrum(tmp, rf, dt) but sped up by a factor 7-10,
 % mainly due to the (generally) reduced padding.
@@ -11,7 +11,7 @@ if nargin < 4 || isempty(n_pad)
     n_pad = ceil(2*pi*size(gwf,1));
 end
 
-q = fwf_gwf_to_qt(gwf, rf, dt);
+q = fwf.gwf.toQt(gwf, rf, dt);
 q = [zeros(n_pad, size(q,2)); ...
     q; ...
     zeros(n_pad, size(q,2)) ];

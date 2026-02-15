@@ -1,5 +1,5 @@
-function [m, mt] = fwf_gwf_to_motion_enc(gwf, rf, dt, ml, tstart, gamma)
-% function [m, mt] = fwf_gwf_to_motion_enc(gwf, rf, dt, ml, tstart, gamma)
+function [m, mt] = toMotionEnc(gwf, rf, dt, ml, tstart, gamma)
+% function [m, mt] = fwf.gwf.toMotionEnc(gwf, rf, dt, ml, tstart, gamma)
 % By Fsz
 % 
 % Funciton returns motion encoding trajectories for moments specified in
@@ -13,10 +13,10 @@ if nargin < 5
 end
 
 if nargin < 6
-    gamma = fwf_gamma_from_nuc();
+    gamma = fwf.util.gammaFromNuc();
 end
 
-t = fwf_gwf_to_time(gwf, rf, dt, tstart);
+t = fwf.gwf.toTime(gwf, rf, dt, tstart);
 
 m  = zeros(numel(ml), size(gwf, 2));
 mt = zeros(size(gwf, 1), size(gwf, 2), numel(ml));

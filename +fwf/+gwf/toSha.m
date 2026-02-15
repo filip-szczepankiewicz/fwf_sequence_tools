@@ -1,5 +1,5 @@
-function [sha, ui8] = fwf_gwf_to_sha(gwf, ver)
-% function [sha, ui8] = fwf_gwf_to_sha(gwf, ver)
+function [sha, ui8] = toSha(gwf, ver)
+% function [sha, ui8] = fwf.gwf.toSha(gwf, ver)
 %
 % This funciton returns a 1x64 char array (128 bytes) that is unique for
 % the waveform. Note that it is sensitive to the precision specified, and

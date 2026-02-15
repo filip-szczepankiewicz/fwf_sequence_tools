@@ -1,5 +1,5 @@
-function t = fwf_gwf_to_time(gwf, rf, dt, tstart)
-% function t = fwf_gwf_to_time(gwf, rf, dt, tstart)
+function t = toTime(gwf, rf, dt, tstart)
+% function t = fwf.gwf.toTime(gwf, rf, dt, tstart)
 
 if nargin < 4
     tstart = 0;

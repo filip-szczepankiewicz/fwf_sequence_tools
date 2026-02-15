@@ -1,5 +1,5 @@
-function gmin = fwf_gwf_to_minimal_projection(gwf, u)
-% function gmin = fwf_gwf_to_minimal_projection(gwf, u)
+function gmin = toMinimalProj(gwf, u)
+% function gmin = fwf.gwf.toMinimalProj(gwf, u)
 
 if nargin < 2
     u = randn(1000,3);

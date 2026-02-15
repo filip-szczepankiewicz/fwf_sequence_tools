@@ -1,5 +1,5 @@
-function [gwf_a, rf, dt] = fwf_gwf_to_gwf_actual(gwf, rf, dt, r, B0, a, f)
-% function [gwf_a, rf, dt] = fwf_gwf_to_gwf_actual(gwf, rf, dt, r, B0, a, f)
+function [gwf_a, rf, dt] = toActual(gwf, rf, dt, r, B0, a, f)
+% function [gwf_a, rf, dt] = fwf.gwf.toActual(gwf, rf, dt, r, B0, a, f)
 % 
 % By Filip Sz
 % Part of AMC project

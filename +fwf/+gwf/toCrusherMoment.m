@@ -1,5 +1,5 @@
-function cmom = fwf_gwf_to_crush(gwf, rf, dt, b, do_plot)
-% function cmom = fwf_gwf_to_crush(gwf, rf, dt, b, do_plot)
+function cmom = toCrusherMoment(gwf, rf, dt, b, do_plot)
+% function cmom = fwf.gwf.toCrusherMoment(gwf, rf, dt, b, do_plot)
 % By FSz
 %
 % Function returns the crushing moment caused by the gwf at a given
@@ -7,14 +7,14 @@ function cmom = fwf_gwf_to_crush(gwf, rf, dt, b, do_plot)
 % crushing moment.
 
 if nargin < 4 || isempty(b)
-    b = fwf_gwf_to_bval(gwf, rf, dt);
+    b = fwf.gwf.toBvalue(gwf, rf, dt);
 end
 
 if nargin < 5
     do_plot = 0;
 end
 
-g = fwf_gwf_force_bval(gwf, rf, dt, b, 'amp');
+g = fwf.gwf.force.bval(gwf, rf, dt, b, 'amp');
 
 ind_pi = find(diff(rf), 1, 'first');
 
@@ -24,7 +24,7 @@ cmom = sqrt(sum((mom(ind_pi,:)).^2));
 
 if do_plot
     
-    t = fwf_gwf_to_time(mom, dt);
+    t = fwf.gwf.toTime(mom, dt);
     
     subplot(2,1,1)
     plot(t*1e3, rf*max(abs(g(:)))*0.5*1e3, 'k:')

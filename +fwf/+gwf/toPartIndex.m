@@ -1,5 +1,5 @@
-function indl = fwf_gwf_to_partindex(gwf, rf, ~)
-% function indl = fwf_gwf_to_partindex(gwf, rf, ~)
+function indl = toPartIndex(gwf, rf, ~)
+% function indl = fwf.gwf.toPartIndex(gwf, rf, ~)
 % By Filip Sz
 % Note that this function assumes that the gwf starts and ends with zero!
 % Extracts indices where gwf is on between rf-pulses

@@ -1,8 +1,9 @@
-function xps = fwf_xps_from_gwfl(gwfl, rfl, dtl, gamma_nuc, tStart)
-% function xps = fwf_xps_from_gwfl(gwfl, rfl, dtl, gamma_H1, tStart)
+function xps = toXps(gwfl, rfl, dtl, gamma_nuc, tStart)
+% function xps = fwf.gwf.toXps(gwfl, rfl, dtl, gamma_H1, tStart)
+
 
 if nargin < 4 || isempty(gamma_nuc)
-    gamma_nuc = fwf_gamma_from_nuc();
+    gamma_nuc = fwf.util.gammaFromNuc();
 end
 
 if nargin < 5
@@ -72,13 +73,13 @@ for i = 1:n_vols
     mt(i,:)     = M([1 5 9 2 3 6]) .* [1 1 1 sqrt(2) sqrt(2) sqrt(2)];
 
     % Exchange weighting
-    gamma(i,:)  = fwf_gwf_to_tex(gwf, rf, dt);
+    gamma(i,:)  = fwf.gwf.toExchangeTime(gwf, rf, dt);
 
     % Gradient moments
-    gMom_0(i,:) = fwf_gwf_to_motion_enc(gwf, rf, dt, 0, 0);
-    gMom_1(i,:) = fwf_gwf_to_motion_enc(gwf, rf, dt, 1, 0);
-    gMom_2(i,:) = fwf_gwf_to_motion_enc(gwf, rf, dt, 2, 0);
-    gMom_3(i,:) = fwf_gwf_to_motion_enc(gwf, rf, dt, 3, 0);
+    gMom_0(i,:) = fwf.gwf.toMotionEnc(gwf, rf, dt, 0, 0);
+    gMom_1(i,:) = fwf.gwf.toMotionEnc(gwf, rf, dt, 1, 0);
+    gMom_2(i,:) = fwf.gwf.toMotionEnc(gwf, rf, dt, 2, 0);
+    gMom_3(i,:) = fwf.gwf.toMotionEnc(gwf, rf, dt, 3, 0);
 
     % Cross term sensitivity
     Ht       = cumsum(rf)*dt + tStart(i);
@@ -91,15 +92,15 @@ end
 xps.n        = n_vols;
 xps.bt       = bt;
 xps.b        = sum(xps.bt(:,1:3), 2);
-xps.b_shape  = fwf_1x6_to_shape(xps.bt);
-xps.b_rank   = fwf_1x6_to_rank (xps.bt);
+xps.b_shape  = fwf.math.tensor1x6toShape(xps.bt);
+xps.b_rank   = fwf.math.tensor1x6toRank (xps.bt);
 
 xps.mt       = mt;
 xps.m        = sum(xps.mt(:,1:3), 2);
-xps.m_shape  = fwf_1x6_to_shape(xps.mt);
-xps.m_rank   = fwf_1x6_to_rank (xps.mt);
+xps.m_shape  = fwf.math.tensor1x6toShape(xps.mt);
+xps.m_rank   = fwf.math.tensor1x6toRank (xps.mt);
 
-xps.bm_shape = fwf_1x6_to_shape(xps.bt, xps.mt);
+xps.bm_shape = fwf.math.tensor1x6toShape(xps.bt, xps.mt);
 
 xps.gamma    = gamma/3; % Using Arthur convention
 

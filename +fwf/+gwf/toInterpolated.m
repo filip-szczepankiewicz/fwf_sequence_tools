@@ -1,5 +1,5 @@
-function [gwf_out, rf_out, dt_out] = fwf_gwf_interp(gwf, rf, dt, n_samp, method)
-% function [gwf_out, rf_out, dt_out] = fwf_gwf_interp(gwf, rf, dt, n_samp, method)
+function [gwf_out, rf_out, dt_out] = toInterpolated(gwf, rf, dt, n_samp, method)
+% function [gwf_out, rf_out, dt_out] = fwf.gwf.toInterpolated(gwf, rf, dt, n_samp, method)
 
 if nargin < 2
     rf = [];

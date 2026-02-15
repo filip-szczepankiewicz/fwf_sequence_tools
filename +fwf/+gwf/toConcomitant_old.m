@@ -1,5 +1,5 @@
-function [cgwf, K, k] = fwf_gwf_to_cgwf(gwf, rf, dt, r, B0, gamma)
-% function [cgwf, K, k] = fwf_gwf_to_cgwf(gwf, rf, dt, r, B0, gamma)
+function [cgwf, K, k] = toConcomitant_old(gwf, rf, dt, r, B0, gamma)
+% function [cgwf, K, k] = fwf.gwf.toConcomitant_old(gwf, rf, dt, r, B0, gamma)
 % By FSz
 %
 % Function returns the concomitant gradient waveform at position r given
@@ -11,7 +11,7 @@ function [cgwf, K, k] = fwf_gwf_to_cgwf(gwf, rf, dt, r, B0, gamma)
 % DOI: 10.1002/mrm.27828
 
 if nargin < 6
-    gamma = fwf_gamma_from_nuc();
+    gamma = fwf.util.gammaFromNuc();
 end
 
 Gx = gwf(:,1);

@@ -1,5 +1,5 @@
-function [p, f] = fwf_gwf_to_gSpectrum(gwf, rf, dt, n_pad)
-% function [p, f] = fwf_gwf_to_gSpectrum(gwf, rf, dt, n_pad)
+function [p, f] = toGradSpectrum(gwf, rf, dt, n_pad)
+% function [p, f] = fwf.gwf.toGradSpectrum(gwf, rf, dt, n_pad)
 %
 % Inspired by gwf_power_spectrum(tmp, rf, dt) but sped up by a factor 7-10,
 % mainly due to the (generally) reduced padding.
