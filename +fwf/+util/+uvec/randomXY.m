@@ -1,5 +1,5 @@
-function u = fwf_uvec_random_xy(n)
-% function u = fwf_uvec_random_xy(n)
+function u = randomXY(n)
+% function u = fwf.util.uvec.randomXY(n)
 
 u = randn(n,2);
 u = u ./ sqrt(sum(u.^2, 2));
