@@ -1,5 +1,5 @@
-function rnk = fwf_1x6_to_rank(T)
-% function rnk = fwf_1x6_to_rank(T)
+function rnk = tensor1x6toRank(T)
+% function rnk = fwf.math.tensor1x6toRank(T)
 
 rnk = zeros(size(T,1), 1);
 

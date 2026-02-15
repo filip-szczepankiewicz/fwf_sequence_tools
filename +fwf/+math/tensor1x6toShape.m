@@ -1,5 +1,5 @@
-function shape = fwf_1x6_to_shape(a, b)
-% function shape = fwf_1x6_to_shape(a, b)
+function shape = tensor1x6toShape(a, b)
+% function shape = fwf.math.tensor1x6toShape(a, b)
 % Based on resQ_1x6_to_shape(a, b)
 % By Filip Sz
 % Funciton returns the shape of the outer product of a * b
