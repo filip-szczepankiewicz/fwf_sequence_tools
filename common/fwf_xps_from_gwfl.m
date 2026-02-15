@@ -29,6 +29,9 @@ sMaxXYZ= zeros(n_vols, 3);
 gMaxNrm= zeros(n_vols, 1);
 sMaxNrm= zeros(n_vols, 1);
 
+gMaxNrm= zeros(n_vols, 1);
+sMaxNrm= zeros(n_vols, 1);
+
 if ~isempty(tStart)
     cts    = zeros(n_vols, 3);
     bgs    = zeros(n_vols, 1);
