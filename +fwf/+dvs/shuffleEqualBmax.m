@@ -1,5 +1,5 @@
 function dvs_out = shuffleEqualBmax(dvs)
-% function dvs_out = shuffleEqualBmax(dvs)
+% function dvs_out = fwf.dvs.shuffleEqualBmax(dvs)
 % By Filip Szczepankiewicz
 % input is nx3 or nx4 matrix
 % Randomize matrix so that all reorganization looses coherency (both low

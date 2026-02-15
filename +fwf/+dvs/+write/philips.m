@@ -1,5 +1,5 @@
 function philips(G, outname, header)
-% function philips(G, outname, header)
+% function fwf.dvs.write.philips(G, outname, header)
 %
 % G is an n x 4 matrix with gradient unit vectors and b-value in s/mm2.
 

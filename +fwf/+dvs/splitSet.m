@@ -1,5 +1,5 @@
 function u_l = splitSet(u, n_l)
-% function u_l = splitSet(u, n_l)
+% function u_l = fwf.dvs.splitSet(u, n_l)
 
 if size(u,1) < sum(n_l)
     error('Sum of output is larger than availabel number of directions!')
