@@ -1,5 +1,5 @@
-function [R, t_norm] = fwf_rmsc_from_uvec_and_ang ( tx, ty, tz, ang2 )
-% function [R, t_norm] = fwf_rmsc_from_uvec_and_ang ( tx, ty, tz, ang2 )
+function [R, t_norm] = fromUvecAng ( tx, ty, tz, ang2 )
+% function [R, t_norm] = fwf.util.rotMat.fromUvecAng ( tx, ty, tz, ang2 )
 % By Filip Szczepankiewicz
 % Brigham and Women's Hospital, Harvard Medical School, Boston, MA, USA
 % Lund University, Lund, Sweden

@@ -1,5 +1,5 @@
-function R = fwf_rotz(ang)
-% function R = fwf_rotz(ang)
+function R = zRot(ang)
+% function R = fwf.util.rotMat.zRot(ang)
 % Rotate about z-axis by ang radians
 
 R = [cos(ang) -sin(ang)  0 

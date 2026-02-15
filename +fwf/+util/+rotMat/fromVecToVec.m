@@ -1,5 +1,5 @@
-function R = fwf_rotmat_vec2vec ( v_from, v_to, ang2 )
-% function R = fwf_rotmat_vec2vec ( v_from, v_to, ang2 )
+function R = fromVecToVec ( v_from, v_to, ang2 )
+% function R = fwf.util.rotMat.fromVecToVec ( v_from, v_to, ang2 )
 % 
 % If the input vectors are specified as rows, 1x3, then the intended
 % use is to multiply the vector from the right by the transpose 
