@@ -1,5 +1,5 @@
-function [gwf, rfwf, t] = fwf_read_seqDiagram_siemens(fn_diag)
-% function [gwf, rfwf, t] = fwf_read_seqDiagram_siemens(fn_diag)
+function [gwf, rfwf, t] = readSeqDiagram_siemens(fn_diag)
+% function [gwf, rfwf, t] = fwf.util.readSeqDiagram_siemens(fn_diag)
 %
 % fn_diag is file name of siemens pulse sequence diagram file (.txt)
 % gwf is the gradient waveform

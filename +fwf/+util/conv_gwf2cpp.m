@@ -1,5 +1,5 @@
-function txt = fwf_gwf_to_cpp(gwf_a, gwf_b, name, hdr, nsd)
-% function txt = fwf_gwf_to_cpp(gwf_a, gwf_b, name, hdr, nsd)
+function txt = conv_gwf2cpp(gwf_a, gwf_b, name, hdr, nsd)
+% function txt = fwf.util.conv_gwf2cpp(gwf_a, gwf_b, name, hdr, nsd)
 
 
 std_prefix = 'm_FWF_HC_';

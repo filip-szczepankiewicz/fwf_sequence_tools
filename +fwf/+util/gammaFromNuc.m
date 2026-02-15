@@ -1,5 +1,5 @@
-function gamma = fwf_gamma_from_nuc(str)
-% function gamma = fwf_gamma_from_nuc(str)
+function gamma = gammaFromNuc(str)
+% function gamma = fwf.util.gammaFromNuc(str)
 %
 % Returns gyromagnetic constant in rad/s/T
 

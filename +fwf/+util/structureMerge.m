@@ -1,5 +1,5 @@
-function out = fwf_structure_merge(in1, in2, mode)
-% function out = fwf_structure_merge(in1, in2, mode)
+function out = structureMerge(in1, in2, mode)
+% function out = fwf.util.structureMerge(in1, in2, mode)
 
 if nargin < 3
     mode = 0;

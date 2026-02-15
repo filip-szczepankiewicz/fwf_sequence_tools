@@ -1,5 +1,5 @@
-function fwf_gwf2txt(gwf, fn_out, prec)
-% function fwf_gwf2txt(gwf, fn_out, prec)
+function conv_gwf2txt(gwf, fn_out, prec)
+% function fwf.util.conv_gwf2txt(gwf, fn_out, prec)
 
 if nargin < 3
     switch class(gwf)

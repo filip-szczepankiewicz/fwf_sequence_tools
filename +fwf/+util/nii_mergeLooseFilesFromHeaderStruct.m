@@ -1,5 +1,5 @@
-function res = fwf_nii_mergeLooseFilesFromHeaderStruct(dir_in, dir_out)
-% function res = fwf_nii_mergeLooseFilesFromHeaderStruct(dir_in, dir_out)
+function res = nii_mergeLooseFilesFromHeaderStruct(dir_in, dir_out)
+% function res = fwf.util.nii_mergeLooseFilesFromHeaderStruct(dir_in, dir_out)
 % dir_in must contain the header structure from dicm2nii converter
 
 if nargin < 2
@@ -35,20 +35,20 @@ for j = 1:numel(upNam)
         [I_first, h_nii] = mdm_nii_read(nii_fn_first);
         hdr = h.(fnl_curr{1});
 
-        ver = fwf_ver_from_siemens_hdr(hdr);
+        ver = fwf.silu.ver_from_hdr(hdr);
 
         if ~isempty(ver)
-            xps = fwf_xps_from_siemens_hdr(hdr);
+            xps = fwf.silu.xps_from_hdr(hdr);
             xps.isOK = ones(xps.n,1);
 
-            [gwfc, rfc, dtc] = fwf_gwf_list_from_siemens_hdr(hdr);
+            [gwfc, rfc, dtc] = fwf.silu.gwf_list_from_hdr(hdr);
             gwf.gwf = gwfc;
             gwf.rf  = rfc;
             gwf.dt  = dtc;
 
 
         else
-            [b, u_nrm] = fwf_bvluvc_from_siemens_hdr(hdr);
+            [b, u_nrm] = fwf.silu.bvluvc_from_hdr(hdr);
             bt = tm_1x3_to_1x6(b, 0, u_nrm);
             xps = mdm_xps_from_bt(bt);
 

@@ -1,5 +1,5 @@
-function [P, v_slice, v_phase] = fwf_nii2xyz(nii_fn)
-% function [P, v_slice, v_phase] = fwf_nii2xyz(nii_fn)
+function [P, v_slice, v_phase] = nii2xyz(nii_fn)
+% function [P, v_slice, v_phase] = fwf.util.nii2xyz(nii_fn)
 % By Fsz
 % Code based on https://brainder.org/2012/09/23/the-nifti-file-format/
 

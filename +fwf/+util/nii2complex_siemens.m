@@ -1,5 +1,5 @@
-function fn_cplx = fwf_nii2complex_siemens(fn_mag, fn_pha, fn_cplx, fn_xps)
-% function fn_cplx = fwf_nii2complex_siemens(fn_mag, fn_pha, fn_cplx, fn_xps)
+function fn_cplx = nii2complex_siemens(fn_mag, fn_pha, fn_cplx, fn_xps)
+% function fn_cplx = fwf.util.nii2complex_siemens(fn_mag, fn_pha, fn_cplx, fn_xps)
 
 if nargin < 3
     fn_cplx = mdm_fn_nii2complex(fn_mag);

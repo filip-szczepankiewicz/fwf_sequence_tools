@@ -1,5 +1,5 @@
-function fwf_dicm2nii_batch(main_dir, do_overwrite)
-% function fwf_dicm2nii_batch(main_dir, do_overwrite)
+function dicm2nii_batch(main_dir, do_overwrite)
+% function fwf.util.dicm2nii_batch(main_dir, do_overwrite)
 
 if nargin < 2
     do_overwrite = 0;
@@ -49,7 +49,7 @@ for i = 1:numel(pl)
     hdf_fn = [tf filesep 'dcmHeaders.mat'];
 
     try
-        fwf_xps_from_dicm2nii_h_struct(hdf_fn, 1)
+        fwf.silu.xps_from_dicm2nii_h_struct(hdf_fn, 1)
     catch
     end
 

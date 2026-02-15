@@ -1,5 +1,5 @@
-function str_out = fwf_string_truncate(str_in)
-% function str_out = fwf_string_truncate(str_in)
+function str_out = stringTruncate(str_in)
+% function str_out = fwf.util.stringTruncate(str_in)
 
 if nargin<1 || isempty(str_in)
     str_in = ' ';

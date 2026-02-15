@@ -1,5 +1,5 @@
-function [R, v] = fwf_dcm2xyz(dicom_fn)
-% function [R, v] = fwf_dcm2xyz(dicom_fn)
+function [R, v] = dcm2xyz(dicom_fn)
+% function [R, v] = fwf.util.dcm2xyz(dicom_fn)
 % By FSz
 %
 % Input can be file path to dicom file, or a dicom header structure 
