@@ -1,5 +1,5 @@
-function seq = fwf_seq_from_siemens_hdr(h, do_verbose)
-% function seq = fwf_seq_from_siemens_hdr(h, do_verbose)
+function seq = seq_from_hdr(h, do_verbose)
+% function seq = fwf.silu.seq_from_hdr(h, do_verbose)
 % By Filip Szczepankiewicz
 % Brigham and Women's Hospital, Harvard Medical School, Boston, MA, USA
 % Lund University, Lund, Sweden
@@ -12,8 +12,8 @@ if nargin < 2
 end
 
 % Collect sequence specific parameters from the CSA header
-csa = fwf_csa_from_siemens_hdr(h);
-seq = fwf_seq_from_siemens_csa(csa);
+csa = fwf.silu.csa_from_hdr(h);
+seq = fwf.silu.seq_from_csa(csa);
 
 
 % Collect the basic parameters from the dicom header

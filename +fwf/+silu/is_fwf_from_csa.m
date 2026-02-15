@@ -1,8 +1,8 @@
-function is_fwf = fwf_is_fwf_from_siemens_csa(csa)
-% function is_fwf = fwf_is_fwf_from_siemens_csa(csa)
+function is_fwf = is_fwf_from_csa(csa)
+% function is_fwf = fwf.silu.is_fwf_from_csa(csa)
 
 try
-    seq = fwf_seq_from_siemens_csa(csa);
+    seq = fwf.silu.seq_from_csa(csa);
     
     if strcmp(seq.wf_stored.name, 'MDMR')
         is_fwf = 1;

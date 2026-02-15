@@ -1,5 +1,5 @@
-function [bvals, g_sca] = fwf_blist_from_seq_siemens(seq)
-% function [bvals, g_sca] = fwf_blist_from_seq_siemens(seq)
+function [bvals, g_sca] = blist_from_seq(seq)
+% function [bvals, g_sca] = fwf.silu.blist_from_seq(seq)
 % By Filip Szczepankiewicz, Lund University
 
 nbval = numel(seq.bval_req);

@@ -1,17 +1,17 @@
-function [b, u_nrm, n, u] = fwf_bvluvc_from_siemens_hdr(hdr)
-% function [b, u_nrm, n, u] = fwf_bvluvc_from_siemens_hdr(hdr)
+function [b, u_nrm, n, u] = bvluvc_from_hdr(hdr)
+% function [b, u_nrm, n, u] = fwf.silu.bvluvc_from_hdr(hdr)
 
 % Try to find user defined dvs first
-csa        = fwf_csa_from_siemens_hdr(hdr);
-[dvs, nrm] = fwf_dvs_from_siemens_csa(csa);
-seq        = fwf_seq_from_siemens_csa(csa);
+csa        = fwf.silu.csa_from_hdr(hdr);
+[dvs, nrm] = fwf.silu.dvs_from_csa(csa);
+seq        = fwf.silu.seq_from_csa(csa);
 
 % warning('Temp code!!!')
 % nrm = nrm/max(sqrt(sum(nrm.^2,2)));
 
 if ~isempty(dvs)
 
-    b_list = fwf_blist_from_seq_siemens(seq);
+    b_list = fwf.silu.blist_from_seq(seq);
 
     b = [];
     u = [];

@@ -1,16 +1,16 @@
-function [gwf, rfc, dtc, tStart] = fwf_gwf_from_siemens_seq_v2p00(seq, bin_fn)
-% function [gwf, rfc, dtc, tStart] = fwf_gwf_from_siemens_seq_v2p00(seq, bin_fn)
+function [gwf, rfc, dtc, tStart] = gwf_from_seq_v2p00(seq, bin_fn)
+% function [gwf, rfc, dtc, tStart] = fwf.silu.gwf_from_seq_v2p00(seq, bin_fn)
 % By Filip Szczepankiewicz
 % Lund University, Lund, Sweden
 
 if nargin < 2 || isempty(bin_fn)
-    bin_fn = fwf_bin_from_sha(seq.bin_hash);
+    bin_fn = fwf.silu.bin_from_sha(seq.bin_hash);
 end
 
 dt     = seq.d_grad_rast*1e-6; % s
 tStart = seq.t_start/1e6;
 
-wf_parts = fwf_bin_read_siemens(bin_fn);
+wf_parts = fwf.silu.bin_read(bin_fn);
 
 na = size(wf_parts{1,1},1);
 nb = size(wf_parts{2,1},1);
@@ -25,7 +25,7 @@ ge = zeros(nt-ns-na-nz-nb, 3);
 rf = ones(nt,1);
 rf(round(nt/2):end) = -1;
 
-[bvals, g_sca] = fwf_blist_from_seq_siemens(seq);
+[bvals, g_sca] = fwf.silu.blist_from_seq(seq);
 
 g_max = seq.gamp_max*1e-3;
 

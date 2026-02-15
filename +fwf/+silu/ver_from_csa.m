@@ -1,5 +1,5 @@
-function ver = fwf_ver_from_siemens_csa(csa)
-% function ver = fwf_ver_from_siemens_csa(csa)
+function ver = ver_from_csa(csa)
+% function ver = fwf.silu.ver_from_csa(csa)
 % Returns the sequnce version from the CSA header wipmemblock.
 % This function is dependent on the pulse sequence version
 

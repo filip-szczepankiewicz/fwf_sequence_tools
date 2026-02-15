@@ -1,5 +1,5 @@
-function csa = fwf_csa_from_siemens_hdr(h, do_verbose) %#ok<INUSD>
-% function csa = fwf_csa_from_siemens_hdr(h)
+function csa = csa_from_hdr(h, do_verbose) %#ok<INUSD>
+% function csa = fwf.silu.csa_from_hdr(h)
 % By Filip Szczepankiewicz
 % Brigham and Women's Hospital, Harvard Medical School, Boston, MA, USA
 % Lund University, Lund, Sweden

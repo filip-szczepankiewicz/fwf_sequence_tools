@@ -1,5 +1,5 @@
-function [u, n] = fwf_dvs_from_siemens_csa(csa)
-% function u = fwf_dvs_from_siemens_csa(csa)
+function [u, n] = dvs_from_csa(csa)
+% function u = fwf.silu.dvs_from_csa(csa)
 % These are most likely in patient coord system.
 
 str_fnd_n_samp = 'sDiffusion.sFreeDiffusionData.asDiffDirVector.__attribute__.size	 = ';

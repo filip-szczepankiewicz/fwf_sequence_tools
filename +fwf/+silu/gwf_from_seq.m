@@ -1,5 +1,5 @@
-function [gwf, rf, dt] = fwf_gwf_from_siemens_seq(seq)
-% function [gwf, rf, dt] = fwf_gwf_from_siemens_seq(seq)
+function [gwf, rf, dt] = gwf_from_seq(seq)
+% function [gwf, rf, dt] = fwf.silu.gwf_from_seq(seq)
 % By Filip Szczepankiewicz
 % Brigham and Women's Hospital, Harvard Medical School, Boston, MA, USA
 % Lund University, Lund, Sweden
@@ -12,10 +12,10 @@ function [gwf, rf, dt] = fwf_gwf_from_siemens_seq(seq)
 ver = seq.seq_ver;
 
 if ver < 2.00
-    [gwf, rf, dt] = fwf_gwf_from_siemens_seq_v1p00(seq);
+    [gwf, rf, dt] = fwf.silu.gwf_from_seq_v1p00(seq);
 
 else
-    [gwf, rf, dt] = fwf_gwf_from_siemens_seq_v2p00(seq);
+    [gwf, rf, dt] = fwf.silu.gwf_from_seq_v2p00(seq);
 
 end
 

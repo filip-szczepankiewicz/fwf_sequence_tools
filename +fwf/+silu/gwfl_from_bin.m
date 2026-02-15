@@ -1,10 +1,10 @@
-function [gwfl, rfl, dtl] = fwf_gwfl_from_bin_siemens(bin_fn, gamp, t_pause, dt)
-% function [gwfl, rfl, dtl] = fwf_gwfl_from_bin_siemens(bin_fn, gamp, t_pause, dt)
+function [gwfl, rfl, dtl] = gwfl_from_bin(bin_fn, gamp, t_pause, dt)
+% function [gwfl, rfl, dtl] = fwf.silu.gwfl_from_bin(bin_fn, gamp, t_pause, dt)
 %
 % NOTE: This function does not include the effect of averages and multiple
 % b-values, so it only coarsly depicts what is acquired by the scanner.
 
-GWF = fwf_bin_read_siemens(bin_fn);
+GWF = fwf.silu.bin_read(bin_fn);
 
 n_wf  = size(GWF,2);
 

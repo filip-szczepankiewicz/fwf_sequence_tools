@@ -1,5 +1,5 @@
-function res = fwf_seq_from_siemens_json(json)
-% function res = fwf_seq_from_siemens_json(json)
+function res = seq_from_json(json)
+% function res = fwf.silu.seq_from_json(json)
 % By Markus Nilsson
 % Lund University, Lund, Sweden
 %

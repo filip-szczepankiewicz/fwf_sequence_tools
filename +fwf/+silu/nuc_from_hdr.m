@@ -1,5 +1,5 @@
-function nuc = fwf_nuc_from_siemens_hdr(hdr)
-% function nuc = fwf_nuc_from_siemens_hdr(hdr)
+function nuc = nuc_from_hdr(hdr)
+% function nuc = fwf.silu.nuc_from_hdr(hdr)
 
 try
     % Before XA

@@ -1,5 +1,5 @@
-function xps = fwf_xps_from_siemens_json(nii_fn)
-% function xps = fwf_xps_from_siemens_json(nii_fn)
+function xps = xps_from_json(nii_fn)
+% function xps = fwf.silu.xps_from_json(nii_fn)
 
     function txt = fread_all(txt_fn)
         fid = fopen(txt_fn);
@@ -40,12 +40,12 @@ u = str2num(u)';
 
 ind2 = ones(size(b));
 
-[gwfc, rfc, dtc, ind] = fwf_gwf_list_from_siemens_json(json,gamma,u,n,ind2);
+[gwfc, rfc, dtc, ind] = fwf.silu.gwf_list_from_json(json,gamma,u,n,ind2);
 
 
 btl = zeros(numel(gwfc), 6);
 for i = 1:numel(gwfc)
-    bt3x3    = fwf_gwf_to_btens(gwfc{i}, rfc{i}, dtc{i}, gamma);
+    bt3x3    = fwf.gwf.toBtensor(gwfc{i}, rfc{i}, dtc{i}, gamma);
     btl(i,:) = tm_3x3_to_1x6(bt3x3);
 end
 

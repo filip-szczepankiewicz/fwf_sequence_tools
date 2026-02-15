@@ -1,4 +1,4 @@
-% Unit Test for fwf_gwf2bin_siemens and fwf_bin2gwf_siemens
+% Unit Test for  fwf.silu.gwf_to_bin and fwf.silu.bin_read
 clear
 
 % GENERATE GWF
@@ -8,10 +8,10 @@ for i = 1:200
 end
 
 % WRITE
-[fno, stat, f_norm, sha_w] = fwf_gwf2bin_siemens(GWF, 'test_gwf2bin_siemens.bin', 1);
+[fno, stat, f_norm, sha_w] = fwf.silu.gwf_to_bin(GWF, 'test_gwf2bin_siemens.bin', 1);
 
 % READ
-[GWFR, ver, sha_r] = fwf_bin2gwf_siemens(fno);
+[GWFR, ver, sha_r] = fwf.silu.bin_read(fno);
 
 % PLOT DIFFERENCE
 clf

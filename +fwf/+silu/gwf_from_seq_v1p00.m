@@ -1,5 +1,5 @@
-function [gwf, rf, dt] = fwf_gwf_from_siemens_seq_v1p00(seq)
-% function [gwf, rf, dt] = fwf_gwf_from_siemens_seq_v1p00(seq)
+function [gwf, rf, dt] = gwf_from_seq_v1p00(seq)
+% function [gwf, rf, dt] = fwf.silu.gwf_from_seq_v1p00(seq)
 % By Filip Szczepankiewicz
 % Brigham and Women's Hospital, Harvard Medical School, Boston, MA, USA
 % Lund University, Lund, Sweden
@@ -20,7 +20,7 @@ if seq.header_mode ~= 2
     error('Header mode does not contain extended info!')
 end
 
-[wf1, wf2] = fwf_wf_from_wf_stored(seq.wf_stored);
+[wf1, wf2] = wf_from_stored(seq.wf_stored);
 
 if seq.rot_mode == 3
     wf1(:,2:3) = 0;
@@ -30,11 +30,11 @@ end
 nz = seq.d_pause / 10;
 
 if seq.seq_ver < 1.24
-    ga = fwf_gwf_resample_v1p23(wf1, seq.d_pre);
-    gb = fwf_gwf_resample_v1p23(wf2, seq.d_post);
+    ga = fwf.silu.gwf_resample_v1p23(wf1, seq.d_pre);
+    gb = fwf.silu.gwf_resample_v1p23(wf2, seq.d_post);
 else
-    ga = fwf_gwf_resample_v1p24(wf1, seq.d_pre);
-    gb = fwf_gwf_resample_v1p24(wf2, seq.d_post);
+    ga = fwf.silu.gwf_resample_v1p24(wf1, seq.d_pre);
+    gb = fwf.silu.gwf_resample_v1p24(wf2, seq.d_post);
 end
 
 gz  = zeros(nz, 3);
@@ -61,7 +61,7 @@ end
 end
 
 
-function [wf1, wf2] = fwf_wf_from_wf_stored(wf_stored)
+function [wf1, wf2] = wf_from_stored(wf_stored)
 
 for i = 1:6
     if i <= 3

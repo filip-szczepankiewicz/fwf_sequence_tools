@@ -1,5 +1,5 @@
-function [GWF, ver, sha] = fwf_bin_read_siemens(bin_fn)
-% function [GWF, ver, sha] = fwf_bin_read_siemens(bin_fn)
+function [GWF, ver, sha] = bin_read(bin_fn)
+% function [GWF, ver, sha] = fwf.silu.bin_read(bin_fn)
 % By Filip Sz and Arthur C
 
 fileID = fopen(bin_fn, 'r');

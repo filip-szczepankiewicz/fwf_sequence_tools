@@ -1,5 +1,5 @@
-function [bt_3x3, bt_1x6] = fwf_bt_from_siemens_hdr(h)
-% function [bt_3x3, bt_1x6] = fwf_bt_from_siemens_hdr(h)
+function [bt_3x3, bt_1x6] = bt_from_hdr(h)
+% function [bt_3x3, bt_1x6] = fwf.silu.bt_from_hdr(h)
 
 
 if h.PerFrameFunctionalGroupsSequence.Item_1.MRDiffusionSequence.Item_1.B_value == 0

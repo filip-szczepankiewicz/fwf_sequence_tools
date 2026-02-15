@@ -1,5 +1,5 @@
-function [bin_fn, status, f_norm, sha_ui8] = fwf_gwf_to_bin_siemens(GWF, bin_fn, norm)
-% function [bin_fn, status, f_norm, sha_ui8] = fwf_gwf_to_bin_siemens(GWF, bin_fn, norm)
+function [bin_fn, status, f_norm, sha_ui8] = gwf_to_bin(GWF, bin_fn, norm)
+% function [bin_fn, status, f_norm, sha_ui8] = fwf.silu.gwf_to_bin(GWF, bin_fn, norm)
 % By Arthur Chakwizira and Filip Szczepankiewicz
 %
 % GWF is a cell array with size {n x 3} x n_gwf where n_gwf is the number of 
@@ -42,7 +42,7 @@ gn_A = single(g_A/f_norm);
 gn_B = single(g_B/f_norm);
 
 % Calculate hash for identification
-[~, sha_ui8] = fwf_gwf_to_sha([gn_A; gn_B], ver);
+[~, sha_ui8] = fwf.gwf.toSha([gn_A; gn_B], ver);
 
 % WRITE TO BINARY
 fileID = fopen(bin_fn, 'w');

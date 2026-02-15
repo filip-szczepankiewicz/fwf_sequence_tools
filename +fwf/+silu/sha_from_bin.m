@@ -1,5 +1,5 @@
-function [sha, ver] = fwf_sha_from_bin_siemens(bin_fn)
-% function [sha, ver] = fwf_sha_from_bin_siemens(bin_fn)
+function [sha, ver] = sha_from_bin(bin_fn)
+% function [sha, ver] = fwf.silu.sha_from_bin(bin_fn)
 
 fileID  = fopen(bin_fn, 'r');
 ver     = fread(fileID, 1, 'single');

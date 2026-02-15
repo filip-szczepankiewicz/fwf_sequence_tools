@@ -1,5 +1,5 @@
-function [gwf_out, dt_out] = fwf_gwf_resample_v1p24(gwf_in, dur_us)
-% function [gwf_out, dt_out] = fwf_gwf_resample_v1p24(gwf_in, dur_us)
+function [gwf_out, dt_out] = gwf_resample_v1p24(gwf_in, dur_us)
+% function [gwf_out, dt_out] = fwf.silu.gwf_resample_v1p24(gwf_in, dur_us)
 % Output is single precision because the shape load requires float and 
 % this is assumed to be the last operation performed.
 % Near carbon copy of c++ code implemented in the v1.24 version of the

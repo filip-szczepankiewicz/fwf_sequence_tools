@@ -1,5 +1,5 @@
-function [xps_l, gps_l] = fwf_meta_from_siemens_hdr(h, o_dir)
-% function [xps_l, gps_l] = fwf_meta_from_siemens_hdr(h, o_dir)
+function [xps_l, gps_l] = meta_from_siemens_hdr(h, o_dir)
+% function [xps_l, gps_l] = fwf.silu.meta_from_siemens_hdr(h, o_dir)
 %
 % Code written to be compatible with output from dicm2nii by
 % Xiangrui Li (xiangrui.li@gmail.com)
@@ -40,7 +40,7 @@ for i = 1:numel(fn_l)
     
     %% CREATE XPS
     try
-        xps = fwf_xps_from_siemens_hdr(h.(fn));
+        xps = fwf.silu.xps_from_hdr(h.(fn));
         xps_l.(fn) = xps;
         
         if ~isempty(o_dir)
@@ -54,7 +54,7 @@ for i = 1:numel(fn_l)
     
     %% CREATE GPS
     try
-        gps = fwf_gps_from_siemens_hdr(h.(fn));
+        gps = fwf.silu.gps_from_hdr(h.(fn));
         gps_l.(fn) = gps;
         
         if ~isempty(o_dir)

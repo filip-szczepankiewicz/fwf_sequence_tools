@@ -1,10 +1,9 @@
-function res = fwf_seq_from_siemens_csa_v2p00(csa)
-% function res = fwf_seq_from_siemens_csa_v2p00(csa)
+function res = seq_from_csa_v2p00(csa)
+% function res = fwf.silu.seq_from_csa_v2p00(csa)
 % By Filip Szczepankiewicz
 % Lund University, Lund, Sweden
 %
-% csa is the private Siemens header found by calling:
-% fwf_csa_from_siemens_hdr
+% csa is the private Siemens header
 %
 % NOTE: This function is very dependent on sequence version!
 

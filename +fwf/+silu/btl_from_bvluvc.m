@@ -1,10 +1,10 @@
-function [btl, R1x9] = fwf_btl_from_bvluvc(b, u, n, nbt, mode)
-% function [btl, R1x9] = fwf_btl_from_bvluvc(b, u, n, nbt, mode)
+function [btl, R1x9] = btl_from_bvluvc(b, u, n, nbt, mode)
+% function [btl, R1x9] = fwf.silu.btl_from_bvluvc(b, u, n, nbt, mode)
 
 switch mode
     
     case {5, 6}
-        [R3x3, R1x9]  = fwf_rm_from_siemens_uvec(u, mode, n*2*pi);
+        [R3x3, R1x9]  = fwf.silu.rm_from_siemens_uvec(u, mode, n*2*pi);
         
         btl = zeros(numel(b), 6);
         

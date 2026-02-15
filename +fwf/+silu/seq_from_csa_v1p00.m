@@ -1,5 +1,5 @@
-function res = fwf_seq_from_siemens_csa_v1p00(csa)
-% function res = fwf_seq_from_siemens_csa_v1p00(csa)
+function res = seq_from_csa_v1p00(csa)
+% function res = fwf.silu.seq_from_csa_v1p00(csa)
 % By Filip Szczepankiewicz
 % Brigham and Women's Hospital, Harvard Medical School, Boston, MA, USA
 % Lund University, Lund, Sweden

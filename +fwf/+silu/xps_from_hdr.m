@@ -1,5 +1,5 @@
-function xps = fwf_xps_from_siemens_hdr(hdr)
-% function xps = fwf_xps_from_siemens_hdr(hdr)
+function xps = xps_from_hdr(hdr)
+% function xps = fwf.silu.xps_from_hdr(hdr)
 % By Filip Szczepankiewicz
 % Brigham and Women's Hospital, Harvard Medical School, Boston, MA, USA
 % Lund University, Lund, Sweden
@@ -13,11 +13,11 @@ function xps = fwf_xps_from_siemens_hdr(hdr)
 
 % This function depends a lot on the pulse sequence version
 [gwfc, rfc, ...
-    dtc, tStart] = fwf_gwf_list_from_siemens_hdr(hdr);
+    dtc, tStart] = fwf.silu.gwf_list_from_hdr(hdr);
 
-xps              = fwf_xps_from_gwfl(gwfc, rfc, dtc, [], tStart);
+xps              = fwf.gwf.toXps(gwfc, rfc, dtc, [], tStart);
 
-[~, ~, ~, dvs]   = fwf_bvluvc_from_siemens_hdr(hdr);
+[~, ~, ~, dvs]   = fwf.silu.bvluvc_from_hdr(hdr);
 
 xps.dvs          = dvs; 
 xps.te           = ones(xps.n, 1) * hdr.EchoTime /1000;
