@@ -1,5 +1,5 @@
 function [gwf, rf, dt] = dde_se(g, s, d1, d2, dp, dt, u1, u2, dp2)
-% function [gwf, rf, dt] = fwf_gwf_create_sedde(g, s, d1, d2, dp, dt, u1, u2, dp2)
+% function [gwf, rf, dt] = fwf.gwf.create.dde_se(g, s, d1, d2, dp, dt, u1, u2, dp2)
 %
 % g  is the maximal gradient amplitude in T/m
 % s  is the slew rate in T/m/s

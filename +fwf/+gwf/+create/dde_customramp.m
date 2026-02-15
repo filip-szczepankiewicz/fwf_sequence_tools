@@ -1,5 +1,5 @@
 function [gwf, rf, dt] = dde_customramp(g, s_o, s_i, d, dp, dt, u1, u2, sf)
-% function [gwf, rf, dt] = fwf_gwf_create_dde_variSlew(g, s_o, s_i, d, dp, dt, u1, u2, sf)
+% function [gwf, rf, dt] = fwf.gwf.create.dde_customramp(g, s_o, s_i, d, dp, dt, u1, u2, sf)
 %
 % By Filip Sz, LU
 %
@@ -46,7 +46,6 @@ n  = round(d/dt/2);
 
 np = round(dp/dt);
 zn = zeros(np, 3);
-
 
 f_o = s_o/g;
 f_i = s_i/g;
