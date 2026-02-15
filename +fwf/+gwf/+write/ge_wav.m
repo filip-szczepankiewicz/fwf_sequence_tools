@@ -1,5 +1,5 @@
-function [fn_a, fn_b] = fwf_gwf_to_wav_ge(gwf, rf, dt, onam, description)
-% function [fn_a, fn_b] = fwf_gwf_to_wav_ge(gwf, rf, dt, onam, description)
+function [fn_a, fn_b] = ge_wav(gwf, rf, dt, onam, description)
+% function [fn_a, fn_b] = fwf.gwf.write.ge_wav(gwf, rf, dt, onam, description)
 % By Filip Sz
 % gwfl is a 3D array of gradient waveforms n x 3 x m (n is samples per
 % waveform, and m is the number of unique waveforms).
@@ -8,7 +8,7 @@ if nargin < 5
     description = 'FWF_LundUni';
 end
 
-pind = fwf_gwf_to_partindex(gwf(:,:,1), rf, dt);
+pind = fwf.gwf.toPartIndex(gwf(:,:,1), rf, dt);
 
 A = gwf(pind{1}, :, :);
 B = gwf(pind{2}, :, :);
