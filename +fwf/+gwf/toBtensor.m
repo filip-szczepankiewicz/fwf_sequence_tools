@@ -1,5 +1,5 @@
 function [bt, nbt] = toBtensor(gwf, rf, dt, gamma)
-% function [bt, nbt] = fwf_gwf_to_btens(gwf, rf, dt, gamma)
+% function [bt, nbt] = fwf.gwf.toBtensor(gwf, rf, dt, gamma)
 %
 % gwf is n x 3 matrix in T/m defined in the gradient system
 % rf is sign vector that carries info on spin dephasing direction
