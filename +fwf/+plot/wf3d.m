@@ -1,5 +1,5 @@
-function h = fwf_gwf_plot_wf3d(wf, col, bound)
-% function h = fwf_gwf_plot_wf3d(wf, col, bound)
+function h = wf3d(wf, col, bound)
+% function h = fwf.plot.wf3d(wf, col, bound)
 
 if nargin < 2
     col = [0 0 0];
@@ -44,7 +44,7 @@ else
 end
 
 hs = plot_sphere(s, .2);
-set(hs, 'facecolor', fix_col_red);
+set(hs, 'facecolor', [.8 .2 .2]);
 
 
 axis equal

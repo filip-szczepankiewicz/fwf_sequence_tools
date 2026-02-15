@@ -1,12 +1,12 @@
-function fwf_gwf_plot_mechSpectrum(gwf, ~, dt, fInterval, tRes, dangerZone)
-% function fwf_gwf_plot_mechSpectrum(gwf, ~, dt, fInterval, tRes, dangerZone)
+function mechSpectrum(gwf, ~, dt, fInterval, tRes, dangerZone)
+% function fwf.plot.mechSpectrum(gwf, ~, dt, fInterval, tRes, dangerZone)
 
 if nargin < 1
-     [gwf, rf, dt] = load_gwf_from_lib(11);
+     [gwf, rf, dt] = load_gwf5_from_lib(11);
 
      td = (size(gwf,1)-1)*dt;
      ns = round(td /10e-6);
-     [gwf, ~, dt] = fwf_gwf_interp(gwf, rf, dt, ns);
+     [gwf, ~, dt] = fwf.gwf.toInterpolated(gwf, rf, dt, ns);
 
      ts = 0.1;
      zf = zeros(round((ts-td)/10e-6), 3);
@@ -15,7 +15,7 @@ if nargin < 1
      gwf = repmat(gwf, 10, 1);
 
      clf
-     fwf_gwf_plot_mechSpectrum(gwf, [], dt, [0 2000], dt*100, [500 100])
+     fwf.plot.mechSpectrum(gwf, [], dt, [0 2000], dt*100, [500 100])
      return
 end
 

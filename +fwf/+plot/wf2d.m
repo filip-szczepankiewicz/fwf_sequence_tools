@@ -1,5 +1,5 @@
-function h = fwf_gwf_plot_wf2d(gwf, rf, dt, t, col, ls)
-% function h = fwf_gwf_plot_wf2d(gwf, rf, dt, t, ls)
+function h = wf2d(gwf, rf, dt, t, col, ls)
+% function h = fwf.plot.wf2d(gwf, rf, dt, t, ls)
 
 if nargin < 4 || isempty(t)
     t = fwf.gwf.toTime(gwf, rf, dt);

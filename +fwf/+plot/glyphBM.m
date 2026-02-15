@@ -1,5 +1,5 @@
-function h = fwf_gwf_plot_glyphBM(gwf, rf, dt, a_par, c_par, c_lim)
-% function h = fwf_gwf_plot_glyphBM(gwf, rf, dt, a_par, c_par, c_lim)
+function h = glyphBM(gwf, rf, dt, a_par, c_par, c_lim)
+% function h = fwf.plot.glyphBM(gwf, rf, dt, a_par, c_par, c_lim)
 %
 % a_par is the amplitude parameter (must be in regular xps)
 % c_par is the color parameter (must be in regular xps)
@@ -25,7 +25,7 @@ for i = 1:size(u,1)
     tmp = gwf*u(i,:)' .* [1 0 0];
     geff = tmp.*rf;
 
-    xps = fwf_xps_from_gwfl({tmp}, {rf}, {dt});
+    xps = fwf.gwf.toXps({tmp}, {rf}, {dt});
 
     a(i) = xps.(a_par);
 
@@ -37,7 +37,7 @@ for i = 1:size(u,1)
             c(i) = sqrt(xps.m / (xps.b+eps));
 
         case 'avg_spec'
-            [gwf_ps, f] = fwf_gwf_to_qSpectrum(tmp, rf, dt);
+            [gwf_ps, f] = fwf.gwf.toQSpectrum(tmp, rf, dt);
             pdf = gwf_ps(f>=0, 1);
             pdf = pdf/sum(pdf);
             c(i) = pdf' * f(f>=0)';
@@ -78,4 +78,4 @@ else
 end
 
 clim(cl)
-colormap(gca, fix_cmap_blackredwhite)
+colormap(gca, gray)
