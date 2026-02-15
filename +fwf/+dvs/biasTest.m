@@ -1,4 +1,4 @@
-function fwf_dvs_bias_test(b)
+function biasTest(b)
 
 if nargin < 1
     b = ones(1,1)* [0 .5 1];

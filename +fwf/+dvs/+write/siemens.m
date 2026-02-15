@@ -1,5 +1,5 @@
-function [dvs, dvs_fn] = fwf_dvs_write_siemens(dvs, dvs_fn, hdr_opt)
-% function [dvs, dvs_fn] = fwf_dvs_write_siemens(dvs, dvs_fn, hdr_opt)
+function [dvs, dvs_fn] = siemens(dvs, dvs_fn, hdr_opt)
+% function [dvs, dvs_fn] = siemens(dvs, dvs_fn, hdr_opt)
 % By Filip Szczepankiewicz, Lund University
 %
 % dvs is nX3 or nx4 matrix with gradient vectors and an optional collumn

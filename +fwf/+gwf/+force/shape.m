@@ -37,7 +37,7 @@ if any(abs(m0)>1e-6)
 end
 
 gmax = max(abs(gwf(:)));
-bt_in = fwf_gwf_to_btens(gwf, rf, dt);
+bt_in = fwf.gwf.toBtensor(gwf, rf, dt);
 
 
 % Calculate rotation matrix to bring waveform into principle axis.

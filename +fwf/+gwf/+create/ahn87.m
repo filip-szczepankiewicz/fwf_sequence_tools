@@ -1,4 +1,4 @@
-function [gwf, rf, dt] = fwf_gwf_create_ahn87(g, s, d1, d2, dp, dt, u, dp2)
+function [gwf, rf, dt] = ahn87(g, s, d1, d2, dp, dt, u, dp2)
 % function [gwf, rf, dt] = fwf_gwf_create_ahn87(g, s, d1, d2, dp, dt, u, dp2)
 % 
 % See reference
@@ -24,11 +24,11 @@ if nargin < 1
     dp = 8e-3;
     dp2 = 1e-3;
 
-    [gwf, rf, dt] = fwf_gwf_create_ahn87(g, s, d1, d2, dp, dt, u, dp2);
+    [gwf, rf, dt] = fwf.gwf.create.ahn87(g, s, d1, d2, dp, dt, u, dp2);
 
     clf
-    fwf_gwf_plot_wf2d(gwf, rf, dt);
+    fwf.plot.wf2d(gwf, rf, dt);
     return
 end
 
-[gwf, rf, dt] = fwf_gwf_create_sedde(g, s, d1, d2, dp, dt, u, u, dp2);
+[gwf, rf, dt] = fwf.gwf.create.dde_se(g, s, d1, d2, dp, dt, u, u, dp2);

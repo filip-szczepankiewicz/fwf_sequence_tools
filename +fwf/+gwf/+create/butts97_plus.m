@@ -1,4 +1,4 @@
-function [gwf, rf, dt] = fwf_gwf_create_butts97_plus(g, s, d, dp, dt)
+function [gwf, rf, dt] = butts97_plus(g, s, d, dp, dt)
 % function [gwf, rf, dt] = fwf_gwf_create_butts97_plus(g, s, d, dp, dt)
 %
 % Butts et al. (1997)
@@ -24,8 +24,8 @@ if nargin < 1
     dt = 0.1e-3;
 
     clf
-    [gwf, rf, dt] = fwf_gwf_create_butts97_plus(g, s, d, dp, dt);
-    fwf_gwf_plot_wf2d(gwf, rf, dt);
+    [gwf, rf, dt] = fwf.gwf.create.butts97_plus(g, s, d, dp, dt);
+    fwf.plot.wf2d(gwf, rf, dt);
     return
 end
 
@@ -49,7 +49,7 @@ for i = 1:3
         
         n = round(tenc/dt);
 
-        trap_wf = fwf_gwf_create_trapezoid(g, s, dt, n);
+        trap_wf = fwf.gwf.create.trapezoid(g, s, dt, n);
         
         wf{i} = [wf{i} trap_wf(1:(end-1)) * zs(j-1)];
     end
@@ -63,7 +63,7 @@ gwf = [g1 gz g2]';
 rf  = ones(size(gwf,1),1);
 rf(round(size(rf,1)/2):end) = -1;
 
-[gwf, rf, dt] = fwf_gwf_force_shape(gwf, rf, dt, 'STE');
+[gwf, rf, dt] = fwf.gwf.force.shape(gwf, rf, dt, 'STE');
  
 if sum(abs(sum(gwf.*rf))) > 0.0001
     error('not balanced')

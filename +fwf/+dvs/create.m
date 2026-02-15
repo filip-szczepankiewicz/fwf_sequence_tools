@@ -1,5 +1,5 @@
-function [dvs, wfi] = fwf_dvs_create(b_list, n_list, i_list, order)
-% function [dvs, wfi] = fwf_dvs_create(b_list, n_list, i_list, order)
+function [dvs, wfi] = create(b_list, n_list, i_list, order)
+% function [dvs, wfi] = create(b_list, n_list, i_list, order)
 
 if nargin < 1
     b_list = [0 1 2 .5  1.5];

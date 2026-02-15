@@ -1,5 +1,5 @@
-function dvso = fwf_dvs_shuffle_energy(dvs, eps)
-% function dvso = fwf_dvs_shuffle_energy(dvs, eps)
+function dvso = shuffleEnergy(dvs, eps)
+% function dvso = shuffleEnergy(dvs, eps)
 % By FSz
 % dvs is the diffusion vector set
 % eps is the energy per shot in any unit.

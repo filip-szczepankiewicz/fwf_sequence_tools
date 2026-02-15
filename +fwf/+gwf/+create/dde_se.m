@@ -1,4 +1,4 @@
-function [gwf, rf, dt] = fwf_gwf_create_sedde(g, s, d1, d2, dp, dt, u1, u2, dp2)
+function [gwf, rf, dt] = dde_se(g, s, d1, d2, dp, dt, u1, u2, dp2)
 % function [gwf, rf, dt] = fwf_gwf_create_sedde(g, s, d1, d2, dp, dt, u1, u2, dp2)
 %
 % g  is the maximal gradient amplitude in T/m
@@ -22,7 +22,7 @@ if nargin < 1
     dp = 8e-3;
     dp2 = 1e-3;
 
-    [gwf, rf, dt] = fwf_gwf_create_sedde(g, s, d1, d2, dp, dt, u1, u2, dp2);
+    [gwf, rf, dt] = fwf.gwf.create.dde_se(g, s, d1, d2, dp, dt, u1, u2, dp2);
 
     clf
     fwf_gwf_plot_wf2d(gwf, rf, dt);
@@ -39,8 +39,8 @@ n2 = round(d2/dt/2);
 np = round(dp2/dt);
 zn = zeros(1, np);
 
-wf1 = [fwf_gwf_create_trapezoid(g, s, dt, n1) zn -fwf_gwf_create_trapezoid(g, s, dt, n1) 0]';
-wf2 = [fwf_gwf_create_trapezoid(g, s, dt, n2) zn -fwf_gwf_create_trapezoid(g, s, dt, n2) 0]';
+wf1 = [fwf.gwf.create.trapezoid(g, s, dt, n1) zn -fwf.gwf.create.trapezoid(g, s, dt, n1) 0]';
+wf2 = [fwf.gwf.create.trapezoid(g, s, dt, n2) zn -fwf.gwf.create.trapezoid(g, s, dt, n2) 0]';
 wfz = zeros(1, round(dp/dt))';
 
 gwf = [

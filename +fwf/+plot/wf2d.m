@@ -2,7 +2,7 @@ function h = fwf_gwf_plot_wf2d(gwf, rf, dt, t, col, ls)
 % function h = fwf_gwf_plot_wf2d(gwf, rf, dt, t, ls)
 
 if nargin < 4 || isempty(t)
-    t = fwf_gwf_to_time(gwf, rf, dt);
+    t = fwf.gwf.toTime(gwf, rf, dt);
 end
 
 if nargin < 5

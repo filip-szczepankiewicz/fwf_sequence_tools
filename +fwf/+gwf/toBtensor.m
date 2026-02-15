@@ -1,4 +1,4 @@
-function [bt, nbt] = fwf_gwf_to_btens(gwf, rf, dt, gamma)
+function [bt, nbt] = toBtensor(gwf, rf, dt, gamma)
 % function [bt, nbt] = fwf_gwf_to_btens(gwf, rf, dt, gamma)
 %
 % gwf is n x 3 matrix in T/m defined in the gradient system
@@ -6,7 +6,7 @@ function [bt, nbt] = fwf_gwf_to_btens(gwf, rf, dt, gamma)
 % dt is dwell time in s.
 
 if nargin < 4
-    gamma = fwf_gamma_from_nuc();
+    gamma = fwf.util.gammaFromNuc();
 end
 
 qt  = gamma * cumsum(gwf.*rf, 1) * dt;

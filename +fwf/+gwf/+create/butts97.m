@@ -1,4 +1,4 @@
-function [gwf, rf, dt] = fwf_gwf_create_butts97(g, s, d, dp, dt)
+function [gwf, rf, dt] = butts97(g, s, d, dp, dt)
 % function [gwf, rf, dt] = fwf_gwf_create_butts97(g, s, d, dp, dt)
 %
 % Butts et al. (1997)
@@ -25,9 +25,9 @@ if nargin < 1
     dt = 0.1e-3;
 
     clf
-    [gwf, rf, dt] = fwf_gwf_create_butts97(g, s, d, dp, dt);
-    fwf_gwf_plot_wf2d(gwf, rf, dt);
-    b = fwf_gwf_to_bval(gwf, rf, dt);
+    [gwf, rf, dt] = fwf.gwf.create.butts97(g, s, d, dp, dt);
+    fwf.plot.wf2d(gwf, rf, dt);
+    b = fwf.gwf.toBvalue(gwf, rf, dt);
     return
 end
 
@@ -39,9 +39,9 @@ n1 = round(f1 * d / dt);
 n2 = round(0.5 * d / dt);
 nz = round(dp/dt);
 
-wf1 = [fwf_gwf_create_trapezoid(g, s, dt, n1, 1), -fwf_gwf_create_trapezoid(g, s, dt, ntot-n1, 1) 0];
+wf1 = [fwf.gwf.create.trapezoid(g, s, dt, n1, 1), -fwf.gwf.create.trapezoid(g, s, dt, ntot-n1, 1) 0];
 
-wf2 = [fwf_gwf_create_trapezoid(g, s, dt, n2, 1), -fwf_gwf_create_trapezoid(g, s, dt, ntot-n2, 1) 0];
+wf2 = [fwf.gwf.create.trapezoid(g, s, dt, n2, 1), -fwf.gwf.create.trapezoid(g, s, dt, ntot-n2, 1) 0];
 
 wfz = zeros(1, nz);
 
@@ -58,7 +58,7 @@ rf(mind:end) = -1;
 
 
 % This factor depends on timing
-bt = fwf_gwf_to_btens(gwf, rf, dt);
+bt = fwf.gwf.toBtensor(gwf, rf, dt);
 xfactor = sqrt(bt(2,2)/bt(1,1));
 gwf = gwf .* [xfactor 1 1];
 
