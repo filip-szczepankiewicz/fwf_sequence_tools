@@ -23,7 +23,7 @@ for i = 1:nVol
         C = zeros(size(M,1), size(M,2), size(M,3), nVol, 'like', single(1j));
         hdr = load(fn_hdr{1});
         hdr = hdr.h.(hdr_str);
-        xps = fwf.silu.xps_from_hdr(hdr);
+        xps = fwf.lusi.xps_from_hdr(hdr);
         xps.isOK = ones(xps.n,1);
     end
 

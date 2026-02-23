@@ -49,7 +49,7 @@ for i = 1:numel(pl)
     hdf_fn = [tf filesep 'dcmHeaders.mat'];
 
     try
-        fwf.silu.xps_from_dicm2nii_h_struct(hdf_fn, 1)
+        fwf.lusi.xps_from_dicm2nii_h_struct(hdf_fn, 1)
     catch
     end
 
