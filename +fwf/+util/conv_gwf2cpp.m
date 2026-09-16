@@ -4,13 +4,13 @@ function txt = conv_gwf2cpp(gwf_a, gwf_b, name, hdr, nsd)
 
 std_prefix = 'm_FWF_HC_';
 
-if ischar(fna) && ischar(fnb)
-    wfa = mdm_gwf_read(fna);
-    wfb = mdm_gwf_read(fnb);
+if ischar(gwf_a) && ischar(gwf_b)
+    wfa = mdm_gwf_read(gwf_a);
+    wfb = mdm_gwf_read(gwf_b);
     
 else
-    wfa = fna;
-    wfb = fnb;
+    wfa = gwf_a;
+    wfb = gwf_b;
 end
 
 

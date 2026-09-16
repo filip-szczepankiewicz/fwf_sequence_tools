@@ -4,10 +4,15 @@ function shape = tensor1x6toShape(a, b)
 % By Filip Sz
 % Funciton returns the shape of the outer product of a * b
 % It is (A'*B):shear / (A'*B):bulk / 2
+% This funciton requires the md-dmri framework
 
 if nargin < 2
     b = a;
 end
+
+n = mean([sum(a(1:3)) sum(a(1:3))]);
+a = a/n;
+b = b/n;
 
 E_iso   = eye(3)/3;
 E_bulk  = E_iso(:) * E_iso(:)';
