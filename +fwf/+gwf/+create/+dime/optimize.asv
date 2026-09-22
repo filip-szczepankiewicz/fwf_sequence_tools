@@ -1,5 +1,5 @@
 function [gwf, t, x] = optimize(dur, tp, gmax, smax, hw, opt)
-% function [gwf, t, x] = fwf.gwf.create.dime.optimize(dur, tp, gmax, smax, hw, opt)
+% function [gwf, t, x] = dime.optimize(dur, tp, gmax, smax, hw, opt)
 % By Filip Szczepankiewicz, Lund University
 %
 %   Designs an diffusion-encoding gradient waveform (GWF) that yields
@@ -54,7 +54,10 @@ function [gwf, t, x] = optimize(dur, tp, gmax, smax, hw, opt)
 %   - Optional stimulation constraints: max(PNS) / L2-norm / LTE worst-case variants
 %     depending on MODE, with tolerance opt.tol_stim (via SAFE prediction).
 
-import fwf.gwf.create.*
+import fwf.gwf.create.dim*
+import fwf.gwf.create.dime.*
+import fwf.gwf.create.dime.convert.*
+import fwf.gwf.create.dime.plot.*
 
 if nargin < 1
     dur  = 40; % ms
@@ -113,7 +116,7 @@ end
 % rampDownZ   = x(6); % Ramp down time for z-gradient
 % gampGlo     = x(7); % Global amplitude scale
 
-[gwf, t] = dime.convert.par2gwf(x, dur, tp);
+[gwf, t]    = dime.convert.par2gwf(x, dur, tp);
 
 % Apply global scale
 gwf = gwf*gmax;
@@ -214,8 +217,6 @@ end
 
 function c_pns = this_gwf2pnsCost(gwf, rfi, dti, hw, mode)
 % function c_pns = this_gwf2pnsCost(gwf, rfi, dti, hw, mode)
-
-import fwf.gwf.create.*
 
 if mode
     pnsVals_ste = safe_gwf_to_pns(gwf, rfi, dti/1e3, hw, 0);

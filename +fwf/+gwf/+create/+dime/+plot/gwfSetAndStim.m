@@ -1,6 +1,8 @@
 function gwfSetAndStim(gwf, rf, dt, hw)
 % function dime.plot.gwfSetAndStim(gwf, rf, dt, hw)
 
+import fwf.gwf.create.*
+
 lte = dime.convert.ste2lte(gwf); lte = lte(:,1) .* [1 1 1];
 xps = fwf.gwf.toXps(gwf, rf, dt);
 
