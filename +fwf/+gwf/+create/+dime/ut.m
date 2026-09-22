@@ -2,7 +2,11 @@ function ut(n)
 % function dime.ut
 % By Filip Szepankiewicz, Lund University
 %
-% Simple unit test for dime optimizer
+% Simple unit test for dime optimizer. NOTE that this is not supposed to
+% run for the general user as it uses confidential code for the SAFE
+% simulation.
+
+import fwf.gwf.create.*
 
 if nargin < 1
     n = [0 1 2 3];
