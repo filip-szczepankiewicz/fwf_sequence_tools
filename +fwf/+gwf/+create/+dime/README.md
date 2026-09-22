@@ -7,13 +7,12 @@ The method optimizes spherical b-tensor encoding (STE) waveforms together with c
 b-tensor encoding (LTE) waveforms, while maximizing diffusion weighting within a specified encoding time, 
 hardware, and safety limits.
 
+**Project repository:** [https://github.com/felixmortensen/DIME](https://github.com/felixmortensen/DIME)
 
 ## Citation
 
 *Optimized Gradient Waveforms for Tensor-Valued Diffusion MRI Under Time-Dependent Diffusion Using Double-Isotropic Matched Encoding (DIME).*
 F Mortensen, V Olsson, A Grigoriou, S Lasič, M, Molendowska, R Wirestam, and F Szczepankiewicz. *Magnetic Resonance in Medicine*. DOI: [10.1002/mrm.70602]()
-
-**Project repository:** [https://github.com/felixmortensen/DIME](https://github.com/felixmortensen/DIME)
 
 ## Requirements
 
