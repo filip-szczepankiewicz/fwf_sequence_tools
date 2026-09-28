@@ -112,15 +112,16 @@ x = X{ind_final};
     end
 
     function [cost, gwf] = this_cost(f, gwf, rf, dt, fvec)
-        gwf  = amc_apply_fvec(gwf, fvec, f);
+        gwf  = this_applyFvec(gwf, fvec, f);
         gwf  = fwf.gwf.force.balance_v2(gwf, rf, dt);
         cost = fwf.gwf.toMaxwellInd(gwf, rf, dt)*1e9;
     end
 end
 
 
-function f = this_createTriangles(n_pts, n_len)
+%% Supporting functions
 
+function f = this_createTriangles(n_pts, n_len)
 f = zeros(n_len, n_pts, 3);
 w = floor(n_len/n_pts);
 
@@ -139,7 +140,6 @@ end
 
 
 function triwf = this_triangularPulse(inda, indb, x)
-
 triwf = zeros(size(x));
 
 wid = floor((indb-inda)/2);
@@ -149,4 +149,11 @@ int2 = (indb-wid):indb;
 
 triwf(int1) = linspace(0, 1, numel(int1));
 triwf(int2) = linspace(1, 0, numel(int2));
+end
+
+
+function [gwf, trip] = this_applyFvec(gwf, fvec, f)
+trip = [sum(f(1,:).*fvec(:,:,1), 2) sum(f(2,:).*fvec(:,:,2), 2) sum(f(3,:).*fvec(:,:,3), 2)];
+
+gwf = gwf + gwf .* trip;
 end
