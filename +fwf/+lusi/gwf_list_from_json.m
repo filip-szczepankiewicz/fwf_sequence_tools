@@ -1,26 +1,17 @@
 function [gwfc, rfc, dtc, ind2] = gwf_list_from_json(json, gamma, u, n, ind2)
 % function [gwfc, rfc, dtc, ind2] = fwf.lusi.gwf_list_from_json(json)
-% By Markus Nilsson
-% Lund University, Lund, Sweden
+% By Patrick Fuchs
+% University of Antwerp, Antwerp, Belgium
 %
 % Returns cell array of actually executed waveforms.
 % Completely unvalidated.
 
+ver = fwf.lusi.ver_from_json(json);
 
-seq              = fwf.lusi.seq_from_json(json);
-[gwfo, rfo, dto] = fwf.lusi.gwf_from_seq(seq);
-R3x3             = fwf.lusi.rm_from_siemens_uvec(u, seq.rot_mode, n*2*pi);
+if ver < 2.00
+    [gwfc, rfc, dtc, ind2] = fwf.lusi.gwf_list_from_json_v1p00(json, gamma, u, n, ind2);
 
-% Create normalized waveforms
-for i = 1:numel(gwfo)
-    bnrm   = trace(fwf.gwf.toBtensor(gwfo{i}, rfo{i}, dto{i}, gamma));
-    wfn{i} = gwfo{i} * sqrt(seq.b_max_requ*1e6/bnrm);
-end
+else
+    [gwfc, rfc, dtc, ind2] = fwf.lusi.gwf_list_from_json_v2p00(json, gamma, u, n, ind2);
 
-% Compile gwf cells with rotations and scaling
-for i = 1:numel(n)
-    R       = R3x3(:,:,i);
-    gwfc{i} = (R * wfn{ind2(i)}')' * n(i);
-    rfc{i}  = rfo{ind2(i)};
-    dtc{i}  = dto{ind2(i)};
 end
