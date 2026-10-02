@@ -30,7 +30,7 @@ switch bound
     case 0
 
     case 1
-        s = max(my_norm(wf,2))*1.02;
+        s = max(vecnorm(wf,2,2))*1.02;
         plot_sphere(s, alpha);
     case 2
         s = max(abs(wf(:)))*1.02;
