@@ -9,8 +9,8 @@ if nargin < 4
     gamma = fwf.util.gammaFromNuc();
 end
 
-qt  = gamma * cumsum(gwf.*rf, 1) * dt;
-bt  = qt' * qt * dt;
+qt  = gamma * cumsum(gwf.*rf, 1) .* dt;
+bt  = qt' * (qt .* dt);
 nbt = bt/trace(bt); % normalized b-tensor, Tr(nbt) = 1.
 
 
