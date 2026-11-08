@@ -46,13 +46,18 @@ function [gwf, t, x] = optimize(dur, tp, gmax, smax, hw, opt)
 %          x(4) rampDownXY Ramp-down time for x/y gradients
 %          x(5) rampUpZ    Ramp-up time for z gradient
 %          x(6) rampDownZ  Ramp-down time for z gradient
-%          x(7) gampGlo    Global amplitude scale
+%          x(7) gampGlo    Global amplitude scale. Not optimized; it is
+%                          computed in closed form from x(1:6) as
+%                          min(opt.ub(7), opt.stimTol/max(PNS at scale 1)).
 %
 %   Constraints enforced
 %   --------------------
-%   - b-tensor and m-tensor anisotropy tolerances (opt.tol_bAniso, opt.tol_mAniso)
-%   - Optional stimulation constraints: max(PNS) / L2-norm / LTE worst-case variants
-%     depending on MODE, with tolerance opt.tol_stim (via SAFE prediction).
+%   - b-tensor and m-tensor anisotropy tolerances (opt.bAnisoTol, opt.mAnisoTol),
+%     as nonlinear constraints on x(1:6).
+%   - Optional stimulation limits: max(PNS) / L2-norm / LTE variants depending
+%     on opt.stimMode, with limit opt.stimTol (via SAFE prediction). These are
+%     enforced exactly through the closed-form amplitude scale x(7), not as
+%     fmincon constraints.
 
 import fwf.gwf.create.*
 
@@ -83,35 +88,55 @@ assert(sum(opt.lb([3 3 4 4 5 6]))<dur, 'Shortest ramps do not fit in duration! D
 assert(sum(opt.ub([3 3 4 4 5 6]))<dur, 'Longest ramps do not fit in duration! Consider extending dur or shortening the max ramp times.')
 
 
+% Reduced problem: only the shape parameters x(1:6) are optimized. The
+% amplitude scale x(7) = gGlo is not a free variable. For a fixed shape, b
+% scales as gGlo^2 while the isotropy constraints are scale invariant and
+% every stimulation metric scales linearly with gGlo (SAFE is linear in
+% dG/dt up to abs(), and max/L2-norm are positively homogeneous). The best
+% gGlo is therefore min(opt.ub(7), opt.stimTol / max(PNS at gGlo = 1)),
+% which is computed in closed form by this_gGlo. The optimum of this
+% 6-parameter problem is the optimum of the original 7-parameter problem,
+% except that opt.lb(7) is no longer enforced (see the check below).
+ind = 1:6;
+
 problem = createOptimProblem('fmincon',...
     'objective', @this_cost,...
-    'x0', opt.x0,...
-    'lb', opt.lb,...
-    'ub', opt.ub,...
+    'x0', opt.x0(ind),...
+    'lb', opt.lb(ind),...
+    'ub', opt.ub(ind),...
     'nonlcon', @this_nlcon,...
     'options', opt.fmc);
 
 
 switch opt.optMode
     case 0 % Single solve, works in simple setups
-        x = fmincon(problem);
+        v = fmincon(problem);
 
     case 1 % Global solver
-        x = run(GlobalSearch('NumTrialPoints', opt.numTrialPts, 'NumStageOnePoints', opt.numInitialPts), problem);
+        v = run(GlobalSearch('NumTrialPoints', opt.numTrialPts, 'NumStageOnePoints', opt.numInitialPts), problem);
 
     case 2 % Multistart solver
-        x = run(MultiStart('UseParallel', true), problem, opt.numStartPts);
+        v = run(MultiStart('UseParallel', true), problem, opt.numStartPts);
 end
 
+% Append the closed-form amplitude scale so that x keeps its 7-element
+% layout and remains compatible with dime.convert.par2gwf.
+x = [v(:)' this_gGlo(v)];
 
-% Unpack once for your final call
+% opt.lb(7) is no longer a bound. It is only checked here; a scale below it
+% means the shape is so stimulation-limited that the waveform is weak.
+if x(7) < opt.lb(7)
+    warning('dime:lowAmplitude', ['Stimulation limits the amplitude scale to %.3f, ' ...
+        'below opt.lb(7) = %.3f.'], x(7), opt.lb(7));
+end
+
 % alpha       = x(1); % Fractional amplitude of xy gradient compared to z
 % beta        = x(2); % Fraction of flat top time dedicated to xy gradients
 % rampUpXY    = x(3); % Ramp up time for xy-gradient
 % rampDownXY  = x(4); % Ramp down time for xy-gradient
 % rampUpZ     = x(5); % Ramp up time for z-gradient
 % rampDownZ   = x(6); % Ramp down time for z-gradient
-% gampGlo     = x(7); % Global amplitude scale
+% gampGlo     = x(7); % Global amplitude scale (closed form, not optimized)
 
 [gwf, t] = dime.convert.par2gwf(x, dur, tp);
 
@@ -119,42 +144,56 @@ end
 gwf = gwf*gmax;
 
     function cost = this_cost(v)
-        % unpack into temp parameters
-        tmpA  = v(1);
-        tmpB  = v(2);
-        tmpRU = v(3);
-        tmpRD = v(4);
-        tmpRZ = v(5);
-        tmpRZn= v(6);
-        gGlo  = v(7);
+        [bx, bz] = this_bvals(v);
+        by       = bx;
+        gGlo     = this_gGlo(v);
+        cost     = -(bx + by + bz)*gGlo^2;
+    end
 
+    function gGlo = this_gGlo(v)
+        % Largest amplitude scale permitted by the gradient amplitude
+        % (opt.ub(7)) and by stimulation (opt.stimTol).
+        gGlo = opt.ub(7);
+
+        if opt.stimMode
+            cmax = this_pnsMaxAtUnitScale(v);
+
+            if cmax > 0
+                gGlo = min(gGlo, opt.stimTol / cmax);
+            end
+        end
+    end
+
+    function cmax = this_pnsMaxAtUnitScale(v)
+        % Largest stimulation metric over all hardware models, for the
+        % shape v at amplitude scale 1.
+        [gwfTmp, tTmp]   = dime.convert.par2gwf([v(:)' 1], dur, tp);
+        [gwfI, rfi, dti] = dime.convert.ana2num(gwfTmp, tTmp, 0.01);
+        gwf_ste          = gwfI*gmax;
+
+        c_pns = [];
+        for i = 1:numel(hw)
+            c_pns = [c_pns this_gwf2pnsCost(gwf_ste, rfi, dti, hw(i), opt.stimMode)]; %#ok<AGROW>
+        end
+
+        cmax = max(c_pns);
+    end
+
+    function [bx, bz, fttx, fttz] = this_bvals(v)
         % recompute flat time
-        fttt = dur - (2*(tmpRU+tmpRD) + (tmpRZ+tmpRZn));
-        fttx = fttt * tmpB/2;
-        fttz = fttt * (1 - tmpB);
-        bx   = dime.convert.par2bval(tmpA, tmpRU, tmpRD, fttx,   0, 1);
-        by   = bx;
-        bz   = dime.convert.par2bval(   1, tmpRZ, tmpRZn, fttz, tp, 1);
-        cost = -(bx + by + bz)*gGlo^2;
+        fttt = dur - (2*(v(3)+v(4)) + (v(5)+v(6)));
+        fttx = fttt * v(2)/2;
+        fttz = fttt * (1 - v(2));
+        bx   = dime.convert.par2bval(v(1), v(3), v(4), fttx,  0, 1);
+        bz   = dime.convert.par2bval(   1, v(5), v(6), fttz, tp, 1);
     end
 
     function [C, Ceq] = this_nlcon(v)
-        a_tmp   = v(1);
-        b_tmp   = v(2);
-        ru_tmp  = v(3);
-        rd_tmp  = v(4);
-        rz_tmp  = v(5);
-        rdz_tmp = v(6);
-        % gGlo    = v(7);
-
-        % recompute flat time
-        fttt = dur - (2*(ru_tmp+rd_tmp) + (rz_tmp+rdz_tmp));
-        fttx = fttt * b_tmp/2;
-        fttz = fttt * (1 - b_tmp);
+        % Only the scale-invariant isotropy constraints remain. Stimulation
+        % is handled by the closed-form amplitude scale in this_gGlo.
+        [bx, bz, fttx, fttz] = this_bvals(v);
 
         % B-tensor parameters
-        bx   = dime.convert.par2bval(a_tmp, ru_tmp, rd_tmp,  fttx,  0, 1);
-        bz   = dime.convert.par2bval(    1, rz_tmp, rdz_tmp, fttz, tp, 1);
         B    = diag([bx bx bz]);
         bShp = dime.convert.tens2shape(B);
 
@@ -164,14 +203,15 @@ gwf = gwf*gmax;
         for i = 1:numel(opt.spectralOrder)
 
             if opt.spectralOrder(i) == 2 % Analytic and fast
-                mx   = dime.convert.par2mval(a_tmp, ru_tmp, rd_tmp,  fttx);
-                mz   = dime.convert.par2mval(    1, rz_tmp, rdz_tmp, fttz);
+                mx   = dime.convert.par2mval(v(1), v(3), v(4), fttx);
+                mz   = dime.convert.par2mval(   1, v(5), v(6), fttz);
                 Mp   = diag([mx mx mz]);
 
             else % Numerical and slow(er)
-                [gtmp1, ttmp1] = dime.convert.par2gwf(v, dur, tp);
+                [gtmp1, ttmp1] = dime.convert.par2gwf([v(:)' 1], dur, tp);
 
-                ut = unique(ttmp1);
+                ut    = unique(ttmp1);
+                gtmp2 = zeros(numel(ut), 3);
                 for cc = 1:3
                     [~, ix] = unique(ttmp1(:,cc));
                     gtmp2(:,cc) = interp1(ttmp1(ix,cc), gtmp1(ix,cc), ut);
@@ -188,24 +228,6 @@ gwf = gwf*gmax;
                 mShp - opt.mAnisoTol];
 
         Ceq  = [];
-
-
-        if opt.stimMode % If nerve stimulation is to be accounted for
-
-            [gwfTmp, tTmp]   = dime.convert.par2gwf(v, dur, tp);
-            [gwfI, rfi, dti] = dime.convert.ana2num(gwfTmp, tTmp, 0.01);
-            gwf_ste          = gwfI*gmax;
-
-            c_pns = [];
-
-            for i = 1:numel(hw)
-                tmp = this_gwf2pnsCost(gwf_ste, rfi, dti, hw(i), opt.stimMode);
-                c_pns = [c_pns tmp];
-            end
-
-            C = [C; (c_pns'- opt.stimTol)];
-        end
-
     end
 end
 
